@@ -1,0 +1,75 @@
+{
+  "name": "munshi-front-end",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@fortawesome/fontawesome-free": "^6.1.1",
+    "@fullcalendar/core": "^6.1.4",
+    "@fullcalendar/daygrid": "^6.1.4",
+    "@fullcalendar/list": "^6.1.4",
+    "@fullcalendar/timegrid": "^6.1.4",
+    "@mui/icons-material": "^5.11.11",
+    "@mui/material": "^5.11.11",
+    "@mui/x-data-grid": "^5.17.25",
+    "@nivo/bar": "^0.55.0",
+    "@nivo/core": "^0.55.0",
+    "@nivo/geo": "^0.55.0",
+    "@nivo/line": "^0.55.0",
+    "@nivo/pie": "^0.55.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/axios": "^0.14.0",
+    "@types/bootstrap": "^5.1.10",
+    "@types/jest": "^27.0.1",
+    "@types/jquery": "^3.5.14",
+    "@types/node": "^16.7.13",
+    "@types/reach__router": "^1.3.10",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/validator": "^13.7.2",
+    "@types/whatwg-fetch": "^0.0.33",
+    "axios": "^0.26.1",
+    "bootstrap": "^5.1.3",
+    "formik": "^2.2.9",
+    "jquery": "^3.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-pro-sidebar": "^0.7.1",
+    "react-router-dom": "^6.8.2",
+    "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.1",
+    "react-validation": "^3.0.7",
+    "validator": "^13.7.0",
+    "web-vitals": "^2.1.0",
+    "whatwg-fetch": "^3.6.2",
+    "yup": "^1.0.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
