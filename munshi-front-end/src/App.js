@@ -28,10 +28,12 @@ import Welcome from "./scenes/global/welcome";
 
 
 function App() {
+  const [theme, colorMode] = useMode();
 
 
   function toggleSidebar()
   {
+    let isLoggedIn = CheckLogin();
     if(isLoggedIn == true)
     {
       return(
