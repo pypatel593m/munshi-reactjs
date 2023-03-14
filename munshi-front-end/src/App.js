@@ -28,13 +28,19 @@ import Welcome from "./scenes/global/welcome";
 
 
 function App() {
-  const [theme, colorMode] = useMode();
 
+  const [theme, colorMode] = useMode();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [value,setValue] = useState({});
+
+  useEffect(()=>{
+      setIsLoggedIn(CheckLogin())
+      setValue({});
+  });
 
   function toggleSidebar()
   {
-    let isLoggedIn = CheckLogin();
-    if(isLoggedIn == true)
+    if(isLoggedIn)
     {
       return(
         <Sidebar />
