@@ -50,12 +50,12 @@ const Login = () => {
 
     return <Box m="20px">
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Header title="LOGIN" subtitle="Please log in" />
+          <Header title="" subtitle="" />
                       
         </Box>
-        <Box className="container" style={{fontSize: '15px', textAlign: 'center', marginTop: '20px'}} >
-        <form>
-          <h1 style={{color: 'red', fontSize: '15px', textAlign: 'center', marginTop: '20px'}} >{loginStatus}</h1>
+        <Box className="loginForm" >
+        {/* <form>
+          <h1 className="dhruv">{loginStatus}</h1>
           <div className="container">
             <label htmlFor="user_email_address">Email:</label>
             <input type="email" className="textInput" name="user_email_address" onChange={(e) => {setEmailAddress(e.target.value)}} required placeholder="Enter your email"/>
@@ -75,10 +75,48 @@ const Login = () => {
            Don't have an account? 
             <a href="./register"> Register here.</a>
           </p>
-        </form>
-        <p></p>
+        </form> */}
+
+
+
+        <p><h1 className="dhruv">{loginStatus}</h1></p>
+        <div className="wrapper active-btn-login">
+          <div className="form-box login">
+              <h2>Login</h2>
+              <form action="#">
+                  <div className="input-box">
+                      <span className="icon"><ion-icon name="mail"></ion-icon></span>
+                      <input type="email" className="textInput" name="user_email_address" onChange={(e) => {setEmailAddress(e.target.value)}} required />
+                      <label>Email</label>
+                  </div>
+                  <div className="input-box">
+                      <span className="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                      <input type="password" className="textInput" name="user_password" onChange={(e) => {setPassword(e.target.value)}} required />
+                      <label>Password </label>
+                  </div>
+                  <div className="input-box">
+                      <span className="icon"><ion-icon name="mail"></ion-icon></span>
+                      <input type="number" className="textInput" name="user_business_id" onChange={(e) => {setUserBusinessID(e.target.value)}} required />
+                      <label>Business ID</label>
+                  </div>
+                  <div className="remember-forgot">
+                      <label><input type="checkbox" />Remember Me</label>
+                  </div>
+                  <button className="btn" type="submit" value="Login" onClick={login}>Login</button>
+                  <div className="login-register">
+                      <p>Don't have an account?<a href="./register" className="register-link"> Register</a></p>
+                  </div> 
+              </form>
+          </div>
+        </div>
+
         </Box>
     </Box>;
 }
 
 export default Login;
+
+
+
+
+

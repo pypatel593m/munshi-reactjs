@@ -31,9 +31,10 @@ const Topbar = () => {
     if(checkLogin == false)
     {
       return(
-        <IconButton onClick={Login}>
-              Login
-        </IconButton>
+        // <IconButton onClick={Login}>
+        //       Login
+        // </IconButton>
+        <button className="btnLogin" onClick={Login}>Login</button>
       );
     }
     
@@ -44,9 +45,10 @@ const Topbar = () => {
     if(checkLogin == true)
     {
       return(
-        <IconButton onClick={LoggedOut}>
-              Logout
-            </IconButton>
+        // <IconButton onClick={LoggedOut}>
+        //       Logout
+        //     </IconButton>
+        <button className="btnLogin" onClick={LoggedOut}>Logout</button>
       );
     }
     
@@ -63,7 +65,7 @@ const Topbar = () => {
       </Box>
 
       {/* ICONS */}
-      <Box display="flex">
+      <Box display="flex" className="navigation">
         <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <DarkModeOutlinedIcon />
@@ -71,12 +73,7 @@ const Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
-          <NotificationsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
-        </IconButton>
+            
         {toggleLogin()}
         {toggleLogout()}
       </Box>
