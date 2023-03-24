@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 
 
 import {useNavigate} from 'react-router-dom';
-import { CheckLogin, getStatus } from "../src/util";
+import { CheckLogin, getStatus } from "./util";
 
 import Topbar from "./components/Topbar";
 import  Dashboard from "./scenes/protected/dashboard";
@@ -22,10 +22,7 @@ import Welcome from "./scenes/global/welcome";
 
 
 
-function App() {
-  
-  const [user, setUser] = useState(null);
-
+function EmployerApp() {
 
   const [theme, colorMode] = useMode();
 
@@ -36,9 +33,9 @@ function App() {
         <CssBaseline />
         <div className="app">
           
-          
+          <Sidebar />
           <main className="content">
-          {<Topbar />}
+          <Topbar />
           <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/login" element={<Login />} />
@@ -62,4 +59,4 @@ function App() {
   );
 }
 
-export default App;
+export default EmployerApp;

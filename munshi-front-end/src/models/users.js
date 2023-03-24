@@ -11,6 +11,7 @@ class User {
     m_user_address;
     m_user_type_id;
     m_user_business_id;
+    m_user_logged_in;
     get ID() {
         return this.m_user_id;
     }
@@ -37,6 +38,9 @@ class User {
     }
     get UserBusinessID() {
         return this.m_user_business_id;
+    }
+    get UserLoggedIn() {
+        return this.m_user_logged_in;
     }
     set ID(user_id) {
         this.m_user_id = user_id;
@@ -65,7 +69,10 @@ class User {
     set UserBusinessID(user_business_id) {
         this.m_user_business_id = user_business_id;
     }
-    constructor(user_id = 0, user_email_address = "", user_password = "", user_fname = "", user_lname = "", user_phone = "", user_address = "", user_type_id = 0, user_business_id = 0) {
+    set UserBusinessID(user_logged_in) {
+        this.m_user_logged_in = user_logged_in;
+    }
+    constructor(user_id = 0, user_email_address = "", user_password = "", user_fname = "", user_lname = "", user_phone = "", user_address = "", user_type_id = 0, user_business_id = 0, user_logged_in = false) {
         this.m_user_id = user_id;
         this.m_user_email_address = user_email_address;
         this.m_user_password = user_password;
@@ -75,6 +82,7 @@ class User {
         this.m_user_address = user_address;
         this.m_user_type_id = user_type_id;
         this.m_user_business_id = user_business_id;
+        this.m_user_logged_in = user_logged_in;
     }
 
     

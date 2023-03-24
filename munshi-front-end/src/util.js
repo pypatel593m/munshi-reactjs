@@ -1,30 +1,24 @@
 "use strict";
-import { loggedUser } from "./scenes/auth/login";
-import {Link, useNavigate, useParams, useState, Redirect,Route} from 'react-router-dom';
-import React from "react";
+import {User} from "./models/users";
 
-const useReactPath = () => {
-    const [path, setPath] = React.useState(window.location.pathname);
-    const listenToPopstate = () => {
-      const winPath = window.location.pathname;
-      setPath(winPath);
-    };
-    React.useEffect(() => {
-      window.addEventListener("popstate", listenToPopstate);
-      return () => {
-        window.removeEventListener("popstate", listenToPopstate);
-      };
-    }, []);
-    return path;
-  };
+let loggedUser = User;
+
 
 function LoginUser(user)
 {
+    
     if(user.m_user_id !== "" && user.m_user_email_address !== "" && user.m_user_password !== "" && user.m_user_fname !== "" && user.m_user_lname !== "" && user.m_user_phone !== "" && user.m_user_address !== "" && user.m_user_type_id !== "" && user.m_user_business_id !== "")
     {
+        loggedUser = new User(user.m_user_id, user.m_user_email_address, user.m_user_password, user.m_user_fname, user.m_user_lname, user.m_user_phone, user.m_user_address, user.m_user_type_id, user.m_user_business_id, user.m_user_logged_in);
+        
         window.sessionStorage.setItem("user", `${user.m_user_id},${user.m_user_email_address},${user.m_user_password},${user.m_user_fname},${user.m_user_lname},${user.m_user_phone},${user.m_user_address},${user.m_user_type_id},${user.m_user_business_id}`);
     }
+    else
+    {
+        
     console.error("One or more properties of the user Object are missing or invalid");
+    }
+    console.log(loggedUser.m_user_logged_in);
 }
 
 function Logout()
@@ -34,41 +28,19 @@ function Logout()
 
 function CheckLogin()
 {
-    
-    if(window.sessionStorage.getItem("user"))
+    if (window.sessionStorage.getItem("user"))
     {
         return true;
     }
     else
     {
-        console.error("Session is empty!");
         return false;
     }
 }
 
-function CheckUserType(user)
-{
-    if(sessionStorage.getItem("user"))
-    {
-        if(user.m_user_type_id = 1)
-        {
-            return "employer";
-        }
-        else
-        {
-            return "employee";
-        }
-    }
-    else
-    {
-        return "User not found in session.";
-    }
-}
-
 export {
-    useReactPath,
+    loggedUser,
     LoginUser,
     Logout,
     CheckLogin,
-    CheckUserType,
   }

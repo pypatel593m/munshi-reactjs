@@ -22,8 +22,6 @@ const Register = () => {
   {
     e.preventDefault();
 
-    console.log(user_email_address, user_password, user_fname, user_lname, user_phone, user_address, user_type_id, user_business_id);
-
     Axios.post("http://localhost:3001/register", {
       user_email_address : user_email_address,
       user_password : user_password,

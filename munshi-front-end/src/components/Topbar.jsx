@@ -4,22 +4,18 @@ import { ColorModeContext, tokens } from "../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import SearchIcon from "@mui/icons-material/Search";
 import {useNavigate} from 'react-router-dom';
-import { Logout, CheckLogin } from "../util";
+import { loggedUser, Logout, CheckLogin } from "../util";
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
   const navigate = useNavigate();
-  function Login()
-  {
-    navigate("/login");
-  }
   function LoggedOut()
   {
     Logout();
@@ -27,28 +23,33 @@ const Topbar = () => {
   }
   function toggleLogin()
   {
-    let checkLogin = CheckLogin();
-    if(checkLogin == false)
+    
+    if(!CheckLogin())
     {
       return(
         // <IconButton onClick={Login}>
         //       Login
         // </IconButton>
-        <button className="btnLogin" onClick={Login}>Login</button>
+        <IconButton onClick={() => {navigate("/login")}}>
+          <LoginOutlinedIcon />
+        </IconButton>
+        //<button className="btnLogin" onClick={Login}>Login</button>
       );
     }
     
   }
   function toggleLogout()
   {
-    let checkLogin = CheckLogin();
-    if(checkLogin == true)
+    if(CheckLogin())
     {
       return(
         // <IconButton onClick={LoggedOut}>
         //       Logout
         //     </IconButton>
-        <button className="btnLogin" onClick={LoggedOut}>Logout</button>
+        <IconButton onClick={LoggedOut()}>
+          <LogoutOutlinedIcon />
+        </IconButton>
+        //<button className="btnLogin" onClick={LoggedOut}>Logout</button>
       );
     }
     
@@ -73,6 +74,7 @@ const Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
+        
             
         {toggleLogin()}
         {toggleLogout()}

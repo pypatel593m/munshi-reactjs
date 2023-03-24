@@ -6,7 +6,7 @@ import {User} from "../../models/users";
 import {Link, useNavigate, useParams, Redirect,Route} from 'react-router-dom';
 import {LoginUser} from "../../util";
 
-export const loggedUser = new User;
+
 
 const Login = () => {
   
@@ -31,15 +31,17 @@ const Login = () => {
       }
       else
       {
-        loggedUser.m_user_id = response.data[0].user_id;
-        loggedUser.m_user_email_address = response.data[0].user_email_address;
-        loggedUser.m_user_password = response.data[0].user_password;
-        loggedUser.m_user_fname = response.data[0].user_fname;
-        loggedUser.m_user_lname = response.data[0].user_lname;
-        loggedUser.m_user_phone = response.data[0].user_phone;
-        loggedUser.m_user_address = response.data[0].user_address;
-        loggedUser.m_user_type_id = response.data[0].user_type_id;
-        loggedUser.m_user_business_id = user_business_id; // this is not coming from server side.
+        let loggedUser = new User(response.data[0].user_id, response.data[0].user_email_address, response.data[0].user_password, response.data[0].user_fname, response.data[0].user_lname, response.data[0].user_phone, response.data[0].user_address, response.data[0].user_type_id, user_business_id, true);
+        // loggedUser.m_user_id = response.data[0].user_id;
+        // loggedUser.m_user_email_address = response.data[0].user_email_address;
+        // loggedUser.m_user_password = response.data[0].user_password;
+        // loggedUser.m_user_fname = response.data[0].user_fname;
+        // loggedUser.m_user_lname = response.data[0].user_lname;
+        // loggedUser.m_user_phone = response.data[0].user_phone;
+        // loggedUser.m_user_address = response.data[0].user_address;
+        // loggedUser.m_user_type_id = response.data[0].user_type_id;
+        // loggedUser.m_user_business_id = user_business_id;
+        // loggedUser.m_user_logged_in = true; // this is not coming from server side.
 
         LoginUser(loggedUser);
 
@@ -79,7 +81,9 @@ const Login = () => {
 
 
 
-        <p><h1 className="dhruv">{loginStatus}</h1></p>
+        <div className="errorMessage">
+        <h1>{loginStatus}</h1>
+        </div>
         <div className="wrapper active-btn-login">
           <div className="form-box login">
               <h2>Login</h2>
@@ -104,7 +108,7 @@ const Login = () => {
                   </div>
                   <button className="btn" type="submit" value="Login" onClick={login}>Login</button>
                   <div className="login-register">
-                      <p>Don't have an account?<a href="./register" className="register-link"> Register</a></p>
+                      <h3>Don't have an account? <a href="./register" className="register-link"> Register</a></h3>
                   </div> 
               </form>
           </div>
