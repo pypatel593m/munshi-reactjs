@@ -1,12 +1,12 @@
 import { Box } from "@mui/material"; 
 import Header  from "../../components/Header";
-import {loggedUser, CheckLogin} from "../../util";
-import {Route, Redirect, useNavigate} from 'react-router-dom';
+import {CheckLogin} from "../../util";
+import {useNavigate} from 'react-router-dom';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   
-  if (!CheckLogin())
+  if (!CheckLogin)
   {
     navigate('/login');
   }

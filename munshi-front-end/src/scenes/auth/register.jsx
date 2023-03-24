@@ -22,6 +22,8 @@ const Register = () => {
   {
     e.preventDefault();
 
+    console.log(user_email_address, user_password, user_fname, user_lname, user_phone, user_address, user_type_id, user_business_id);
+
     Axios.post("http://localhost:3001/register", {
       user_email_address : user_email_address,
       user_password : user_password,
@@ -48,8 +50,8 @@ const Register = () => {
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Header title="REGISTER" subtitle="Please fill in the user data!"/>
         </Box>
-
-        <Box className="container" style={{ fontSize: '15px', textAlign: 'center', marginTop: '20px'}}>
+        
+        <Box className="loginForm">
         <form>
         <h1 style={{color: 'red', fontSize: '15px', textAlign: 'center', marginTop: '20px'}} >{registerStatus}</h1>
           <div className="container">
