@@ -1,19 +1,15 @@
-import {Box, Button, TextField, useTheme, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material"; 
-import React, { useState, useRef }  from 'react';
+import {Box, Button, TextField, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material"; 
+import React, { useState }  from 'react';
 import Header  from "../../components/Header";
 import Axios from "axios";
 import {useNavigate} from 'react-router-dom';
-import {User} from "../../models/users";
-import { Formik, useFormik } from "formik";
+import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { border } from "@mui/system";
-import { pink, yellow } from "@mui/material/colors";
 
 const Register = () => {
   
   const navigate = useNavigate();
-  const [user_business_id, setUserBusinessID] = useState("");
   
   const [registerStatus, setRegisterStatus] = useState("");
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -210,7 +206,8 @@ const phoneRegExp =
 const passwordRegExp =
 /^.{8,100}$/;
 
-const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+const emailRegex = 
+/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
 
 const checkoutSchema = yup.object().shape({
 
