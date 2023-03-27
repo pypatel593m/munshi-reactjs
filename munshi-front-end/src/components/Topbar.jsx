@@ -8,6 +8,7 @@ import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import {useNavigate} from 'react-router-dom';
 import { CheckLogin } from "../util";
+import { loggedUser } from "../util";
 
 const Topbar = () => {
   const theme = useTheme();
@@ -46,6 +47,17 @@ const Topbar = () => {
         <IconButton onClick={LoggedOut}>
              <LogoutOutlinedIcon />
             </IconButton>
+      );
+    }
+    
+  }
+  function toggleUserName()
+  {
+    let checkLogin = CheckLogin();
+    if(checkLogin == true)
+    {
+      return(
+        <h2>{loggedUser.m_user_fname} {loggedUser.m_user_fname}</h2>
       );
     }
     

@@ -71,7 +71,7 @@ app.post("/register", (req, res) => {
                     res.send(result);
                 }
                 else {
-                    res.send({ message: "Some required data does not match parameters!" });
+                    res.send({ message: "Some required data does not match parameters! Or User already exists" });
                 }
             });
         }
