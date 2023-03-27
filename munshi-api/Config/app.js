@@ -80,6 +80,36 @@ app.post("/register", (req, res) => {
         }
     });
 });
+app.post("/profile", (req, res) => {
+    user.ID = req.body.user_id;
+    user.EmailAddress = req.body.user_email_address;
+    user.Password = req.body.user_password;
+    user.FirstName = req.body.user_fname;
+    user.LastName = req.body.user_lname;
+    user.Phone = req.body.user_phone;
+    user.Address = req.body.user_address;
+    user.TypeID = req.body.user_type_id;
+    user.UserBusinessID = req.body.user_business_id;
+    const insertSql = `UPDATE users SET user_email_address = '${user.EmailAddress}', user_password = '${user.Password}', user_fname = '${user.FirstName}', user_lname = '${user.LastName}', user_phone = '${user.Phone}', user_address = '${user.Address}', user_type_id = ${user.TypeID} WHERE user_id = ${user.ID};`;
+    const businessCheck = `SELECT * FROM businesses WHERE business_id = ${user.UserBusinessID}`;
+    exports.db.query(businessCheck, (err, result) => {
+        if (result.rowCount == 1) {
+            exports.db.query(insertSql, (err, result) => {
+                if (result) {
+
+                    res.send(result);
+                }
+                else {
+                    console.log(err.message);
+                    res.send({ message: "Some required data does not match parameters! Or User already exists" });
+                }
+            });
+        }
+        else {
+            res.send({ message: "Business does not exists in database!" });
+        }
+    });
+});
 app.get("/", async (req, res) => {
     res.send("Hello!");
 });

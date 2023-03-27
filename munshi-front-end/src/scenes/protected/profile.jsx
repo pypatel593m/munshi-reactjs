@@ -1,5 +1,5 @@
 import Header  from "../../components/Header";
-import {CheckLogin} from "../../util";
+import {CheckLogin, GetUser} from "../../util";
 import {useNavigate} from 'react-router-dom';
 import {Box, Button, TextField, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material"; 
 import React, { useState }  from 'react';
@@ -7,6 +7,8 @@ import Axios from "axios";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
+
+let User = GetUser();
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -21,7 +23,8 @@ const Profile = () => {
 
   function handleFormSubmit(values)
   {
-    Axios.post("http://localhost:3001/register", {
+    Axios.post("http://localhost:3001/profile", {
+      user_id : User.m_user_id,
       user_email_address : values.user_email_address,
       user_password : values.user_password,
       user_fname : values.user_fname,
@@ -39,7 +42,9 @@ const Profile = () => {
       }
       else
       {
+        window.sessionStorage.removeItem("user");
         navigate('/login');
+        window.location.reload();
       }
     });
   }
@@ -239,16 +244,36 @@ user_address: yup.string().required("required"),
 user_type_id: yup.string().required('Please select user type'),
 user_business_id: yup.string().required("required"),
 });
-const initialValues = {
-user_fname: "",
-user_lname: "",
-user_email_address: "",
-user_password: "",
-user_phone: "",
-user_address: "",
-user_type_id: "Employee",
-user_business_id: "",
-};
+let initialValues;
+if(CheckLogin())
+{
+  initialValues = {
+  
+    user_fname: User.m_user_fname,
+    user_lname: User.m_user_lname,
+    user_email_address: User.m_user_email_address,
+    user_password: User.m_user_password,
+    user_phone: User.m_user_phone,
+    user_address: User.m_user_address,
+    user_type_id: User.m_user_type_id,
+    user_business_id: User.m_user_business_id,
+    };
+}
+else
+{
+  initialValues = {
+  
+    user_fname: "",
+    user_lname: "",
+    user_email_address: "",
+    user_password: "",
+    user_phone: "",
+    user_address: "",
+    user_type_id: "",
+    user_business_id: "", 
+    };
+}
+
     
 
 

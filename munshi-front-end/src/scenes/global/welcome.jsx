@@ -1,12 +1,8 @@
-import { Box, Button, Link, useTheme } from "@mui/material"; 
+import { Box, Link, useTheme } from "@mui/material"; 
 import Header  from "../../components/Header";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import {useNavigate} from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
 import image1 from "../../Images/img1.jpeg";
 import { tokens } from "../../theme";
 
