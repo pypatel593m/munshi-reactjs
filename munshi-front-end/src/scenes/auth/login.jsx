@@ -1,4 +1,4 @@
-import { Box, Button, TextField} from "@mui/material";
+import { Box, Button, TextField, useTheme, Link} from "@mui/material";
 import Header  from "../../components/Header";
 import Axios from "axios";
 import React, { useState}  from 'react';
@@ -8,12 +8,15 @@ import {SaveUser} from "../../util";
 import { Formik } from "formik";
 import * as yup from "yup";
 
+import {tokens} from "../../theme";
+import { color } from "@mui/system";
+
 const Login = () => {
   const navigate = useNavigate();
-  const [user_email_address, setEmailAddress] = useState("");
-  const [user_password, setPassword] = useState("");
   const [user_business_id, setUserBusinessID] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   
 
   function handleFormSubmit (values)
@@ -30,7 +33,7 @@ const Login = () => {
       }
       else
       {
-        let loggedUser = new User(response.data[0].user_id, response.data[0].user_email_address, response.data[0].user_password, response.data[0].user_fname, response.data[0].user_lname, response.data[0].user_phone, response.data[0].user_address, response.data[0].user_type_id, user_business_id, true);
+        let loggedUser = new User(response.data[0].user_id, response.data[0].user_email_address, response.data[0].user_password, response.data[0].user_fname, response.data[0].user_lname, response.data[0].user_phone, response.data[0].user_address, response.data[0].user_type_id, values.user_business_id);
 
         SaveUser(loggedUser);
 
@@ -114,7 +117,7 @@ const Login = () => {
                     </Button>
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
-                  <h3>Don't have an account? <a href="./register" className="register-link"> Register</a></h3>
+                  <h3>Don't have an account? <Link href="./register" color={colors.blueAccent[300]} className="register-link"> Register</Link></h3>
                   </Box>
                   
                 </form>

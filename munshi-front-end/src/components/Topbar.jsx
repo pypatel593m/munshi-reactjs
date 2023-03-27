@@ -6,18 +6,20 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import PersonOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import {useNavigate} from 'react-router-dom';
-import { CheckLogin } from "../util";
-import { loggedUser } from "../util";
+import { CheckLogin, loggedUser, GetUser} from "../util";
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
   const navigate = useNavigate();
+  let User = GetUser();
   function Login()
   {
     navigate("/login");
+
   }
   function LoggedOut()
   {
@@ -27,8 +29,7 @@ const Topbar = () => {
   }
   function toggleLogin()
   {
-    let checkLogin = CheckLogin();
-    if(checkLogin == false)
+    if(!CheckLogin)
     {
       return(
         <IconButton onClick={Login}>
@@ -40,9 +41,9 @@ const Topbar = () => {
   }
   function toggleLogout()
   {
-    let checkLogin = CheckLogin();
-    if(checkLogin == true)
+    if(CheckLogin)
     {
+      //console.log(User.m_user_fname, User.m_user_business_id, "The USERERRRR");
       return(
         <IconButton onClick={LoggedOut}>
              <LogoutOutlinedIcon />
@@ -53,14 +54,22 @@ const Topbar = () => {
   }
   function toggleUserName()
   {
-    let checkLogin = CheckLogin();
-    if(checkLogin == true)
+    if(CheckLogin)
     {
       return(
-        <h2>{loggedUser.m_user_fname} {loggedUser.m_user_fname}</h2>
+        <h2>{User.m_user_fname} {User.m_user_lname}</h2>
       );
     }
     
+  }
+  function toggleBusiness()
+  {
+    if(CheckLogin)
+    {
+      return(
+        <h2>Business ID: {User.m_user_business_id}</h2>
+      );
+    }
   }
 
   return (
@@ -75,6 +84,8 @@ const Topbar = () => {
 
       {/* ICONS */}
       <Box display="flex">
+      {toggleBusiness()}
+      {toggleUserName()}
         <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <DarkModeOutlinedIcon />
@@ -82,6 +93,11 @@ const Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
+        
+        <IconButton>
+          <PersonOutlinedIcon/>
+        </IconButton>
+        
         {toggleLogin()}
         {toggleLogout()}
       </Box>

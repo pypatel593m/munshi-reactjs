@@ -9,6 +9,7 @@ import { CheckLogin } from "../src/util";
 
 import Topbar from "./components/Topbar";
 import  Dashboard from "./scenes/protected/dashboard";
+import  Profile from "./scenes/protected/profile";
 import Sidebar from "./components/Sidebar";
 import Login from "./scenes/auth/login";
 import Register from "./scenes/auth/register";
@@ -58,6 +59,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/welcome" element={<Welcome />} />
+          <Route path="/profile" element={<Profile />} />
               {/* { <Route path="/team" element={<Team />} /> */}
               {/* <Route path="/contacts" element={<Contacts />} /> */}
               {/* <Route path="/invoices" element={<Invoices />} /> */}
