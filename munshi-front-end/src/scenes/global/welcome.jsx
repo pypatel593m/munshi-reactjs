@@ -43,6 +43,99 @@ const Welcome = () => {
                     </Box>
                   </Box>
             </Box>
+
+            <Box display="flex" justifyContent={"center"}>
+                  <Box display="grid" justifyContent={"center"}>
+                    <Box display={"flex"} justifyContent="center">
+                    </Box>
+                    <Box
+                      display="grid"
+                      gap="30px"
+                      marginLeft={40}
+                      justifyContent={"center"} 
+                      gridTemplateColumns="repeat(8, minmax(0, 1fr))"
+                      sx={{
+                        "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                      }}//sx={{ gridColumn: "span 2" }}
+                    >
+                      <Box sx={{ gridColumn: "span 2" }} className="home-info" >
+                        <h3 class="hello">
+                          Time Clocks
+                        </h3>
+                        <p>
+                          MUNSHI turns (almost) any device into a time clock to track
+                          hours, breaks, and overtime. Plus, they can check their
+                          availabilities for upcoming week.
+                        </p>
+                      </Box>
+                      <Box sx={{ gridColumn: "span 4" }} className="home-img">
+                        <img src="/munshi-front-end/src/Images/img1.jpeg" alt="" />
+                      </Box>
+                    </Box>
+                  </Box>
+            </Box>
+
+
+            <Box display="flex" justifyContent={"center"}>
+                  <Box display="grid" justifyContent={"center"}>
+                    <Box display={"flex"} justifyContent="center">
+                    </Box>
+                    <Box
+                      display="grid"
+                      gap="30px"
+                      marginLeft={40}
+                      justifyContent={"center"} 
+                      gridTemplateColumns="repeat(8, minmax(0, 1fr))"
+                      sx={{
+                        "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                      }}//sx={{ gridColumn: "span 2" }}
+                    >
+                      <Box sx={{ gridColumn: "span 2" }} className="home-info" >
+                        <h3 class="hello">
+                          Employee Scheduling
+                        </h3>
+                        <p>
+                          With Munshi, your schedule is online and always up to date for your team. You can adjust it on the fly,
+                          on the bus, or from just about anywhere. And then instantly share it. Isn't it that convenient?
+                        </p>
+                      </Box>
+                      <Box sx={{ gridColumn: "span 4" }} className="home-img">
+                        <img src="/munshi-front-end/src/Images/img1.jpeg" alt="" />
+                      </Box>
+                    </Box>
+                  </Box>
+            </Box>
+
+
+            <Box display="flex" justifyContent={"center"}>
+                  <Box display="grid" justifyContent={"center"}>
+                    <Box display={"flex"} justifyContent="center">
+                    </Box>
+                    <Box
+                      display="grid"
+                      gap="30px"
+                      marginLeft={40}
+                      justifyContent={"center"} 
+                      gridTemplateColumns="repeat(8, minmax(0, 1fr))"
+                      sx={{
+                        "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                      }}//sx={{ gridColumn: "span 2" }}
+                    >
+                      <Box sx={{ gridColumn: "span 2" }} className="home-info" >
+                        <h3 class="hello">
+                          Employee's Availabilities
+                        </h3>
+                        <p>
+                          Munshi can help all employee to check their availabilities whenever and whatever time they want to check,
+                          they can check without any hassle.
+                        </p>
+                      </Box>
+                      <Box sx={{ gridColumn: "span 4" }} className="home-img">
+                        <img src="/munshi-front-end/src/Images/img1.jpeg" alt="" />
+                      </Box>
+                    </Box>
+                  </Box>
+            </Box>
     </Box>;
 }
 
