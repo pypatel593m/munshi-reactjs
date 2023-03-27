@@ -3,6 +3,7 @@ import Header  from "../../components/Header";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import {useNavigate} from 'react-router-dom';
 import LocalPhoneRoundedIcon from '@mui/icons-material/LocalPhoneRounded';
+import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -43,12 +44,12 @@ const Contact = () => {
                                   <h4 className="contact-sub-title padd-15">I'm AT YOUR SERVICES</h4>
                                   <Box className="row">
                                       <Box className="contact-info-item padd-15">
-                                          <LocalPhoneRoundedIcon color={colors.blueAccent[600]}/>
+                                          <LocalPhoneRoundedIcon fontSize="large" sx={{ color: colors.redAccent[500] }}/>
                                           <h4>Phone</h4>
                                           <p>(905) 260-1008</p>
                                       </Box>
                                       <Box className="contact-info-item padd-15">
-                                          <Box className="icon"><i className="fa fa-envelope"></i></Box>
+                                          <AttachEmailIcon fontSize="large" sx={{ color: colors.redAccent[500] }}/>
                                           <h4>Email</h4>
                                           <p>pateldhruv9825@gmail.com</p>
                                       </Box>
