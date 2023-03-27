@@ -61,135 +61,135 @@ const Register = () => {
               }) => (
                 
                 <div>
-                <div className="form-box login">
-                <Header title="REGISTER" subtitle="Please enter user detail" />
-                <form onSubmit={handleSubmit}>
-                <Box
-                  display="grid"
-                  gap="30px"
-                  gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-                  sx={{
-                    "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-                  }}
-                >
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="First Name"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.user_fname}
-                    name="user_fname"
-                    error={!!touched.user_fname && !!errors.user_fname}
-                    helperText={touched.user_fname && errors.user_fname}
-                    sx={{ gridColumn: "span 2" }}
-                  />
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Last Name"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.user_lname}
-                    name="user_lname"
-                    error={!!touched.user_lname && !!errors.user_lname}
-                    helperText={touched.user_lname && errors.user_lname}
-                    sx={{ gridColumn: "span 2" }}
-                  />
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Email"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.user_email_address}
-                    name="user_email_address"
-                    error={!!touched.user_email_address && !!errors.user_email_address}
-                    helperText={touched.user_email_address && errors.user_email_address}
-                    sx={{ gridColumn: "span 4" }}
-                  />
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="password"
-                    label="Password"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.user_password}
-                    name="user_password"
-                    error={!!touched.user_password && !!errors.user_password}
-                    helperText={touched.user_password && errors.user_password}
-                    sx={{ gridColumn: "span 2" }}
-                  />
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Contact Number (xxx-xxx-xxxx)"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.user_phone}
-                    name="user_phone"
-                    error={!!touched.user_phone && !!errors.user_phone}
-                    helperText={touched.user_phone && errors.user_phone}
-                    sx={{ gridColumn: "span 2" }}
-                  />
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Address"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.user_address}
-                    name="user_address"
-                    error={!!touched.user_address && !!errors.user_address}
-                    helperText={touched.user_address && errors.user_address}
-                    sx={{ gridColumn: "span 4" }}
-                  />
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="number"
-                    label="Business ID"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.user_business_id}
-                    name="user_business_id"
-                    error={!!touched.user_business_id && !!errors.user_business_id}
-                    helperText={touched.user_business_id && errors.user_business_id}
-                    sx={{ gridColumn: "span 2" }}
-                  />
-                  <FormControl>
-                    <FormLabel id="demo-radio-buttons-group-label">Select Type</FormLabel>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-radio-buttons-group-label"
-                      value={values.user_type_id}
-                      name="user_type_id"
-                      onChange={handleChange}
-                      required
+                  <div className="form-box login">
+                    <Header title="REGISTER" subtitle="Please enter user detail" />
+                    <form onSubmit={handleSubmit}>
+                    <Box
+                      display="grid"
+                      gap="30px"
+                      gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                      sx={{
+                        "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                      }}
                     >
-                      <FormControlLabel value="2" control={<Radio />} label="Employee" />
-                      <FormControlLabel value="1" control={<Radio />} label="Employer" />
-                    </RadioGroup>
-                  </FormControl>
-                  <Box display="flex" justifyContent="end" mt="20px">
-                    <Button type="submit" color="secondary" variant="contained">
-                      Register
-                    </Button>
-                  </Box>
-                  <Box display="flex" justifyContent="end" mt="20px">
-                  <h3>Already have an account? <a href="./login" className="register-link"> Login</a></h3>
-                  </Box>
-                </Box>
-                
-                  
-                </form>
-                </div>
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="First Name"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.user_fname}
+                        name="user_fname"
+                        error={!!touched.user_fname && !!errors.user_fname}
+                        helperText={touched.user_fname && errors.user_fname}
+                        sx={{ gridColumn: "span 2" }}
+                      />
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Last Name"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.user_lname}
+                        name="user_lname"
+                        error={!!touched.user_lname && !!errors.user_lname}
+                        helperText={touched.user_lname && errors.user_lname}
+                        sx={{ gridColumn: "span 2" }}
+                      />
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Email"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.user_email_address}
+                        name="user_email_address"
+                        error={!!touched.user_email_address && !!errors.user_email_address}
+                        helperText={touched.user_email_address && errors.user_email_address}
+                        sx={{ gridColumn: "span 4" }}
+                      />
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="password"
+                        label="Password"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.user_password}
+                        name="user_password"
+                        error={!!touched.user_password && !!errors.user_password}
+                        helperText={touched.user_password && errors.user_password}
+                        sx={{ gridColumn: "span 2" }}
+                      />
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Contact Number (xxx-xxx-xxxx)"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.user_phone}
+                        name="user_phone"
+                        error={!!touched.user_phone && !!errors.user_phone}
+                        helperText={touched.user_phone && errors.user_phone}
+                        sx={{ gridColumn: "span 2" }}
+                      />
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Address"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.user_address}
+                        name="user_address"
+                        error={!!touched.user_address && !!errors.user_address}
+                        helperText={touched.user_address && errors.user_address}
+                        sx={{ gridColumn: "span 4" }}
+                      />
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="number"
+                        label="Business ID"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.user_business_id}
+                        name="user_business_id"
+                        error={!!touched.user_business_id && !!errors.user_business_id}
+                        helperText={touched.user_business_id && errors.user_business_id}
+                        sx={{ gridColumn: "span 2" }}
+                      />
+                      <FormControl>
+                        <FormLabel id="demo-radio-buttons-group-label">Select Type</FormLabel>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-radio-buttons-group-label"
+                          value={values.user_type_id}
+                          name="user_type_id"
+                          onChange={handleChange}
+                          required
+                        >
+                          <FormControlLabel value="2" control={<Radio />} label="Employee" />
+                          <FormControlLabel value="1" control={<Radio />} label="Employer" />
+                        </RadioGroup>
+                      </FormControl>
+                      <Box display="flex" justifyContent="end" mt="20px">
+                        <Button type="submit" color="secondary" variant="contained">
+                          Register
+                        </Button>
+                      </Box>
+                      <Box display="flex" justifyContent="end" mt="20px">
+                      <h3>Already have an account? <a href="./login" className="register-link"> Login</a></h3>
+                      </Box>
+                    </Box>
+                    
+                      
+                    </form>
+                  </div>
                 </div>
               )}
             </Formik>
