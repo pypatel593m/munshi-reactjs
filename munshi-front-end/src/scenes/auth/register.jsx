@@ -1,9 +1,10 @@
-import {Box, Button, TextField, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material"; 
+import {Box, Button, TextField, FormControl, Link, FormControlLabel, FormLabel, Radio, RadioGroup, useTheme } from "@mui/material"; 
 import React, { useState }  from 'react';
 import Header  from "../../components/Header";
 import Axios from "axios";
 import {useNavigate} from 'react-router-dom';
 import { Formik } from "formik";
+import { tokens } from "../../theme";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -11,6 +12,8 @@ const Register = () => {
   
   const navigate = useNavigate();
   
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const [registerStatus, setRegisterStatus] = useState("");
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
@@ -183,7 +186,7 @@ const Register = () => {
                         </Button>
                       </Box>
                       <Box display="flex" justifyContent="end" mt="20px">
-                      <h3>Already have an account? <a href="./login" className="register-link"> Login</a></h3>
+                      <h3>Already have an account? <Link color={colors.blueAccent[300]} href="./login" className="register-link"> Login</Link></h3>
                       </Box>
                     </Box>
                     

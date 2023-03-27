@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
-class User {
-    m_user_id;
-    m_user_email_address;
+exports.Business = void 0;
+class Business {
+    business_id;
+    business_;
     m_user_password;
     m_user_fname;
     m_user_lname;
@@ -81,4 +81,4 @@ class User {
 
     
 }
-exports.User = User;
+exports.Business = Business;

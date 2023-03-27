@@ -14,6 +14,8 @@ import Sidebar from "./components/Sidebar";
 import Login from "./scenes/auth/login";
 import Register from "./scenes/auth/register";
 import Welcome from "./scenes/global/welcome";
+import About from "./scenes/global/about";
+import Contact from "./scenes/global/contact";
 // import  Team  from "./scenes/team";
 // import  Invoices  from "./scenes/invoices";
 // import  Contacts  from "./scenes/Contacts";
@@ -34,13 +36,15 @@ function App() {
 
   function toggleSidebar()
   {
-    let isLoggedIn = CheckLogin();
-    if(isLoggedIn == true)
+    
+    if(CheckLogin())
     {
-      return(
-        <Sidebar />
-      );
+        return(
+          <Sidebar />
+        );
+      
     }
+    
     
   }
 
@@ -59,6 +63,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/welcome" element={<Welcome />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={<Profile />} />
               {/* { <Route path="/team" element={<Team />} /> */}
               {/* <Route path="/contacts" element={<Contacts />} /> */}

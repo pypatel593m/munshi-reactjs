@@ -1,4 +1,4 @@
-import { Box, IconButton, useTheme } from "@mui/material";
+import { Box, IconButton, Link, Typography, useTheme } from "@mui/material";
 import { useContext, Redirect  } from "react";
 import { ColorModeContext, tokens } from "../theme";
 import InputBase from "@mui/material/InputBase";
@@ -7,6 +7,8 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import ConnectWithoutContactOutlinedIcon from '@mui/icons-material/ConnectWithoutContactOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import {useNavigate} from 'react-router-dom';
 import { CheckLogin, loggedUser, GetUser} from "../util";
 
@@ -29,7 +31,8 @@ const Topbar = () => {
   }
   function toggleLogin()
   {
-    if(!CheckLogin)
+    
+    if(!CheckLogin())
     {
       return(
         <IconButton onClick={Login}>
@@ -41,7 +44,7 @@ const Topbar = () => {
   }
   function toggleLogout()
   {
-    if(CheckLogin)
+    if(CheckLogin())
     {
       //console.log(User.m_user_fname, User.m_user_business_id, "The USERERRRR");
       return(
@@ -54,48 +57,58 @@ const Topbar = () => {
   }
   function toggleUserName()
   {
-    if(CheckLogin)
+    if(CheckLogin())
     {
       return(
-        <h2>{User.m_user_fname} {User.m_user_lname}</h2>
+        <Typography fontSize={20} marginLeft={5}>{User.m_user_fname} {User.m_user_lname}</Typography>
       );
     }
     
   }
   function toggleBusiness()
   {
-    if(CheckLogin)
+    if(CheckLogin())
     {
       return(
-        <h2>Business ID: {User.m_user_business_id}</h2>
+        <Typography fontSize={20}>Location ID: {User.m_user_business_id}</Typography>
       );
     }
   }
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
-      {/* SEARCH BAR */}
       <Box
         display="flex"
-        backgroundColor={colors.primary[400]}
-        borderRadius="3px"
       >
+        <div className="aside">
+        <div className="logo">
+                <a href="/welcome"><span>M</span>unshi</a>
+            </div>
+        </div>
+        
+        {toggleBusiness()}
+      {toggleUserName()}
       </Box>
 
       {/* ICONS */}
       <Box display="flex">
-      {toggleBusiness()}
-      {toggleUserName()}
-        <IconButton onClick={colorMode.toggleColorMode}>
+      <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <DarkModeOutlinedIcon />
           ) : (
             <LightModeOutlinedIcon />
           )}
         </IconButton>
+      <IconButton onClick={()=> {navigate("/contact")}}>
+          <ConnectWithoutContactOutlinedIcon />
+        </IconButton>
+        <IconButton onClick={()=> {navigate("/about")}}>
+          <InfoOutlinedIcon />
+        </IconButton>
         
-        <IconButton>
-          <PersonOutlinedIcon/>
+        
+        <IconButton onClick={()=> {navigate("/profile")}}>
+          <PersonOutlinedIcon />
         </IconButton>
         
         {toggleLogin()}
