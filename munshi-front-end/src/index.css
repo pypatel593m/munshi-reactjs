@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Clicker+Script&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+:root{
+    --bg-black-900:#f2f2fc;
+    --bg-black-100:#fdf9ff;
+    --bg-black-50:#e8dfec;
+    --text-black-900:#302e4d;
+    --text-black-700:#504e70;
+    --skin-color:pink;
+
+}
+
 
 html,
 body,
@@ -39,13 +51,11 @@ body,
 .aside
 {
     width: 270px;
-    background: var(--bg-black-100);
     position: fixed;
     left: 0;
     top: 0;
     padding: 30px;
     height: 100%;
-    border-right: 1px solid var(--bg-black-50);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,31 +63,29 @@ body,
 
 }
 
-.aside .logo
+.logo
 {
-    position: absolute;
     top: 50px;
-    font-size: 30px;
+    font-size: 20px;
     text-transform: capitalize;
 
 }
 
-.aside .logo a
+.logo a
 {
-    color: var(--text-black-900);
     font-weight: 700;
     padding: 15px 20px;
-    font-size: 30px;
+    font-size: 20px;
     letter-spacing: 5px;
     position: relative;
 }
-.aside .logo a span
+.logo a span
 {
     font-family: 'Clicker Script', cursive;
-    font-size: 40px;
+    font-size: 30px;
 }
 
-.aside .logo a::before
+.logo a::before
 {
     content: '';
     position: absolute;
@@ -89,7 +97,7 @@ body,
     left: 0;
 }
 
-.aside .logo a::after
+.logo a::after
 {
     content: '';
     position: absolute;
@@ -100,6 +108,8 @@ body,
     top: 0;
     right: 0;
 }
+
+
 
 .loginForm
 {
@@ -331,7 +341,6 @@ body,
 {
     margin-bottom: 70px;
     font-size: 20px;
-    color: var(--text-black-700);
 }
 
 h3.hello
@@ -342,10 +351,8 @@ h3.hello
 
 h3.hello span
 {
-    font-family: 'Clicker Script', cursive;
     font-size: 30px;
     font-weight: 700;
-    color: var(--skin-color);
 }
 
 h3.my-profession

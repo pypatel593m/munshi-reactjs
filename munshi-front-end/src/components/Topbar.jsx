@@ -75,16 +75,24 @@ const Topbar = () => {
     }
   }
 
+  function toggleMunshi()
+  {
+    if(!CheckLogin())
+    {
+      return(
+        <Box className="logo" >
+            <Link color={colors.blueAccent[300]} href="/welcome"><span>M</span>unshi</Link>
+        </Box>
+      );
+    }
+  }
+
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
       <Box
         display="flex"
       >
-        <div className="aside">
-        <div className="logo">
-                <a href="/welcome"><span>M</span>unshi</a>
-            </div>
-        </div>
+        {toggleMunshi()}
         
         {toggleBusiness()}
       {toggleUserName()}
