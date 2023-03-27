@@ -1,7 +1,8 @@
-import { Box, Button, Link, useTheme } from "@mui/material"; 
+import { Box, IconButton, Link, useTheme } from "@mui/material"; 
 import Header  from "../../components/Header";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import {useNavigate} from 'react-router-dom';
+import LocalPhoneRoundedIcon from '@mui/icons-material/LocalPhoneRounded';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -24,101 +25,83 @@ const Contact = () => {
                     <Box
                       display="grid"
                       gap="30px"
-                      marginLeft={40}
                       justifyContent={"center"} 
                       gridTemplateColumns="repeat(8, minmax(0, 1fr))"
                       sx={{
                         "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                       }}//sx={{ gridColumn: "span 2" }}
                     >
-                      <Box display="flex" sx={{ gridColumn: "span 2" }}  className="home-info">
-                        <h3 className="hello">
-                          Great teams made on <span className="name">M</span>unshi
-                        </h3>
-                      </Box>
-                      <Box display="flex"  sx={{ gridColumn: "span 4" }}  className="home-info">
-                        <p>
-                        Munshi helps small businesses manage their work schedules, time
-                        clocks, availabilities, multiple-locations, and more — so they can focus on their people.
-                        </p>
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 8" }} >
-                        <Box display="flex" justifyContent="end" mt="20px">
-                          <h2><Link href="./register" color={colors.blueAccent[300]} className="register-link">Let's Get Started!</Link></h2>
-                        </Box>
-                      </Box>
                       
-
-                      <Box display="grid" sx={{ gridColumn: "span 2" }} marginTop={10} className="home-info">
-                        <h3 className="hello">
-                          Time Clocks
-                        </h3>
-                        <p>
-                          MUNSHI turns (almost) any device into a time clock to track
-                          hours, breaks, and overtime. Plus, they can check their
-                          availabilities for upcoming week.
-                        </p>
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 4" }}  marginTop={10} >
-                          <CardMedia
-                            component="img"
-                            height="340"
-                            width="300"
-                            image={image1}
-                            alt="green iguana"
-                            className="image1"
-                          />
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 8" }} >
-                        <Box display="flex" justifyContent="end" mt="20px">
-                          <h2><Link href="./register" color={colors.blueAccent[300]} className="register-link">Let's Get Started!</Link></h2>
-                        </Box>
-                      </Box>
-
-                      <Box display="grid" sx={{ gridColumn: "span 2" }} marginTop={10}  className="home-info">
-                        <h3 className="hello">
-                         Employee Scheduling
-                        </h3>
-                        <p>
-                        With Munshi, your schedule is online and always up to date for your team. You can adjust it on the fly,
-                          on the bus, or from just about anywhere. And then instantly share it. Isn't it that convenient?
-                        </p>
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 4" }}  marginTop={10}>
-                          <CardMedia
-                            component="img"
-                            height="340"
-                            width="300"
-                            image={image1}
-                            alt="green iguana"
-                          />
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 8" }} >
-                        <Box display="flex" justifyContent="end" mt="20px">
-                          <h2><Link href="./register" color={colors.blueAccent[300]} className="register-link">Let's Get Started!</Link></h2>
-                        </Box>
-                      </Box>
-
-                      <Box display="grid" sx={{ gridColumn: "span 2" }} marginTop={10}  className="home-info">
-                        <h3 className="hello">
-                        Employee's Availabilities
-                        </h3>
-                        <p>
-                        Munshi can help all employee to check their availabilities whenever and whatever time they want to check,
-                          they can check without any hassle.
-                        </p>
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 4" }}  marginTop={10}>
-                          <CardMedia
-                            component="img"
-                            height="340"
-                            width="300"
-                            image={image1}
-                            alt="green iguana"
-                          />
-                      </Box>
                       <Box sx={{ gridColumn: "span 8" }}>
+                      <section className="contact section" sx={{ gridColumn: "span 8" }}>
+                          <Box className="row">
+                                      <Box className="section-title padd-15">
+                                          <h2>Contact Me</h2>
+                                      </Box>
+                                  </Box>
+                                  <h3 className="contact-title padd-15">Have you any Questions?</h3>
+                                  <h4 className="contact-sub-title padd-15">I'm AT YOUR SERVICES</h4>
+                                  <Box className="row">
+                                      <Box className="contact-info-item padd-15">
+                                          <LocalPhoneRoundedIcon color={colors.blueAccent[600]}/>
+                                          <h4>Phone</h4>
+                                          <p>(905) 260-1008</p>
+                                      </Box>
+                                      <Box className="contact-info-item padd-15">
+                                          <Box className="icon"><i className="fa fa-envelope"></i></Box>
+                                          <h4>Email</h4>
+                                          <p>pateldhruv9825@gmail.com</p>
+                                      </Box>
+                                  </Box>
+                                  <h3 className="contact-title padd-15">Send me and Email</h3>
+                                  <h4 className="contact-sub-title padd-15">I'm Very Responsive to Messages</h4>
+                                  <Box className="row">
+                                      <Box className="contact-form padd-15">
+                                          <Box className="row">
+                                              <Box className="form-item col-6 padd-15">
+                                                  <Box className="form-group">
+                                                      <input type="text" className="form-control" placeholder="Name" />
+                                                  </Box>
+                                              </Box>
+                                          </Box>
 
+                                          <Box className="row">
+                                              <Box className="form-item col-6 padd-15">
+                                                  <Box className="form-group">
+                                                      <input type="email" className="form-control" placeholder="Email" />
+                                                  </Box>
+                                              </Box>
+                                          </Box>
+                                              
+                                          <Box className="row">
+                                              <Box className="form-item col-12 padd-15">
+                                                  <Box className="form-group">
+                                                      <input type="text" className="form-control" placeholder="Subject" />
+                                                  </Box>
+                                              </Box>
+                                          </Box>
+                                              
+                                          <Box className="row">
+                                              <Box className="form-item col-12 padd-15">
+                                                  <Box className="form-group">
+                                                      <textarea name="" id="" className="form-control" placeholder="Message"></textarea>
+                                                  </Box>
+                                              </Box>
+                                          </Box>
+                                              
+
+                                          <Box className="row">
+                                              <Box className="form-item col-12 padd-15">
+                                                  <Box className="form-group">
+                                                      <button className="btn" type="submit">Send Message</button>
+                                                  </Box>
+                                              </Box>
+                                          </Box>
+                                      </Box>
+                                  </Box>
+                          </section>
+
+                      
                       </Box>
                       <Box sx={{ gridColumn: "span 8" }}>
 

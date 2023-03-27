@@ -33,7 +33,7 @@ const Welcome = () => {
                     >
                       <Box display="flex" sx={{ gridColumn: "span 2" }}  className="home-info">
                         <h3 className="hello">
-                          Great teams made on <span className="name">MUNSHI</span>
+                          Great teams made on <span className="name">M</span>UNSHI
                         </h3>
                       </Box>
                       <Box display="flex"  sx={{ gridColumn: "span 4" }}  className="home-info">
