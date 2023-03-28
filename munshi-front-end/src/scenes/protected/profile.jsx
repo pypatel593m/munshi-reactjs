@@ -1,17 +1,20 @@
 import Header  from "../../components/Header";
 import {CheckLogin, GetUser} from "../../util";
 import {useNavigate} from 'react-router-dom';
-import {Box, Button, TextField, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material"; 
+import {Box, Button, TextField, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, useTheme} from "@mui/material"; 
 import React, { useState }  from 'react';
 import Axios from "axios";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { tokens } from "../../theme";
 
 let User = GetUser();
 
 const Profile = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   
   if (!CheckLogin)
   {
@@ -181,14 +184,21 @@ const Profile = () => {
                     name="user_type_id"
                     onChange={handleChange}
                     required
+                    
                   >
-                    <FormControlLabel value="2" control={<Radio />} label="Employee" />
-                    <FormControlLabel value="1" control={<Radio />} label="Employer" />
+                    <FormControlLabel sx={{
+                      color: colors.blueAccent[400], 
+                      '&.Mui-checked': {color: colors.blueAccent[400]}
+                      }}value="2" control={<Radio />} label="Employee" />
+                    <FormControlLabel sx={{
+                      color: colors.blueAccent[400], 
+                      '&$checked': {color: colors.blueAccent[400]}
+                      }}value="1" control={<Radio />} label="Employer" />
                   </RadioGroup>
                 </FormControl>
                 <Box display="flex" justifyContent="end" mt="20px">
                   <Button type="submit" color="secondary" variant="contained">
-                    Register
+                    Update
                   </Button>
                 </Box>
                 <Box display="flex" justifyContent="end" mt="20px">
