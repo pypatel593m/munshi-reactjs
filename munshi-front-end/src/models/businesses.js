@@ -2,83 +2,39 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Business = void 0;
 class Business {
-    business_id;
-    business_;
-    m_user_password;
-    m_user_fname;
-    m_user_lname;
-    m_user_phone;
-    m_user_address;
-    m_user_type_id;
-    m_user_business_id;
+    m_business_id;
+    m_business_name;
+    m_business_address;
+    m_business_phone;
     get ID() {
-        return this.m_user_id;
+        return this.m_business_id;
     }
-    get EmailAddress() {
-        return this.m_user_email_address;
-    }
-    get Password() {
-        return this.m_user_password;
-    }
-    get FirstName() {
-        return this.m_user_fname;
-    }
-    get LastName() {
-        return this.m_user_lname;
-    }
-    get Phone() {
-        return this.m_user_phone;
+    get Name() {
+        return this.m_business_name;
     }
     get Address() {
-        return this.m_user_address;
+        return this.m_business_phone;
     }
-    get TypeID() {
-        return this.m_user_type_id;
+    get Phone() {
+        return this.m_business_address;
     }
-    get UserBusinessID() {
-        return this.m_user_business_id;
+    set ID(business_id) {
+        this.m_business_id = business_id;
     }
-    set ID(user_id) {
-        this.m_user_id = user_id;
+    set Address(business_address) {
+        this.m_business_address = business_address;
     }
-    set EmailAddress(user_email_address) {
-        this.m_user_email_address = user_email_address;
+    set Name(business_name) {
+        this.m_business_name = business_name;
     }
-    set Password(user_password) {
-        this.m_user_password = user_password;
+    set Phone(business_phone) {
+        this.m_business_phone = business_phone;
     }
-    set FirstName(user_fname) {
-        this.m_user_fname = user_fname;
-    }
-    set LastName(user_lname) {
-        this.m_user_lname = user_lname;
-    }
-    set Phone(user_phone) {
-        this.m_user_phone = user_phone;
-    }
-    set Address(user_address) {
-        this.m_user_address = user_address;
-    }
-    set TypeID(user_type_id) {
-        this.m_user_type_id = user_type_id;
-    }
-    set UserBusinessID(user_business_id) {
-        this.m_user_business_id = user_business_id;
-    }
-    constructor(user_id = 0, user_email_address = "", user_password = "", user_fname = "", user_lname = "", user_phone = "", user_address = "", user_type_id = 0, user_business_id = 0) {
-        this.m_user_id = user_id;
-        this.m_user_email_address = user_email_address;
-        this.m_user_password = user_password;
-        this.m_user_fname = user_fname;
-        this.m_user_lname = user_lname;
-        this.m_user_phone = user_phone;
-        this.m_user_address = user_address;
-        this.m_user_type_id = user_type_id;
-        this.m_user_business_id = user_business_id;
-    }
-
-    
-
-    
+    constructor(business_id, business_name, business_address, business_phone) {
+        this.m_business_id = business_id;
+        this.m_business_name = business_name;
+        this.m_business_address = business_address;
+        this.m_business_phone = business_phone;
+      }
 }
 exports.Business = Business;

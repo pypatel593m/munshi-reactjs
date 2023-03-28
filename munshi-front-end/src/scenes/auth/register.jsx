@@ -207,7 +207,7 @@ const phoneRegExp =
 /^\d{3}-\d{3}-\d{4}$/;
 
 const passwordRegExp =
-/^.{8,100}$/;
+/^[a-zA-Z0-9\s]{8,100}$/;
 
 const emailRegex = 
 /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
@@ -228,7 +228,7 @@ const checkoutSchema = yup.object().shape({
   .required("required"),
   user_password: yup
   .string()
-  .matches(passwordRegExp, "Password should be between 8 to 100 characters")
+  .matches(passwordRegExp, "No secial charactrs, must be 8 to 100 characters")
   .required("required"),
   user_phone:  yup
   .string()

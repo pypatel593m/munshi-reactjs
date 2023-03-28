@@ -4,23 +4,29 @@ import Axios from "axios";
 import React, { useState}  from 'react';
 import {User} from "../../models/users";
 import { useNavigate} from 'react-router-dom';
-import {SaveUser} from "../../util";
+import {CheckLogin, SaveBusiness, SaveUser} from "../../util";
 import { Formik } from "formik";
 import * as yup from "yup";
-
+import { Business } from "../../models/businesses";
 import {tokens} from "../../theme";
 import { color } from "@mui/system";
 
 const Login = () => {
+  
   const navigate = useNavigate();
   const [user_business_id, setUserBusinessID] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   
+  if(CheckLogin())
+  {
+    navigate("/dashboard");
+  }
 
   function handleFormSubmit (values)
   {
+    let loggedBusiness;
     Axios.post("http://localhost:3001/login", {
       user_email_address : values.user_email_address,
       user_password : values.user_password,
@@ -34,8 +40,16 @@ const Login = () => {
       else
       {
         let loggedUser = new User(response.data[0].user_id, response.data[0].user_email_address, response.data[0].user_password, response.data[0].user_fname, response.data[0].user_lname, response.data[0].user_phone, response.data[0].user_address, response.data[0].user_type_id, values.user_business_id);
-
+       
         SaveUser(loggedUser);
+        Axios.post("http://localhost:3001/getbusiness", {
+          business_id: values.user_business_id,
+        }).then((response) => {
+          console.log(response.data[0].business_id, response.data[0].business_name, response.data[0].business_address, response.data[0].business_phone, "Getting this from database.");
+          loggedBusiness = new Business(response.data[0].business_id, response.data[0].business_name, response.data[0].business_address, response.data[0].business_phone);
+          SaveBusiness(loggedBusiness);
+        });
+        
 
         navigate('/dashboard');
         window.location.reload();
@@ -44,7 +58,6 @@ const Login = () => {
   } 
 
     return <Box> 
-    
         <Box display="flex" justifyContent={"center"}>
         <h1>{loginStatus}</h1>
 
@@ -118,6 +131,7 @@ const Login = () => {
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                   <h3>Don't have an account? <Link href="./register" color={colors.blueAccent[300]} className="register-link"> Register</Link></h3>
+                  
                   </Box>
                   
                 </form>
@@ -126,6 +140,11 @@ const Login = () => {
               )}
             </Formik>
           
+        </Box>
+        
+        <Box display="flex" justifyContent={"center"}>
+        <h3>Are you an employer, haven't registered your business yet, then <Link href="./business" color={colors.blueAccent[300]} className="register-link"> Click Here!</Link></h3>
+
         </Box>
     </Box>;
 }
