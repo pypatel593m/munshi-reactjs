@@ -7,17 +7,17 @@ import { tokens } from "../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+import FreeBreakfastOutlinedIcon from '@mui/icons-material/FreeBreakfastOutlined';
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import StoreOutlinedIcon from '@mui/icons-material/StoreOutlined';
+import ContactMailOutlinedIcon from '@mui/icons-material/ContactMailOutlined';
+import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
-import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";  
 import {useNavigate} from 'react-router-dom';
-import { Logout, CheckLogin } from "../util";
+import { Logout, CheckLogin, IsEmployer } from "../util";
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -142,20 +142,68 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
-              title="Contacts Information"
-              to="/contacts"
-              icon={<ContactsOutlinedIcon />}
+            { IsEmployer() === "employer" ? (
+              <Item
+              title="Availability"
+              to="/employerAvailability"
+              icon={<EventAvailableOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
-              title="Invoices Balances"
-              to="/invoices"
-              icon={<ReceiptOutlinedIcon />}
+            ) : (
+              <Item
+              title="Availability"
+              to="/employeeeAvailability"
+              icon={<EventAvailableOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+            )}
+            
+            { IsEmployer() === "employer" ? (
+              <Item
+              title="Schedule"
+              to="/employerSchedule"
+              icon={<CalendarTodayOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            ) : (
+              <Item
+              title="Schedule"
+              to="/employeeeSchedule"
+              icon={<CalendarTodayOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            )}
+            { IsEmployer() === "employer" ? (
+              <Item
+              title="Timeline"
+              to="/employerTimeline"
+              icon={<TimelineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            ) : (
+              <Item
+              title="Timeline"
+              to="/employeeeTimeline"
+              icon={<TimelineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            )}
+            { IsEmployer() === "employer" ? (
+              <Item
+              title="Breaks"
+              to="/employerBreaks"
+              icon={<FreeBreakfastOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            ) : null}
+            
 
             <Typography
               variant="h6"
@@ -172,9 +220,16 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
+              title="Business Form"
+              to="/business"
+              icon={<StoreOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
               title="Contact Us"
               to="/contact"
-              icon={<ContactsOutlinedIcon />}
+              icon={<ContactMailOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

@@ -57,10 +57,32 @@ function CheckLogin()
     }
 }
 
+/**
+ * This function gives the type of logged user
+ */
+function IsEmployer()
+{
+    let user;
+    if (CheckLogin())
+    {
+        user = GetUser();
+        if(user.m_user_type_id === "1" || user.m_user_type_id === 1)
+        {
+            return "employer";
+        }
+        else if(user.m_user_type_id === "2" || user.m_user_type_id === 2)
+        {
+            return "employee";
+        }
+    }
+}
+
+
 export {
     SaveUser,
     GetUser,
     CheckLogin,
     SaveBusiness,
     GetBusiness,
+    IsEmployer,
   }

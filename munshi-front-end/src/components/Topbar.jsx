@@ -30,7 +30,8 @@ const Topbar = () => {
   }
 
   return (
-    <Box display="flex" sx={{backgroundColor: colors.primary[600]}} height={50} justifyContent="space-between" p={2}>
+    <Box display="flex" sx={{ ...(theme.palette.mode === 'dark' ? { backgroundColor: colors.primary[600]} : { backgroundColor: colors.primary[900]}) }}
+       height={ CheckLogin() ? 50 : 70} justifyContent="space-between" p={2}>
       <Box display="flex">
         {!CheckLogin() ? (
           <Box className="logo">

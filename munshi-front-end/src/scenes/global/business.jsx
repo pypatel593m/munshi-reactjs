@@ -12,11 +12,11 @@ import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import { tokens } from "../../theme";
 import * as yup from "yup";
-import { SaveBusiness } from "../../util";
-
+import { GetBusiness, CheckLogin } from "../../util";
+let business = GetBusiness();
 const Business = () => {
   const navigate = useNavigate();
-
+  
   const [businessStatus, setBusinessStatus] = useState("");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -159,7 +159,6 @@ const Business = () => {
     </Box>
   );
 };
-
 const idRegExp = /^[1-9]\d*$/;
 
 const phoneRegExp = /^\d{3}-\d{3}-\d{4}$/;
@@ -186,10 +185,28 @@ const checkoutSchema = yup.object().shape({
     .matches(phoneRegExp, "Should follow xxx-xxx-xxxx.")
     .required("required")
 });
-const initialValues = {
-  business_name: "",
-  business_address: "",
-  business_phone: "",
-};
+
+let initialValues;
+if(CheckLogin())
+{
+  initialValues = {
+  
+  business_id: business.m_business_id,
+  business_name: business.m_business_name,
+  business_address: business.m_business_address,
+  business_phone: business.m_business_phone,
+    };
+}
+else
+{
+  initialValues = {
+  
+    business_id: "",
+    business_name: "",
+    business_address: "",
+    business_phone: "",
+    user_address: "",
+    };
+}
 
 export default Business;
