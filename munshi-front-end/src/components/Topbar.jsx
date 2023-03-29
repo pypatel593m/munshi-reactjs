@@ -28,7 +28,6 @@ const Topbar = () => {
     navigate("/login");
     window.location.reload();
   }
-
   return (
     <Box display="flex" sx={{ ...(theme.palette.mode === 'dark' ? { backgroundColor: colors.primary[600]} : { backgroundColor: colors.primary[900]}) }}
        height={ CheckLogin() ? 50 : 70} justifyContent="space-between" p={2}>
