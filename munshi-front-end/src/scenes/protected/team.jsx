@@ -1,29 +1,31 @@
 import { Box, Typography, useTheme, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import {useState} from "react";
+import {useState, useEffect, useCallback} from "react";
 import { mockDataTeam } from "../../data/mockData";
 import Axios from "axios";
 import Header from "../../components/Header";
 import { GetBusiness } from "../../util";
 let business = GetBusiness();
 
-function ProfileClick(e, user_id)
-{
-    Axios.post("http://localhost:3001/userprofile", {
+// function ProfileClick(e, user_id)
+// {
+//     console.log(user_id, "Getting this from clicking profile button");
+//     // Axios.post("http://localhost:3001/userprofile", {
       
-    }).then((response) => {
-      if(response.data.message)
-      {
+//     // }).then((response) => {
+//     //   if(response.data.message)
+//     //   {
         
        
-      }
-      else
-      {
+//     //   }
+//     //   else
+//     //   {
         
-      }
-    });
-}
+//     //   }
+//     // });
+// }
+
 
 const Team = () => {
   const theme = useTheme();
@@ -32,13 +34,19 @@ const Team = () => {
   const [status, setStatus] = useState("");
   const getRowId = row => row.user_id;
   
-  Axios.post("http://localhost:3001/team", {
-      business_id : business.m_business_id,
-    }).then((response) => {
-        console.log(response.data);
-        setRows(response.data);
+  const ProfileClick = useCallback((event, cellValues) => {
+    console.log(cellValues.row.user_id, "Getting this from clicking profile button");
+  }, []);
+
+  useEffect(() => {
+    Axios.post("http://localhost:3001/team", {
+      business_id: business.m_business_id,
     })
-    .catch(error => console.error(error));
+      .then((response) => {
+        setRows(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []); 
 
   const columns = [
     { field: "user_id", headerName: "User ID" },
@@ -74,12 +82,14 @@ const Team = () => {
     },
     {
         field: "Profile",
-        renderCell: ({rows : user_id}) => {
+        renderCell: (cellValues) => {
           return (
             <Button
               variant="contained"
               color="primary"
-              onClick={ProfileClick(user_id)}
+              onClick={(event) => {
+                ProfileClick(event, cellValues);
+              }}
             >
             Profile
       </Button>
