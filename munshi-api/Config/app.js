@@ -157,11 +157,16 @@ app.post("/getbusiness", (req, res) => {
     }
   });
 });
-app.get("/", async (req, res) => {
-  res.send("Hello!");
-});
-app.use(function (req, res, next) {
-  next((0, http_errors_1.default)(404));
+app.post("/team", (req, res) => {
+  let business_id = req.body.business_id;
+  const businessCheck = `SELECT * FROM get_team_data(${business_id});`;
+  exports.db.query(businessCheck, (err, result) => {
+    if (result) {
+      res.send(result.rows);
+    } else {
+      res.send({ message: "Something went wrong!" + err.message });
+    }
+  });
 });
 exports.default = app;
 //# sourceMappingURL=app.js.map
