@@ -186,27 +186,13 @@ const checkoutSchema = yup.object().shape({
     .required("required")
 });
 
-let initialValues;
-if(CheckLogin())
-{
-  initialValues = {
-  
-  business_id: business.m_business_id,
-  business_name: business.m_business_name,
-  business_address: business.m_business_address,
-  business_phone: business.m_business_phone,
-    };
-}
-else
-{
-  initialValues = {
-  
-    business_id: "",
-    business_name: "",
-    business_address: "",
-    business_phone: "",
-    user_address: "",
-    };
-}
+const initialValues = {
+  business_id: "",
+  business_name: "",
+  business_address: "",
+  business_phone: "",
+  user_address: "",
+};
+
 
 export default Business;

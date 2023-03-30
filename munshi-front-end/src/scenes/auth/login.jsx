@@ -41,13 +41,14 @@ const Login = () => {
       else
       {
         let loggedUser = new User(response.data[0].user_id, response.data[0].user_email_address, response.data[0].user_password, response.data[0].user_fname, response.data[0].user_lname, response.data[0].user_phone, response.data[0].user_address, response.data[0].user_type_id, values.user_business_id);
-       
+        
         SaveUser(loggedUser);
         Axios.post("http://localhost:3001/getbusiness", {
           business_id: values.user_business_id,
         }).then((response) => {
           console.log(response.data[0].business_id, response.data[0].business_name, response.data[0].business_address, response.data[0].business_phone, "Getting this from database.");
           loggedBusiness = new Business(response.data[0].business_id, response.data[0].business_name, response.data[0].business_address, response.data[0].business_phone);
+          
           SaveBusiness(loggedBusiness);
         });
         

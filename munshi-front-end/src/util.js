@@ -21,6 +21,7 @@ function SaveUser(user)
 function SaveBusiness(business)
 {
     //window.sessionStorage.setItem("business", `${business.m_business_id},${business.m_business_email_address},${business.m_business_password},${business.m_business_fname},${business.m_business_lname},${business.m_business_phone},${business.m_business_address},${business.m_business_type_id},${business.m_business_business_id}`);
+    
     window.sessionStorage.setItem("business", JSON.stringify(business));
 }
 

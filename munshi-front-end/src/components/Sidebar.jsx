@@ -135,13 +135,13 @@ const Sidebar = () => {
             >
               Data
             </Typography>
-            <Item
+            { IsEmployer() === "employer" ? (<Item
               title="Manage Team"
               to="/team"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            />) : null }
             { IsEmployer() === "employer" ? (
               <Item
               title="Availability"
