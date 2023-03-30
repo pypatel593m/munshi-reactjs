@@ -16,6 +16,7 @@ import Welcome from "./scenes/global/welcome";
 import About from "./scenes/global/about";
 import Contact from "./scenes/global/contact";
 import Business from "./scenes/global/business";
+import UpdateBusiness from "./scenes/protected/updatebusiness";
 import ProtectedRoute from "./components/PrivateRoute";
 // import  Team  from "./scenes/team";
 // import  Invoices  from "./scenes/invoices";
@@ -61,6 +62,10 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/business" element={<Business />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/updatebusiness" element={<UpdateBusiness />} />
+                </Route>
+                
                 {/* { <Route path="/team" element={<Team />} /> */}
                 {/* <Route path="/contacts" element={<Contacts />} /> */}
                 {/* <Route path="/invoices" element={<Invoices />} /> */}

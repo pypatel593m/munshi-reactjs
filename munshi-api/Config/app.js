@@ -83,24 +83,39 @@ app.post("/register", (req, res) => {
   });
 });
 app.post("/business", (req, res) => {
-    let business_id = req.body.business_id;
-    let business_name = req.body.business_name;
-    let business_address = req.body.business_address;
-    let business_phone = req.body.business_phone;
-    const insertSql = `INSERT INTO businesses VALUES (${business_id}, '${business_name}', '${business_address}', '${business_phone}');`;
+  let business_id = req.body.business_id;
+  let business_name = req.body.business_name;
+  let business_address = req.body.business_address;
+  let business_phone = req.body.business_phone;
+  const insertSql = `INSERT INTO businesses VALUES (${business_id}, '${business_name}', '${business_address}', '${business_phone}');`;
 
-    exports.db.query(insertSql, (err, result) => {
-      if (result) {
-        res.send({message: "Business registered successfully!"});
-      }
-      else {
-        res.send({
-          message:
-            "Invalid data or business id already taken!",
-        });
-      }
-    });
+  exports.db.query(insertSql, (err, result) => {
+    if (result) {
+      res.send({ message: "Business registered successfully!" });
+    } else {
+      res.send({
+        message: "Invalid data or business id already taken!",
+      });
+    }
   });
+});
+app.post("/updatebusiness", (req, res) => {
+  let business_id = req.body.business_id;
+  let business_name = req.body.business_name;
+  let business_address = req.body.business_address;
+  let business_phone = req.body.business_phone;
+  const insertSql = `UPDATE businesses SET business_name = '${business_name}', business_address = '${business_address}', business_phone = '${business_phone}' WHERE business_id = ${business_id};`;
+
+  exports.db.query(insertSql, (err, result) => {
+    if (result) {
+      res.send({ message: "Business info updated successfully!" });
+    } else {
+      res.send({
+        message: "Invalid data or business id!",
+      });
+    }
+  });
+});
 app.post("/profile", (req, res) => {
   user.ID = req.body.user_id;
   user.EmailAddress = req.body.user_email_address;

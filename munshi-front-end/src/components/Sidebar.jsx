@@ -221,7 +221,7 @@ const Sidebar = () => {
             />
             <Item
               title="Business Form"
-              to="/business"
+              to="/updatebusiness"
               icon={<StoreOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
