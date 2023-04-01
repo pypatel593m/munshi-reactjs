@@ -168,5 +168,16 @@ app.post("/team", (req, res) => {
     }
   });
 });
+app.post("/userprofile", (req, res) => {
+  let user_id = req.body.user_id;
+  const userCheck = `SELECT * FROM users WHERE user_id = ${user_id};`;
+  exports.db.query(userCheck, (err, result) => {
+    if (result) {
+      res.send(result.rows);
+    } else {
+      res.send({ message: "Something went wrong!" + err.message });
+    }
+  });
+});
 exports.default = app;
 //# sourceMappingURL=app.js.map

@@ -9,7 +9,6 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { Business } from "../../models/businesses";
 import {tokens} from "../../theme";
-import { color } from "@mui/system";
 
 const Login = () => {
   
@@ -52,7 +51,7 @@ const Login = () => {
           SaveBusiness(loggedBusiness);
         });
         
-
+        
         navigate('/dashboard');
         window.location.reload();
       }

@@ -19,6 +19,7 @@ import Business from "./scenes/global/business";
 import UpdateBusiness from "./scenes/protected/updatebusiness";
 import ProtectedRoute from "./components/PrivateRoute";
 import Team from "./scenes/protected/team";
+import UserProfile from "./scenes/protected/userprofile";
 // import  Team  from "./scenes/team";
 // import  Invoices  from "./scenes/invoices";
 // import  Contacts  from "./scenes/Contacts";
@@ -32,11 +33,16 @@ import Team from "./scenes/protected/team";
 
 function App() {
   const [theme, colorMode] = useMode();
-  const ConditionalWrapper = ({ condition, wrapper, children }) =>
-    condition ? wrapper(children) : children;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [value, setValue] = useState({});
+
+  useEffect(() => {
+    setIsLoggedIn(CheckLogin());
+    setValue({});
+  }, []);
 
   function toggleSidebar() {
-    if (CheckLogin()) {
+    if (isLoggedIn) {
       return <Sidebar />;
     }
   }
@@ -68,6 +74,9 @@ function App() {
                 </Route>
                 <Route element={<ProtectedRoute />}>
                   <Route path="/team" element={<Team />} />
+                </Route>
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/userprofile/:id" element={<UserProfile />} />
                 </Route>
               </Routes>
           </main>

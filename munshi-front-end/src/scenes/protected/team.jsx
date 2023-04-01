@@ -1,6 +1,7 @@
 import { Box, Typography, useTheme, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
+import { useNavigate } from "react-router-dom";
 import {useState, useEffect, useCallback} from "react";
 import { mockDataTeam } from "../../data/mockData";
 import Axios from "axios";
@@ -8,34 +9,16 @@ import Header from "../../components/Header";
 import { GetBusiness } from "../../util";
 let business = GetBusiness();
 
-// function ProfileClick(e, user_id)
-// {
-//     console.log(user_id, "Getting this from clicking profile button");
-//     // Axios.post("http://localhost:3001/userprofile", {
-      
-//     // }).then((response) => {
-//     //   if(response.data.message)
-//     //   {
-        
-       
-//     //   }
-//     //   else
-//     //   {
-        
-//     //   }
-//     // });
-// }
-
-
 const Team = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const [rows, setRows] = useState([]);
   const colors = tokens(theme.palette.mode);
   const [status, setStatus] = useState("");
   const getRowId = row => row.user_id;
   
   const ProfileClick = useCallback((event, cellValues) => {
-    console.log(cellValues.row.user_id, "Getting this from clicking profile button");
+    navigate(`/userprofile/${cellValues.row.user_id}`);
   }, []);
 
   useEffect(() => {
@@ -135,7 +118,7 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={rows} getRowId={getRowId} columns={columns} />
+        <DataGrid rows={rows} getRowId={getRowId} columns={columns} checkboxSelection={false} />
       </Box>
     </Box>
   );
