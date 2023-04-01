@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme, Button } from "@mui/material";
+import { Box, Link, useTheme, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { useNavigate } from "react-router-dom";
@@ -69,7 +69,7 @@ const Team = () => {
           return (
             <Button
               variant="contained"
-              color="primary"
+              color="secondary"
               onClick={(event) => {
                 ProfileClick(event, cellValues);
               }}
@@ -86,7 +86,7 @@ const Team = () => {
       <Header title="TEAM" subtitle="Managing the Team Members" />
       
       <Box display="flex" justifyContent={"center"}>
-        <h1>{status}</h1>
+        <h1>Don't have your team yet, <Link href="./manageteam" color={colors.blueAccent[300]}>Create it here!</Link></h1>
 
         </Box>
       <Box

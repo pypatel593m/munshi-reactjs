@@ -20,6 +20,7 @@ import UpdateBusiness from "./scenes/protected/updatebusiness";
 import ProtectedRoute from "./components/PrivateRoute";
 import Team from "./scenes/protected/team";
 import UserProfile from "./scenes/protected/userprofile";
+import ManageTeam from "./scenes/protected/manageteam";
 // import  Team  from "./scenes/team";
 // import  Invoices  from "./scenes/invoices";
 // import  Contacts  from "./scenes/Contacts";
@@ -78,6 +79,9 @@ function App() {
                 <Route element={<ProtectedRoute />}>
                   <Route path="/userprofile/:id" element={<UserProfile />} />
                 </Route>
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/manageteam" element={<ManageTeam />} />
+                </Route>CreateTeam
               </Routes>
           </main>
         </div>

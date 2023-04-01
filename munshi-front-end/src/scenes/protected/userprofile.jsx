@@ -1,6 +1,6 @@
 import Header  from "../../components/Header";
 import {CheckLogin, GetUser} from "../../util";
-import {useNavigate, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import {Box, Button, TextField, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, useTheme} from "@mui/material"; 
 import React, { useState, useEffect }  from 'react';
 import Axios from "axios";
@@ -34,11 +34,7 @@ const UserProfile = () => {
   
 
   return <Box m="20px">
-  <Box display="flex" justifyContent={"center"}>
-  <h1>{registerStatus}</h1>
-
-  </Box>
-  <Box  display="flex" justifyContent={"center"}>
+  <Box  display="flex" marginTop={10} justifyContent={"center"}>
           
           <div>
             <div className="form-box login">

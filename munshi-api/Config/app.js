@@ -168,6 +168,17 @@ app.post("/team", (req, res) => {
     }
   });
 });
+app.post("/getteams", (req, res) => {
+  let business_id = req.body.business_id;
+  const businessCheck = `SELECT * FROM teams WHERE business_id = ${business_id};`;
+  exports.db.query(businessCheck, (err, result) => {
+    if (result) {
+      res.send(result.rows);
+    } else {
+      res.send({ message: "Something went wrong!" + err.message });
+    }
+  });
+});
 app.post("/userprofile", (req, res) => {
   let user_id = req.body.user_id;
   const userCheck = `SELECT * FROM users WHERE user_id = ${user_id};`;
@@ -179,5 +190,20 @@ app.post("/userprofile", (req, res) => {
     }
   });
 });
+
+
+app.post("/newteam", (req, res) => {
+  let team_id = req.body.team_id;
+  let business_id = req.body.business_id;
+  const insertTeam = `INSERT INTO teams (team_id, business_id)
+  VALUES (${team_id}, ${business_id});;`;
+  exports.db.query(insertTeam, (err, result) => {
+    if (result) {
+      res.send({ message: "Team added!"});
+    } else {
+      res.send({ message: "Team id already taken!" + err.message });
+    }
+  });
+});
+
 exports.default = app;
-//# sourceMappingURL=app.js.map
