@@ -4,7 +4,9 @@ import { tokens } from "../../theme";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback, useParams } from "react";
 import { mockDataTeam } from "../../data/mockData";
+import { Formik } from "formik";
 import Axios from "axios";
+import * as yup from "yup";
 import Header from "../../components/Header";
 import { GetBusiness } from "../../util";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -104,64 +106,94 @@ const ViewTeam = () => {
           "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
         }}
       >
-        <Box display="grid"
-        gridTemplateColumns="repeat(1, minmax(0, 1fr))"
-        sx={{ gridColumn: "span 2" }}
-      >
-        <Box m="90px 0 0 0" paddingBottom={-60} sx={{ gridColumn: "span 1" }}>
-          <h1>Add Employee to team {team_id}.</h1>
-        </Box>
-        <Box marginLeft={5} sx={{ gridColumn: "span 1" }} >
-          <form>
-              <Box
-                display="grid"
-                justifyContent={"center"}
-                width={200}
-                gap="10px"
-                gridTemplateColumns="repeat(1, minmax(0, 1fr))"
-                sx={{
-                  "& > div": { gridColumn: isNonMobile ? undefined : "span 1" },
-                }}
-              >
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  onChange={(e) => setEmailID(e.target.value)}
-                  label="Employee's Email"
-                  name="user_email_address"
-                  sx={{ gridColumn: "span 2" }}
-                />
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="number"
-                  onChange={(e) => setPositionID(e.target.value)}
-                  label="Select Position"
-                  name="position_id"
-                  sx={{ gridColumn: "span 2" }}
-                />
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="decimal"
-                  onChange={(e) => setWage(e.target.value)}
-                  label="Wage / hr"
-                  name="wage"
-                  sx={{ gridColumn: "span 2" }}
-                />
-                <Box marginLeft={8} sx={{ gridColumn: "span 2" }}>
-                  <Button
-                    type="submit"
-                    onClick={AddUser}
-                    color="secondary"
-                    variant="contained"
+        <Box
+          display="grid"
+          gridTemplateColumns="repeat(1, minmax(0, 1fr))"
+          sx={{ gridColumn: "span 2" }}
+        >
+          <Box m="90px 0 0 0" paddingBottom={-60} sx={{ gridColumn: "span 1" }}>
+            <h1>Add Employee to team {team_id}.</h1>
+          </Box>
+          <Box marginLeft={5} sx={{ gridColumn: "span 1" }}>
+            <Formik
+              onSubmit={AddUser}
+              initialValues={initialValues}
+              validationSchema={checkoutSchema}
+            >
+              {({
+                values,
+                errors,
+                touched,
+                handleBlur,
+                handleChange,
+                handleSubmit,
+              }) => (
+                <form>
+                  <Box
+                    display="grid"
+                    justifyContent={"center"}
+                    width={200}
+                    gap="10px"
+                    gridTemplateColumns="repeat(1, minmax(0, 1fr))"
+                    sx={{
+                      "& > div": {
+                        gridColumn: isNonMobile ? undefined : "span 1",
+                      },
+                    }}
                   >
-                    Add
-                  </Button>
-                </Box>
-              </Box>
-            </form>
+                    <TextField
+                      fullWidth
+                      variant="filled"
+                      type="email"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.user_email_address}
+                      label="Employee's Email"
+                      name="user_email_address"
+                      sx={{ gridColumn: "span 2" }}
+                      error={!!touched.user_email_address && !!errors.user_email_address}
+                      helperText={touched.user_email_address && errors.user_email_address}
+                    />
+                    <TextField
+                      fullWidth
+                      variant="filled"
+                      type="number"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.position_id}
+                      label="Select Position"
+                      name="position_id"
+                      sx={{ gridColumn: "span 2" }}
+                      error={!!touched.position_id && !!errors.position_id}
+                      helperText={touched.position_id && errors.position_id}
+                    />
+                    <TextField
+                      fullWidth
+                      variant="filled"
+                      type="text"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.wage}
+                      label="Wage / hr"
+                      name="wage"
+                      sx={{ gridColumn: "span 2" }}
+                      error={!!touched.wage && !!errors.wage}
+                      helperText={touched.wage && errors.wage}
+                    />
+                    <Box marginLeft={8} sx={{ gridColumn: "span 2" }}>
+                      <Button
+                        type="submit"
+                        onClick={AddUser}
+                        color="secondary"
+                        variant="contained"
+                      >
+                        Add
+                      </Button>
+                    </Box>
+                  </Box>
+                </form>
+              )}
+            </Formik>
           </Box>
         </Box>
 
@@ -176,41 +208,74 @@ const ViewTeam = () => {
           </Box>
           <Box sx={{ gridColumn: "span 3" }}>
             <Box
-            m="40px 0 0 0"
-            height="75vh"
-            sx={{
-              "& .MuiDataGrid-root": {
-                border: "none",
-              },
-              "& .MuiDataGrid-cell": {
-                borderBottom: "none",
-              },
-              "& .name-column--cell": {
-                color: colors.greenAccent[300],
-              },
-              "& .MuiDataGrid-columnHeaders": {
-                backgroundColor: colors.blueAccent[700],
-                borderBottom: "none",
-              },
-              "& .MuiDataGrid-virtualScroller": {
-                backgroundColor: colors.primary[400],
-              },
-              "& .MuiDataGrid-footerContainer": {
-                borderTop: "none",
-                backgroundColor: colors.blueAccent[700],
-              },
-              "& .MuiCheckbox-root": {
-                color: `${colors.greenAccent[200]} !important`,
-              },
-            }}
-          >
-            <DataGrid rows={rows} getRowId={getRowId} columns={columns} checkboxSelection={false} />
-          </Box>
+              m="40px 0 0 0"
+              height="75vh"
+              sx={{
+                "& .MuiDataGrid-root": {
+                  border: "none",
+                },
+                "& .MuiDataGrid-cell": {
+                  borderBottom: "none",
+                },
+                "& .name-column--cell": {
+                  color: colors.greenAccent[300],
+                },
+                "& .MuiDataGrid-columnHeaders": {
+                  backgroundColor: colors.blueAccent[700],
+                  borderBottom: "none",
+                },
+                "& .MuiDataGrid-virtualScroller": {
+                  backgroundColor: colors.primary[400],
+                },
+                "& .MuiDataGrid-footerContainer": {
+                  borderTop: "none",
+                  backgroundColor: colors.blueAccent[700],
+                },
+                "& .MuiCheckbox-root": {
+                  color: `${colors.greenAccent[200]} !important`,
+                },
+              }}
+            >
+              <DataGrid
+                rows={rows}
+                getRowId={getRowId}
+                columns={columns}
+                checkboxSelection={false}
+              />
+            </Box>
           </Box>
         </Box>
       </Box>
     </Box>
   );
+};
+
+const wageRegExp = /^[a-zA-Z0-9 ]+$/;
+
+const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+
+const RegExp = /^[0-9]{1,19}(\.[0-9]{1,2})?$/;
+
+
+const checkoutSchema = yup.object().shape({
+  user_email_address: yup
+    .string()
+    .matches(emailRegex, "Invalid email.")
+    .required("required"),
+  position_id: yup
+    .string()
+    .matches(RegExp, "Only alphabets allowed.")
+    .required("required"),
+  wage: yup
+    .string()
+    .matches(wageRegExp, "Invalid wage.")
+    .required("required")
+});
+
+const initialValues = {
+  user_email_address: "",
+  position_id: "",
+  wage: "",
 };
 
 export default ViewTeam;
