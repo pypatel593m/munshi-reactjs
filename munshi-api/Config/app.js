@@ -162,6 +162,19 @@ app.post("/team", (req, res) => {
   const businessCheck = `SELECT * FROM get_team_data(${business_id});`;
   exports.db.query(businessCheck, (err, result) => {
     if (result) {
+      console.log(res.rows);
+      res.send(result.rows);
+    } else {
+      res.send({ message: "Something went wrong!" + err.message });
+    }
+  });
+});
+app.post("/teammembers", (req, res) => {
+  let team_id = req.body.team_id;
+  let business_id = req.body.business_id;
+  const businessCheck = `SELECT * FROM get_team_members(${team_id},${business_id});`;
+  exports.db.query(businessCheck, (err, result) => {
+    if (result) {
       res.send(result.rows);
     } else {
       res.send({ message: "Something went wrong!" + err.message });
@@ -202,6 +215,20 @@ app.post("/newteam", (req, res) => {
       res.send({ message: "Team added!"});
     } else {
       res.send({ message: "Team id already taken!" + err.message });
+    }
+  });
+});
+
+app.post("/newposition", (req, res) => {
+  let user_position = req.body.user_position;
+  let business_id = req.body.business_id;
+  const insertTeam = `INSERT INTO positions (user_position, business_id)
+  VALUES ('${user_position}', ${business_id});`;
+  exports.db.query(insertTeam, (err, result) => {
+    if (result) {
+      res.send({ message: "Position added!"});
+    } else {
+      res.send({ message: "Invalid length of position!"});
     }
   });
 });

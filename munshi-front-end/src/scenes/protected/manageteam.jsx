@@ -19,14 +19,26 @@ const ManageTeam = () => {
   const getRowId = (row) => row.team_id;
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [team_id, setTeamID] = useState("");
+  const [user_position, setPosition] = useState("");
   const ProfileClick = useCallback((event, cellValues) => {
-    navigate(`/userprofile/${cellValues.row.user_id}`);
+    navigate(`/viewteam/${cellValues.row.team_id}`);
   }, []);
 
   function createNewTeam() {
     //e.preventDefault();
     Axios.post("http://localhost:3001/newteam", {
       team_id: team_id,
+      business_id: business.m_business_id,
+    })
+      .then((response) => {
+        setStatus(response.data.message);
+      })
+      .catch((error) => console.error(error));
+  }
+  function createNewPosition() {
+    //e.preventDefault();
+    Axios.post("http://localhost:3001/newposition", {
+      user_position: user_position,
       business_id: business.m_business_id,
     })
       .then((response) => {
@@ -103,7 +115,7 @@ const ManageTeam = () => {
             </Box>
             <Box
               display="flex"
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 3" }}
               className="home-info"
             >
                   <div>
@@ -125,6 +137,48 @@ const ManageTeam = () => {
                             <Button
                               type="submit"
                               onClick={createNewTeam}
+                              color="secondary"
+                              variant="contained"
+                            >
+                              Add
+                            </Button>
+                          </Box>
+                        </Box>
+                      </form>
+                    </div>
+                  </div>
+            </Box>
+            <Box
+              display="flex"
+              sx={{ gridColumn: "span 1" }}
+              className="home-info"
+            >
+              <h3 className="hello">Positions.</h3>
+            </Box>
+            <Box
+              display="flex"
+              sx={{ gridColumn: "span 2" }}
+              className="home-info"
+            >
+                  <div>
+                    <div className="form-box login">
+                      <h2>Want to add new roles for your business?</h2>
+                      <form>
+                        <Box display="flex">
+                          <Box width={220}>
+                            <TextField
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              onChange={(e) => (setPosition(e.target.value))}
+                              label="Position (e.g. shift manager)"
+                              name="user_position"
+                            />
+                          </Box>
+                          <Box marginLeft={5} marginTop={1}>
+                            <Button
+                              type="submit"
+                              onClick={createNewPosition}
                               color="secondary"
                               variant="contained"
                             >
@@ -190,7 +244,6 @@ const ManageTeam = () => {
                 <DataGrid
                   rows={rows}
                   columns={columns}
-                  getRowId={getRowId}
                   autoHeight
                   disableColumnMenu
                   hideFooterSelectedRowCount

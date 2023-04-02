@@ -16,6 +16,7 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";  
+import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 import {useNavigate} from 'react-router-dom';
 import { Logout, CheckLogin, IsEmployer } from "../util";
 
