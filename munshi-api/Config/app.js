@@ -298,4 +298,21 @@ app.post("/deleteposition", (req, res) => {
   });
 });
 
+// Method to add user into perticular team
+//Method to add new position for specific business
+app.post("/adduser", (req, res) => {
+  let user_email_address = req.body.user_email_address;
+  let team_id = req.body.team_id;
+  let position_id = req.body.position_id;
+  let wage = req.body.wage;
+  const insertTeam = `SELECT add_user_to_team('${user_email_address}', ${team_id}, ${position_id}, ${wage});`;
+  exports.db.query(insertTeam, (err, result) => {
+    if (result) {
+      res.send({ message: `User added to the team  ${team_id}!`});
+    } else {
+      res.send({ message: "Some required data does not match!"});
+    }
+  });
+});
+
 exports.default = app;

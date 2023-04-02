@@ -63,3 +63,15 @@ INNER JOIN positions ON positions.position_id = team_members.position_id
 INNER JOIN businesses ON businesses.business_id = teams.business_id
 WHERE businesses.business_id = businessid AND teams.business_id = businessid AND team_members.team_id = teamid;
 END;
+
+CREATE OR REPLACE FUNCTION add_user_to_team(useremail varchar, teamid integer, positionid integer, wage decimal)
+RETURNS void AS
+$$
+DECLARE
+    userid INTEGER;
+BEGIN
+    SELECT user_id INTO userid FROM users WHERE user_email_address = useremail;
+    INSERT INTO team_members (user_id, team_id, position_id, wage) VALUES (userid, teamid, positionid, wage);
+END;
+$$
+LANGUAGE plpgsql;
