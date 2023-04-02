@@ -3,7 +3,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback, useParams } from "react";
-import { mockDataTeam } from "../../data/mockData";
 import { Formik } from "formik";
 import Axios from "axios";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';

@@ -2,7 +2,6 @@ import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Routes, Route, Router } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import PrivateRoute from "./components/PrivateRoute";
 
 import { CheckLogin } from "../src/util";
 
@@ -22,6 +21,7 @@ import Team from "./scenes/protected/team";
 import UserProfile from "./scenes/protected/userprofile";
 import ManageTeam from "./scenes/protected/manageteam";
 import ViewTeam from "./scenes/protected/viewteam";
+import EmployerAvailability from "./scenes/protected/employeravailability";
 // import  Team  from "./scenes/team";
 // import  Invoices  from "./scenes/invoices";
 // import  Contacts  from "./scenes/Contacts";
@@ -87,6 +87,9 @@ function App() {
                   <Route path="/viewteam/:id" element={<ViewTeam />} />
                 </Route>
                 
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/employeravailability" element={<EmployerAvailability />} />
+                </Route>
               </Routes>
           </main>
         </div>

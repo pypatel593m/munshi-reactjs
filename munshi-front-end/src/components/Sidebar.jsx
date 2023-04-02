@@ -146,7 +146,7 @@ const Sidebar = () => {
             { IsEmployer() === "employer" ? (
               <Item
               title="Availability"
-              to="/employerAvailability"
+              to="/employeravailability"
               icon={<EventAvailableOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -154,7 +154,7 @@ const Sidebar = () => {
             ) : (
               <Item
               title="Availability"
-              to="/employeeeAvailability"
+              to="/employeeeavailability"
               icon={<EventAvailableOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -164,7 +164,7 @@ const Sidebar = () => {
             { IsEmployer() === "employer" ? (
               <Item
               title="Schedule"
-              to="/employerSchedule"
+              to="/employerschedule"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -172,7 +172,7 @@ const Sidebar = () => {
             ) : (
               <Item
               title="Schedule"
-              to="/employeeeSchedule"
+              to="/employeeeschedule"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -181,7 +181,7 @@ const Sidebar = () => {
             { IsEmployer() === "employer" ? (
               <Item
               title="Timeline"
-              to="/employerTimeline"
+              to="/employertimeline"
               icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -189,7 +189,7 @@ const Sidebar = () => {
             ) : (
               <Item
               title="Timeline"
-              to="/employeeeTimeline"
+              to="/employeeetimeline"
               icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -198,7 +198,7 @@ const Sidebar = () => {
             { IsEmployer() === "employer" ? (
               <Item
               title="Breaks"
-              to="/employerBreaks"
+              to="/breaks"
               icon={<FreeBreakfastOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
