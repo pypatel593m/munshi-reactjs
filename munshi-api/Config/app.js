@@ -178,7 +178,6 @@ app.post("/team", (req, res) => {
   const businessCheck = `SELECT * FROM get_team_data(${business_id});`;
   exports.db.query(businessCheck, (err, result) => {
     if (result) {
-      console.log(res.rows);
       res.send(result.rows);
     } else {
       res.send({ message: "Something went wrong!" + err.message });
