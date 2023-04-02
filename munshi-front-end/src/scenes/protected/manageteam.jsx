@@ -1,4 +1,4 @@
-import { Box, TextField, Link, useTheme, Button } from "@mui/material";
+import { Box, TextField, Link, useTheme, Button, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { useNavigate } from "react-router-dom";
@@ -8,15 +8,19 @@ import Axios from "axios";
 import Header from "../../components/Header";
 import { GetBusiness } from "../../util";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 let business = GetBusiness();
 
 const ManageTeam = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [rows, setRows] = useState([]);
+  const [position_rows, setPositionRows] = useState([]);
   const colors = tokens(theme.palette.mode);
   const [status, setStatus] = useState("");
   const getRowId = (row) => row.team_id;
+  const getPositionRowId = (row) => row.position_id;
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [team_id, setTeamID] = useState("");
   const [user_position, setPosition] = useState("");
@@ -47,12 +51,45 @@ const ManageTeam = () => {
       .catch((error) => console.error(error));
   }
 
+  const DeleteTeam = useCallback((event, cellValues) => {
+    //e.preventDefault();
+    Axios.post("http://localhost:3001/deleteteam", {
+      team_id: cellValues.row.team_id,
+    })
+      .then((response) => {
+        setStatus(response.data.message);
+        window.location.reload();
+      })
+      .catch((error) => console.error(error));
+    }, []);
+  const DeletePosition = useCallback((event, cellValues) => {
+    //e.preventDefault();
+    Axios.post("http://localhost:3001/deleteposition", {
+      position_id: cellValues.row.position_id,
+    })
+      .then((response) => {
+        setStatus(response.data.message);
+        window.location.reload();
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   useEffect(() => {
     Axios.post("http://localhost:3001/getteams", {
       business_id: business.m_business_id,
     })
       .then((response) => {
         setRows(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []); 
+
+  useEffect(() => {
+    Axios.post("http://localhost:3001/getpositions", {
+      business_id: business.m_business_id,
+    })
+      .then((response) => {
+        setPositionRows(response.data);
       })
       .catch((error) => console.error(error));
   }, []); 
@@ -68,15 +105,62 @@ const ManageTeam = () => {
       field: "View",
       renderCell: (cellValues) => {
         return (
-          <Button
+          <IconButton
             variant="contained"
-            color="primary"
+            color="secondary"
             onClick={(event) => {
               ProfileClick(event, cellValues);
             }}
           >
-            View
-          </Button>
+            <VisibilityOutlinedIcon />
+          </IconButton>
+        );
+      },
+    },
+    {
+      field: "Delete",
+      renderCell: (cellValues) => {
+        return (
+          <IconButton
+            variant="contained"
+            color="secondary"
+            onClick={(event) => {
+              DeleteTeam(event, cellValues);
+            }}
+          >
+            <DeleteForeverOutlinedIcon />
+          </IconButton>
+        );
+      },
+    },
+  ];
+
+  const positionColumns = [
+    {
+      field: "position_id",
+      headerName: "Position ID",
+      flex: 1,
+      cellClassName: "first-name-column--cell",
+    },
+    {
+      field: "user_position",
+      headerName: "Position",
+      flex: 1,
+      cellClassName: "first-name-column--cell",
+    },
+    {
+      field: "Delete",
+      renderCell: (cellValues) => {
+        return (
+          <IconButton
+            variant="contained"
+            color="secondary"
+            onClick={(event) => {
+              DeletePosition(event, cellValues);
+            }}
+          >
+            <DeleteForeverOutlinedIcon />
+          </IconButton>
         );
       },
     },
@@ -87,14 +171,14 @@ const ManageTeam = () => {
       <Box display="flex" justifyContent={"center"}>
         <Box display="grid" justifyContent={"center"}>
           <Box display={"flex"} justifyContent="center">
-            <Header title="Manage Team & Members!" subtitle="" />
+            <Header title="Manage Teams & Roles!" subtitle="" />
           </Box>
           <Box
             display="grid"
             gap="30px"
-            marginLeft={40}
+            marginLeft={10}
             justifyContent={"center"}
-            gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+            gridTemplateColumns="repeat(8, minmax(0, 1fr))"
             sx={{
               "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
             }} //sx={{ gridColumn: "span 2" }}
@@ -102,7 +186,7 @@ const ManageTeam = () => {
             <Box
               display="flex"
               justifyContent={"left"}
-              sx={{ gridColumn: "span 4" }}
+              sx={{ gridColumn: "span 8" }}
             >
                 <h1>{status}</h1>
             </Box>
@@ -111,7 +195,7 @@ const ManageTeam = () => {
               sx={{ gridColumn: "span 1" }}
               className="home-info"
             >
-              <h3 className="hello">Create a new team</h3>
+              <h1 >Create a new team</h1>
             </Box>
             <Box
               display="flex"
@@ -153,11 +237,11 @@ const ManageTeam = () => {
               sx={{ gridColumn: "span 1" }}
               className="home-info"
             >
-              <h3 className="hello">Positions.</h3>
+              <h1 >Positions.</h1>
             </Box>
             <Box
               display="flex"
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 3" }}
               className="home-info"
             >
                   <div>
@@ -193,7 +277,7 @@ const ManageTeam = () => {
             <Box
               display="flex"
               justifyContent={"left"}
-              sx={{ gridColumn: "span 4" }}
+              sx={{ gridColumn: "span 8" }}
             >
             </Box>
 
@@ -203,16 +287,17 @@ const ManageTeam = () => {
               marginTop={10}
               className="home-info"
             >
-              <h3 className="hello">View all team for current business</h3>
+              <h1 >View all team for current business</h1>
             </Box>
             <Box
               display="flex"
+              width={1200}
               justifyContent={"left"}
               sx={{ gridColumn: "span 2" }}
               marginTop={5}
             >
               <Box
-                width={250}
+                width={270}
                 m="40px 0 0 0"
                 height="20vh"
                 sx={{
@@ -253,6 +338,65 @@ const ManageTeam = () => {
                 />
               </Box>
             </Box>
+            <Box sx={{ gridColumn: "span 1" }} marginRight={0}></Box>
+
+            <Box
+              display="grid"
+              sx={{ gridColumn: "span 1" }}
+              marginTop={10}
+              className="home-info"
+            >
+              <h1 >View all roles of your business.</h1>
+            </Box>
+            <Box
+              display="flex"
+              justifyContent={"left"}
+              sx={{ gridColumn: "span 3" }}
+              marginTop={5}
+            >
+              <Box
+                width={350}
+                m="40px 0 0 0"
+                height="20vh"
+                sx={{
+                  "& .MuiDataGrid-root": {
+                    border: "none",
+                  },
+                  "& .MuiDataGrid-cell": {
+                    borderBottom: "none",
+                  },
+                  "& .name-column--cell": {
+                    color: colors.greenAccent[300],
+                  },
+                  "& .MuiDataGrid-columnHeaders": {
+                    backgroundColor: colors.blueAccent[700],
+                    borderBottom: "none",
+                  },
+                  "& .MuiDataGrid-virtualScroller": {
+                    backgroundColor: colors.primary[400],
+                  },
+                  "& .MuiDataGrid-footerContainer": {
+                    borderTop: "none",
+                    backgroundColor: colors.blueAccent[700],
+                  },
+                  "& .MuiCheckbox-root": {
+                    color: `${colors.greenAccent[200]} !important`,
+                  },
+                }}
+              >
+                <DataGrid
+                  rows={position_rows}
+                  columns={positionColumns}
+                  autoHeight
+                  disableColumnMenu
+                  hideFooterSelectedRowCount
+                  hideFooterRowCount
+                  pageSize={10}
+                  getRowId={getPositionRowId}
+                />
+              </Box>
+            </Box>
+
           </Box>
         </Box>
       </Box>

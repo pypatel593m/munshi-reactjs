@@ -233,4 +233,42 @@ app.post("/newposition", (req, res) => {
   });
 });
 
+app.post("/getpositions", (req, res) => {
+  let business_id = req.body.business_id;
+  const businessCheck = `SELECT * FROM positions WHERE business_id = ${business_id};`;
+  exports.db.query(businessCheck, (err, result) => {
+    if (result) {
+      res.send(result.rows);
+    } else {
+      res.send({ message: "Something went wrong!" + err.message });
+    }
+  });
+});
+
+app.post("/deleteteam", (req, res) => {
+
+  let team_id = req.body.team_id;
+  const deleteTeam = `DELETE FROM teams WHERE team_id = ${team_id};`;
+  exports.db.query(deleteTeam, (err, result) => {
+    if (result) {
+      res.send({ message: "Team removed!"});
+    } else {
+      res.send({ message: "Something went wrong!" + err.message });
+    }
+  });
+});
+
+app.post("/deleteposition", (req, res) => {
+
+  let position_id = req.body.position_id;
+  const deletePosition = `DELETE FROM positions WHERE position_id = ${position_id};`;
+  exports.db.query(deletePosition, (err, result) => {
+    if (result) {
+      res.send({ message: "Role removed!"});
+    } else {
+      res.send({ message: "Something went wrong!" + err.message });
+    }
+  });
+});
+
 exports.default = app;

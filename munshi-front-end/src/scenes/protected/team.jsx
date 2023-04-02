@@ -86,7 +86,7 @@ const Team = () => {
       <Header title="TEAM" subtitle="Managing the Team Members" />
       
       <Box display="flex" justifyContent={"center"}>
-        <h1>Don't have your team yet, <Link href="./manageteam" color={colors.blueAccent[300]}>Create it here!</Link></h1>
+        <h1>Want to manage your team & employee roles, <Link href="./manageteam" color={colors.blueAccent[300]}>Create it here!</Link></h1>
 
         </Box>
       <Box
