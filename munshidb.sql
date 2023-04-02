@@ -48,7 +48,7 @@ CREATE TABLE shifts
     notes VARCHAR(2000),
     schedule_id INTEGER REFERENCES schedules(schedule_id) NOT NULL,
     user_id INTEGER REFERENCES users(user_id) NOT NULL
-)
+);
 
 CREATE TABLE availabilities
 (
@@ -58,7 +58,7 @@ CREATE TABLE availabilities
     available_time_from time without time zone NOT NULL,
     available_time_till time without time zone NOT NULL,
     notes VARCHAR(2000)
-)
+);
 
 CREATE TABLE teams (
   team_id SERIAL PRIMARY KEY,
@@ -77,16 +77,16 @@ CREATE TABLE breaks
     break_id SERIAL PRIMARY KEY,
     break_length time without time zone NOT NULL,
     is_paid boolean
-)
+);
 
-CREATE TABLE public.breaks_list
+CREATE TABLE breaks_list
 (
     break_list_id SERIAL PRIMARY KEY,
     break_start_time varchar(250),
     break_end_time varchar(120),
     shift_id INTEGER REFERENCES shifts(shift_id),
     break_id INTEGER REFERENCES breaks(break_id)
-)
+);
 
 CREATE TABLE chats
 (
@@ -94,7 +94,7 @@ CREATE TABLE chats
     senders_id INTEGER REFERENCES users(user_id) NOT NULL,
     receivers_id INTEGER REFERENCES users(user_id) NOT NULL,
     message_body varchar(2000)
-)
+);
 
 
 CREATE OR REPLACE FUNCTION get_team_data(businessid integer)
@@ -116,7 +116,7 @@ INNER JOIN positions ON positions.position_id = team_members.position_id
 INNER JOIN businesses ON businesses.business_id = teams.business_id
 WHERE businesses.business_id = businessid AND teams.business_id = businessid AND positions.business_id = businessid;
 END;
-$$  LANGUAGE plpgsql
+$$  LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION get_team_members(teamid integer,businessid integer)
 RETURNS TABLE (user_id integer, user_fname varchar, user_lname varchar, user_position varchar, wage decimal) 
