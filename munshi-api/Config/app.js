@@ -22,6 +22,8 @@ app.use(express_1.default.urlencoded({ extended: true }));
 app.use(
   express_1.default.static(path_1.default.join(__dirname, "../../node_modules"))
 );
+
+// Connection to the database, change it when hosted on server
 exports.db = new pg_1.default.Client({
   host: "127.0.0.1",
   user: "patelp",
@@ -29,7 +31,9 @@ exports.db = new pg_1.default.Client({
   password: "password",
   database: "munshidb",
 });
-exports.db.connect();
+exports.db.connect(); // Connect to the database
+
+// Method for login
 app.post("/login", (req, res) => {
   user.EmailAddress = req.body.user_email_address;
   user.Password = req.body.user_password;
@@ -54,6 +58,8 @@ app.post("/login", (req, res) => {
     }
   });
 });
+
+// Method for adding new user
 app.post("/register", (req, res) => {
   user.EmailAddress = req.body.user_email_address;
   user.Password = req.body.user_password;
@@ -82,6 +88,8 @@ app.post("/register", (req, res) => {
     }
   });
 });
+
+// Method to add new business
 app.post("/business", (req, res) => {
   let business_id = req.body.business_id;
   let business_name = req.body.business_name;
@@ -99,6 +107,8 @@ app.post("/business", (req, res) => {
     }
   });
 });
+
+//Method to update business info
 app.post("/updatebusiness", (req, res) => {
   let business_id = req.body.business_id;
   let business_name = req.body.business_name;
@@ -116,6 +126,8 @@ app.post("/updatebusiness", (req, res) => {
     }
   });
 });
+
+// Method to update user profile
 app.post("/profile", (req, res) => {
   user.ID = req.body.user_id;
   user.EmailAddress = req.body.user_email_address;
@@ -146,6 +158,8 @@ app.post("/profile", (req, res) => {
     }
   });
 });
+
+// Method to get the business based on business_id
 app.post("/getbusiness", (req, res) => {
   let business_id = req.body.business_id;
   const businessCheck = `SELECT * FROM businesses WHERE business_id = ${business_id}`;
@@ -157,6 +171,8 @@ app.post("/getbusiness", (req, res) => {
     }
   });
 });
+
+// Method to get team data from different tables
 app.post("/team", (req, res) => {
   let business_id = req.body.business_id;
   const businessCheck = `SELECT * FROM get_team_data(${business_id});`;
@@ -169,6 +185,8 @@ app.post("/team", (req, res) => {
     }
   });
 });
+
+// Method to get team members for specific team
 app.post("/teammembers", (req, res) => {
   let team_id = req.body.team_id;
   let business_id = req.body.business_id;
@@ -181,6 +199,8 @@ app.post("/teammembers", (req, res) => {
     }
   });
 });
+
+// Method to get all teams from one business
 app.post("/getteams", (req, res) => {
   let business_id = req.body.business_id;
   const businessCheck = `SELECT * FROM teams WHERE business_id = ${business_id};`;
@@ -192,6 +212,8 @@ app.post("/getteams", (req, res) => {
     }
   });
 });
+
+// Method to get perticular user profile
 app.post("/userprofile", (req, res) => {
   let user_id = req.body.user_id;
   const userCheck = `SELECT * FROM users WHERE user_id = ${user_id};`;
@@ -204,7 +226,7 @@ app.post("/userprofile", (req, res) => {
   });
 });
 
-
+// Method to add new team to specific business
 app.post("/newteam", (req, res) => {
   let team_id = req.body.team_id;
   let business_id = req.body.business_id;
@@ -219,6 +241,7 @@ app.post("/newteam", (req, res) => {
   });
 });
 
+//Method to add new position for specific business
 app.post("/newposition", (req, res) => {
   let user_position = req.body.user_position;
   let business_id = req.body.business_id;
@@ -233,6 +256,8 @@ app.post("/newposition", (req, res) => {
   });
 });
 
+
+// Methos to get positions for specific business
 app.post("/getpositions", (req, res) => {
   let business_id = req.body.business_id;
   const businessCheck = `SELECT * FROM positions WHERE business_id = ${business_id};`;
@@ -245,6 +270,7 @@ app.post("/getpositions", (req, res) => {
   });
 });
 
+// Method to delete the team
 app.post("/deleteteam", (req, res) => {
 
   let team_id = req.body.team_id;
@@ -258,6 +284,7 @@ app.post("/deleteteam", (req, res) => {
   });
 });
 
+// Method to delete the position
 app.post("/deleteposition", (req, res) => {
 
   let position_id = req.body.position_id;
