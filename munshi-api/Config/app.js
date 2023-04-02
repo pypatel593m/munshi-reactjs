@@ -69,7 +69,7 @@ app.post("/register", (req, res) => {
   user.Address = req.body.user_address;
   user.TypeID = req.body.user_type_id;
   user.UserBusinessID = req.body.user_business_id;
-  const insertSql = `INSERT INTO users (user_email_address, user_password, user_fname, user_lname, user_phone, user_address, user_type_id) VALUES ('${user.EmailAddress}', '${user.Password}', '${user.FirstName}', '${user.LastName}', '${user.Phone}', '${user.Address}', '${user.TypeID}')`;
+  const insertSql = `INSERT INTO users (user_email_address, user_password, user_fname, user_lname, user_phone, user_address, user_type_id) VALUES ('${user.EmailAddress}', '${user.Password}', '${user.FirstName}', '${user.LastName}', '${user.Phone}', '${user.Address}', ${user.TypeID})`;
   const businessCheck = `SELECT * FROM businesses WHERE business_id = ${user.UserBusinessID}`;
   exports.db.query(businessCheck, (err, result) => {
     if (result.rowCount == 1) {
