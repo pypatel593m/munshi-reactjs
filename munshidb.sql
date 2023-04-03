@@ -37,7 +37,8 @@ CREATE TABLE schedules
     shift_end_time time without time zone NOT NULL,
     notes varchar(2000),
     user_id INTEGER REFERENCES users(user_id) NOT NULL,
-    position_id INTEGER REFERENCES positions(position_id) NOT NULL
+    position_id INTEGER REFERENCES positions(position_id) NOT NULL,
+    business_id INTEGER REFERENCES businesses(business_id) NOT NULL
 );
 
 CREATE TABLE shifts
@@ -47,7 +48,8 @@ CREATE TABLE shifts
     clock_out timestamp without time zone,
     notes VARCHAR(2000),
     schedule_id INTEGER REFERENCES schedules(schedule_id) NOT NULL,
-    user_id INTEGER REFERENCES users(user_id) NOT NULL
+    user_id INTEGER REFERENCES users(user_id) NOT NULL,
+    business_id INTEGER REFERENCES businesses(business_id) NOT NULL
 );
 
 CREATE TABLE availabilities
@@ -57,7 +59,8 @@ CREATE TABLE availabilities
     available_date date NOT NULL,
     available_time_from time without time zone NOT NULL,
     available_time_till time without time zone NOT NULL,
-    notes VARCHAR(2000)
+    notes VARCHAR(2000),
+    business_id INTEGER REFERENCES businesses(business_id) NOT NULL
 );
 
 CREATE TABLE teams (
@@ -76,7 +79,8 @@ CREATE TABLE breaks
 (
     break_id SERIAL PRIMARY KEY,
     break_length time without time zone NOT NULL,
-    is_paid boolean
+    is_paid boolean,
+    business_id INTEGER REFERENCES businesses(business_id) NOT NULL
 );
 
 CREATE TABLE breaks_list
@@ -148,3 +152,25 @@ BEGIN
 END;
 $$
 LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_availabilities(businessid integer)
+RETURNS TABLE (availability_id integer, user_id integer, user_fname varchar, user_lname varchar, available_date date, available_time_from time without time zone, available_time_till time without time zone, notes varchar) 
+AS $$
+BEGIN
+	RETURN QUERY
+    SELECT
+	availabilities.availability_id,
+	users.user_id,
+	users.user_fname, 
+	users.user_lname,
+	availabilities.available_date,
+	availabilities.available_time_from,
+	availabilities.available_time_till,
+	availabilities.notes
+FROM availabilities
+INNER JOIN users ON users.user_id = availabilities.user_id
+INNER JOIN teams ON teams.team_id = team_members.team_id
+INNER JOIN team_members ON team_members.user_id = users.user_id
+INNER JOIN businesses ON businesses.business_id = teams.business_id
+WHERE businesses.business_id = businessid AND teams.business_id = businessid AND team_members.team_id = teamid;
+END
