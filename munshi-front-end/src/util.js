@@ -1,6 +1,5 @@
 import { User } from "./models/users";
 import { Business } from "./models/businesses";
-import Axios from "axios";
 
 /**
  * Logs the user in by saving user info in session storage
@@ -78,7 +77,51 @@ function getCurrentWeekDates() {
     now.getDate() - now.getDay() + 6
   );
 
-  return { startOfWeek, endOfWeek };
+  return {
+    startOfWeek: startOfWeek,
+    endOfWeek: endOfWeek
+  };
+}
+
+/**
+ * This method will give next week start and end date based on current week start and end date
+ * @param {Date} currentWeekStartDate 
+ * @param {Date} currentWeekEndDate 
+ * @returns 
+ */
+function getNextWeekStartDateAndEndDate(currentWeekStartDate, currentWeekEndDate) {
+  const nextWeekStartDate = new Date(currentWeekStartDate);
+  const nextWeekEndDate = new Date(currentWeekEndDate);
+  
+
+  // Subtract 7 days from the current week start and end dates to get the previous week start and end dates
+  nextWeekStartDate.setDate(nextWeekStartDate.getDate() + 7);
+  nextWeekEndDate.setDate(nextWeekEndDate.getDate() + 7);
+
+  // Return the start and end dates of the previous week in the same format
+  return {
+    nextWeekStartDate: new Date(nextWeekStartDate.getFullYear(), nextWeekStartDate.getMonth(), nextWeekStartDate.getDate()),
+    nextWeekEndDate: new Date(nextWeekEndDate.getFullYear(), nextWeekEndDate.getMonth(), nextWeekEndDate.getDate())
+  };
+}
+
+/**
+ * This method will give previous week start and end date based on current week start and end date
+ */
+function getPreviousWeekStartDateAndEndDate(currentWeekStartDate, currentWeekEndDate) {
+  // Create new date objects for the current week start and end dates
+  const previousWeekStartDate = new Date(currentWeekStartDate);
+  const previousWeekEndDate = new Date(currentWeekEndDate);
+
+  // Subtract 7 days from the current week start and end dates to get the previous week start and end dates
+  previousWeekStartDate.setDate(previousWeekStartDate.getDate() - 7);
+  previousWeekEndDate.setDate(previousWeekEndDate.getDate() - 7);
+
+  // Return the start and end dates of the previous week in the same format
+  return {
+    previousWeekStartDate: new Date(previousWeekStartDate.getFullYear(), previousWeekStartDate.getMonth(), previousWeekStartDate.getDate()),
+    previousWeekEndDate: new Date(previousWeekEndDate.getFullYear(), previousWeekEndDate.getMonth(), previousWeekEndDate.getDate())
+  };
 }
 
 /**
@@ -102,4 +145,4 @@ function getDayOfWeek(dateString) {
   return dayOfWeek;
 }
 
-export { SaveUser, GetUser, CheckLogin, SaveBusiness, GetBusiness, IsEmployer, getCurrentWeekDates, getDayOfWeek };
+export { SaveUser, GetUser, CheckLogin, SaveBusiness, GetBusiness, IsEmployer, getCurrentWeekDates, getDayOfWeek, getNextWeekStartDateAndEndDate, getPreviousWeekStartDateAndEndDate };
