@@ -55,6 +55,8 @@ const EmployerAvailability = () => {
   function AvailableTime(props) {
     const { user_id, day } = props;
     const [data, setData] = useState(null);
+    
+    const [position, setPosition] = useState(null);
   
     useEffect(() => {
       async function fetchData() {
@@ -70,6 +72,7 @@ const EmployerAvailability = () => {
             ? `${from} to ${till}`
             : '';
           setData(availableTimeString);
+          setPosition(response.data[0].user_position);
         } catch (error) {
           console.error(error);
         }
@@ -77,7 +80,7 @@ const EmployerAvailability = () => {
       fetchData();
     }, [user_id, day, date, business.m_business_id]);
   
-    return <>{data}</>;
+    return <><span style={{ color: 'red' }}>{position}<br/></span>{data}</>;
   }
 
   
