@@ -1,4 +1,4 @@
-import { Box, IconButton, Table, TableHead, TableRow, TableCell, TableBody} from "@mui/material";
+import { Box, IconButton, Table, TableHead, TableRow, TableCell, TableBody, useThemeProps} from "@mui/material";
 import Header from "../../components/Header";
 import {
   getCurrentWeekDates,
@@ -51,18 +51,32 @@ const EmployerAvailability = () => {
     wrapper();
   }, []); 
 
-  const GetAvailableTime =(item, index) => {
-     Axios.post("http://localhost:3001/getavailabletime", {
-      user_id: item.user_id,
-      available_date: date[index].toISOString().substring(0, 10),
-      business_id: business.m_business_id,
-    })
-      .then((response) => {
-        const availableTimeString = `${response.data[0].available_time_from} to ${response.data[0].available_time_till}`;
-        return availableTimeString;
-      })
-      .catch((error) => console.error(error));
-  };
+  function AvailableTime(props) {
+    const { user_id, day } = props;
+    const [data, setData] = useState(null);
+  
+    useEffect(() => {
+      async function fetchData() {
+        const response = await Axios.post("http://localhost:3001/getavailabletime", {
+            user_id: user_id,
+            available_date: date[day].toISOString().substring(0, 10),
+            business_id: business.m_business_id,
+          })
+            .then((response) => {
+              const availableTimeString = `${response.data[0].available_time_from} to ${response.data[0].available_time_till}`;
+              setData(availableTimeString);
+            })
+            .catch((error) => console.error(error));
+      }
+      fetchData();
+    }, [user_id, day]);
+  
+    return (
+      <>{data}</>
+    );
+  }
+
+  
   
   return (
     <Box m="20px">
@@ -121,27 +135,18 @@ const EmployerAvailability = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        { () => {
-          rows.map((item) => {
-              return (
-                <>
+        { rows2 && rows.map((item) => (
                 <TableRow key={item.user_id}>
               <TableCell>{item.user_fname} {item.user_lname}</TableCell>
-              <TableCell><span><GetAvailableTime item={item} index={0} /></span></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
+              <TableCell><AvailableTime user_id={item.user_id} day={0}/></TableCell>
+              <TableCell><AvailableTime user_id={item.user_id} day={1}/></TableCell>
+              <TableCell><AvailableTime user_id={item.user_id} day={2}/></TableCell>
+              <TableCell><AvailableTime user_id={item.user_id} day={3}/></TableCell>
+              <TableCell><AvailableTime user_id={item.user_id} day={4}/></TableCell>
+              <TableCell><AvailableTime user_id={item.user_id} day={5}/></TableCell>
+              <TableCell><AvailableTime user_id={item.user_id} day={6}/></TableCell>
             </TableRow>
-                </>
-                
-              );
-          }
-            
-          )
-        }}
+          ))}
       </TableBody>
     </Table>
     </Box>
