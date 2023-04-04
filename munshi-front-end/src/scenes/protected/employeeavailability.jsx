@@ -12,6 +12,7 @@ import {
   getDayOfWeek, getDatesForWeek,
   getNextWeekStartDateAndEndDate, getPreviousWeekStartDateAndEndDate, GetBusiness, GetUser
 } from "../../util";
+
 let business = GetBusiness();
 let user = GetUser();
 
@@ -22,11 +23,6 @@ const EmployeeAvailability = () => {
   const colors = tokens(theme.palette.mode);
   const [status, setStatus] = useState("");
   const getRowId = row => row.availability_id;
-  
-  const ProfileClick = useCallback((event, cellValues) => {
-    navigate(`/userprofile/${cellValues.row.user_id}`);
-  }, []);
-
   const [startDate, setStartDate] = useState(getCurrentWeekDates().startOfWeek);
   const [endDate, setEndDate] = useState(getCurrentWeekDates().endOfWeek);
   const [date, setDate] = useState(getDatesForWeek(startDate, endDate));
@@ -63,8 +59,6 @@ const EmployeeAvailability = () => {
 
   
 
-  
-
   const columns = [
     {
         field: "availability_id",
@@ -95,22 +89,6 @@ const EmployeeAvailability = () => {
       headerName: "Any Requests?",
       flex: 1,
       cellClassName: "last-name-column--cell",
-    },
-    {
-        field: "Profile",
-        renderCell: (cellValues) => {
-          return (
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={(event) => {
-                ProfileClick(event, cellValues);
-              }}
-            >
-            Profile
-      </Button>
-    );
-  }
     },
   ];
 

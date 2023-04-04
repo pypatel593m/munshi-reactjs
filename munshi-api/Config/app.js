@@ -373,4 +373,34 @@ app.post("/addemployeeavailability", (req, res) => {
   });
 });
 
+app.post("/deleteavailability", (req, res) => {
+
+  let user_id = req.body.user_id;
+  let available_date = req.body.available_date;
+  let business_id = req.body.business_id;
+  const deletePosition = `DELETE FROM availabilities WHERE user_id = ${user_id} AND available_date = '${available_date}' AND business_id = ${business_id};`;
+  exports.db.query(deletePosition, (err, result) => {
+    if (result) {
+      res.send({ message: "Availability removed!"});
+    } else {
+      res.send({ message: "Something went wrong!" + err.message });
+    }
+  });
+});
+
+app.post("/getavailability", (req, res) => {
+
+  let user_id = req.body.user_id;
+  let available_date = req.body.available_date;
+  let business_id = req.body.business_id;
+  const deletePosition = `SELECT * FROM availabilities WHERE user_id = ${user_id} AND available_date = '${available_date}' AND business_id = ${business_id};`;
+  exports.db.query(deletePosition, (err, result) => {
+    if (result) {
+      res.send(result.rows);
+    } else {
+      res.send({ message: "Something went wrong!" + err.message });
+    }
+  });
+});
+
 exports.default = app;
