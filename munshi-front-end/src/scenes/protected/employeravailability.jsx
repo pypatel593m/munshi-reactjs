@@ -63,7 +63,7 @@ const EmployerAvailability = () => {
             business_id: business.m_business_id,
           })
             .then((response) => {
-              const availableTimeString = `${response.data[0].available_time_from} to ${response.data[0].available_time_till}`;
+              const availableTimeString = `${response.data[0].user_position} -- ${response.data[0].available_time_from} to ${response.data[0].available_time_till}`;
               setData(availableTimeString);
             })
             .catch((error) => console.error(error));
@@ -91,7 +91,7 @@ const EmployerAvailability = () => {
       width={400}
       height={60}
 
-        sx={{ border: "4px solid pink", position: "relative", padding: "8px", borderRadius: '20px'  }}
+        sx={{ border: "4px solid teal", position: "relative", padding: "8px", borderRadius: '20px'  }}
       >
         <IconButton
           sx={{
@@ -124,14 +124,14 @@ const EmployerAvailability = () => {
       <Table >
       <TableHead>
         <TableRow >
-          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "pink" }}>Employee</TableCell>
-          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "pink"  }}>SUN {date[0].getDate()}</TableCell>
-          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "pink"  }}>MON {date[1].getDate()}</TableCell>
-          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "pink"  }}>TUE {date[2].getDate()}</TableCell>
-          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "pink"  }}>WED {date[3].getDate()}</TableCell>
-          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "pink"  }}>THU {date[4].getDate()}</TableCell>
-          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "pink"  }}>FRI {date[5].getDate()}</TableCell>
-          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "pink"  }}>SAT {date[6].getDate()}</TableCell>
+          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "teal" }}>Employee</TableCell>
+          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "teal"  }}>SUN {date[0].getDate()}</TableCell>
+          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "teal"  }}>MON {date[1].getDate()}</TableCell>
+          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "teal"  }}>TUE {date[2].getDate()}</TableCell>
+          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "teal"  }}>WED {date[3].getDate()}</TableCell>
+          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "teal"  }}>THU {date[4].getDate()}</TableCell>
+          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "teal"  }}>FRI {date[5].getDate()}</TableCell>
+          <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "teal"  }}>SAT {date[6].getDate()}</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -139,7 +139,7 @@ const EmployerAvailability = () => {
                 <TableRow key={item.user_id}>
               <TableCell>{item.user_fname} {item.user_lname}</TableCell>
               <TableCell><AvailableTime user_id={item.user_id} day={0}/></TableCell>
-              <TableCell><AvailableTime user_id={item.user_id} day={1}/></TableCell>
+              <TableCell>Hello, hello<AvailableTime user_id={item.user_id} day={1}/></TableCell>
               <TableCell><AvailableTime user_id={item.user_id} day={2}/></TableCell>
               <TableCell><AvailableTime user_id={item.user_id} day={3}/></TableCell>
               <TableCell><AvailableTime user_id={item.user_id} day={4}/></TableCell>
