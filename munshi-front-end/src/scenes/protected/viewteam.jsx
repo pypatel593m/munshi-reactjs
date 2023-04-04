@@ -18,26 +18,31 @@ const ViewTeam = () => {
   const [rows, setRows] = useState([]);
   const colors = tokens(theme.palette.mode);
   const [status, setStatus] = useState("");
-  const [user_email_address, setEmailID] = useState("");
-  const [position_id, setPositionID] = useState("");
-  const [wage, setWage] = useState("");
   const getRowId = (row) => row.user_id;
   const team_id = window.location.pathname.split("/")[2];
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const ProfileClick = useCallback((event, cellValues) => {
     navigate(`/userprofile/${cellValues.row.user_id}`);
   }, []);
-  function AddUser() {
-    Axios.post("http://localhost:3001/adduser", {
+
+  const [user_email_address, setEmailID] = useState("");
+  const [position_id, setPositionID] = useState("");
+  const [wage, setWage] = useState("");
+
+  const AddUser = async (e) => {
+    e.preventDefault();
+    await Axios.post("http://localhost:3001/adduser", {
       user_email_address: user_email_address,
       team_id: team_id,
       position_id: position_id,
       wage: wage,
-    })
-      .then((response) => {
+    }).then((response) => {
+      if (response.data.message) {
         setStatus(response.data.message);
-      })
-      .catch((error) => console.error(error));
+      } else {
+        setStatus(response.data.message);
+      }
+    });
   }
 
   useEffect(() => {
@@ -97,6 +102,7 @@ const ViewTeam = () => {
 
   return (
     <Box display={"grid"} justifyContent={"center"} m="20px">
+      <Box display={"flex"} justifyContent={"center"}><h1>{status}</h1></Box>
         <Box
           display="grid"
           gridTemplateColumns="repeat(1, minmax(0, 1fr))"
@@ -107,20 +113,7 @@ const ViewTeam = () => {
             <h1>Add Employee to team {team_id}.</h1>
           </Box>
           <Box marginLeft={5} sx={{ gridColumn: "span 1" }}>
-            <Formik
-              onSubmit={AddUser}
-              initialValues={initialValues}
-              validationSchema={checkoutSchema}
-            >
-              {({
-                values,
-                errors,
-                touched,
-                handleBlur,
-                handleChange,
-                handleSubmit,
-              }) => (
-                <form>
+                <form onSubmit={AddUser}>
                   <Box
                     display="flex"
                     justifyContent={"center"}
@@ -131,49 +124,34 @@ const ViewTeam = () => {
                       fullWidth
                       variant="filled"
                       type="email"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.user_email_address}
+                      onChange={(e) => (setEmailID(e.target.value))}
+                      value={user_email_address}
                       label="Employee's Email"
                       name="user_email_address"
-                      error={
-                        !!touched.user_email_address &&
-                        !!errors.user_email_address
-                      }
-                      helperText={
-                        touched.user_email_address && errors.user_email_address
-                      }
                     />
                     <TextField
                       fullWidth
                       variant="filled"
                       type="number"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.position_id}
+                      onChange={(e) => (setPositionID(e.target.value))}
+                      value={position_id}
                       label="Select Position"
                       name="position_id"
-                      error={!!touched.position_id && !!errors.position_id}
-                      helperText={touched.position_id && errors.position_id}
                     />
                     <TextField
                       fullWidth
                       variant="filled"
                       type="text"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.wage}
+                      onChange={(e) => (setWage(e.target.value))}
+                      value={wage}
                       label="Wage / hr"
                       name="wage"
-                      error={!!touched.wage && !!errors.wage}
-                      helperText={touched.wage && errors.wage}
                     />
                     <Box width={200}>
                       <Button
                         type="submit"
                         padding={"5px 60px 5px 5px"}
                         margin={"6px 1px 1px 1px"}
-                        onClick={AddUser}
                         color="secondary"
                         variant="contained"
                       >
@@ -182,8 +160,6 @@ const ViewTeam = () => {
                     </Box>
                   </Box>
                 </form>
-              )}
-            </Formik>
           </Box>
         </Box>
 
@@ -224,28 +200,5 @@ const ViewTeam = () => {
   );
 };
 
-const wageRegExp = /^[a-zA-Z0-9 ]+$/;
-
-const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
-
-const RegExp = /^[0-9]{1,19}(\.[0-9]{1,2})?$/;
-
-const checkoutSchema = yup.object().shape({
-  user_email_address: yup
-    .string()
-    .matches(emailRegex, "Invalid email.")
-    .required("required"),
-  position_id: yup
-    .string()
-    .matches(RegExp, "Only alphabets allowed.")
-    .required("required"),
-  wage: yup.string().matches(wageRegExp, "Invalid wage.").required("required"),
-});
-
-const initialValues = {
-  user_email_address: "",
-  position_id: "",
-  wage: "",
-};
 
 export default ViewTeam;

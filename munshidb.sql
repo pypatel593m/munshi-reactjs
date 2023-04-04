@@ -197,24 +197,18 @@ $$  LANGUAGE plpgsql;
 
 
 
-CREATE OR REPLACE FUNCTION get_available_time(userid integer, availabledate date, businessid integer)
-RETURNS TABLE (availability_id integer, available_time_from time without time zone, available_time_till time without time zone, user_position varchar) 
-AS $$
+CREATE OR REPLACE FUNCTION get_available_time(user_id INTEGER, available_date DATE, business_id INTEGER)
+RETURNS TABLE (user_position varchar, available_time_from time without time zone, available_time_till time without time zone) AS $$
 BEGIN
-	RETURN QUERY
-    SELECT
-	availabilities.availability_id,
-	availabilities.available_time_from,
-	availabilities.available_time_till, 
-	positions.user_position
-FROM availabilities
-INNER JOIN users ON users.user_id = availabilities.user_id
-INNER JOIN businesses ON businesses.business_id = availabilities.business_id
-INNER JOIN team_members ON team_members.user_id = availabilities.user_id
-INNER JOIN positions ON positions.position_id = team_members.position_id
-WHERE businesses.business_id = businessid AND availabilities.user_id = userid AND availabilities.available_date = availabledate;
+  RETURN QUERY
+    SELECT positions.user_position, availabilities.available_time_from, availabilities.available_time_till
+    FROM positions 
+    JOIN team_members ON positions.position_id = team_members.position_id
+    JOIN teams ON team_members.team_id = t.team_id
+    JOIN availabilities ON team_members.user_id = availabilities.user_id AND availabilities.business_id = teams.business_id
+    WHERE positions.business_id = business_id AND availabilities.user_id = user_id AND availabilities.available_date = available_date;
 END;
-$$  LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 
 CREATE OR REPLACE FUNCTION get_user_business(businessid integer)

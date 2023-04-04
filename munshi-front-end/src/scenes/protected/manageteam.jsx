@@ -1,4 +1,11 @@
-import { Box, TextField, Link, useTheme, Button, IconButton } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Link,
+  useTheme,
+  Button,
+  IconButton,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { useNavigate } from "react-router-dom";
@@ -7,8 +14,8 @@ import Axios from "axios";
 import Header from "../../components/Header";
 import { GetBusiness } from "../../util";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 let business = GetBusiness();
 
 const ManageTeam = () => {
@@ -27,9 +34,8 @@ const ManageTeam = () => {
     navigate(`/viewteam/${cellValues.row.team_id}`);
   }, []);
 
-  function createNewTeam() {
-    //e.preventDefault();
-    Axios.post("http://localhost:3001/newteam", {
+  const createNewTeam = async (e) => {
+    await Axios.post("http://localhost:3001/newteam", {
       team_id: team_id,
       business_id: business.m_business_id,
     })
@@ -37,10 +43,9 @@ const ManageTeam = () => {
         setStatus(response.data.message);
       })
       .catch((error) => console.error(error));
-  }
-  function createNewPosition() {
-    //e.preventDefault();
-    Axios.post("http://localhost:3001/newposition", {
+  };
+  const createNewPosition = async (e) => {
+    await Axios.post("http://localhost:3001/newposition", {
       user_position: user_position,
       business_id: business.m_business_id,
     })
@@ -48,29 +53,35 @@ const ManageTeam = () => {
         setStatus(response.data.message);
       })
       .catch((error) => console.error(error));
-  }
+  };
 
   const DeleteTeam = useCallback((event, cellValues) => {
     //e.preventDefault();
-    Axios.post("http://localhost:3001/deleteteam", {
-      team_id: cellValues.row.team_id,
-    })
-      .then((response) => {
-        setStatus(response.data.message);
-        window.location.reload();
+    async function fetchData() {
+      Axios.post("http://localhost:3001/deleteteam", {
+        team_id: cellValues.row.team_id,
       })
-      .catch((error) => console.error(error));
-    }, []);
+        .then((response) => {
+          setStatus(response.data.message);
+          window.location.reload();
+        })
+        .catch((error) => console.error(error));
+    }
+    fetchData();
+  }, []);
   const DeletePosition = useCallback((event, cellValues) => {
-    //e.preventDefault();
-    Axios.post("http://localhost:3001/deleteposition", {
-      position_id: cellValues.row.position_id,
-    })
-      .then((response) => {
-        setStatus(response.data.message);
-        window.location.reload();
+    async function fetchData() {
+      //e.preventDefault();
+      Axios.post("http://localhost:3001/deleteposition", {
+        position_id: cellValues.row.position_id,
       })
-      .catch((error) => console.error(error));
+        .then((response) => {
+          setStatus(response.data.message);
+          window.location.reload();
+        })
+        .catch((error) => console.error(error));
+    }
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -81,7 +92,7 @@ const ManageTeam = () => {
         setRows(response.data);
       })
       .catch((error) => console.error(error));
-  }, []); 
+  }, []);
 
   useEffect(() => {
     Axios.post("http://localhost:3001/getpositions", {
@@ -91,7 +102,7 @@ const ManageTeam = () => {
         setPositionRows(response.data);
       })
       .catch((error) => console.error(error));
-  }, []); 
+  }, []);
 
   const columns = [
     {
@@ -187,98 +198,97 @@ const ManageTeam = () => {
               justifyContent={"left"}
               sx={{ gridColumn: "span 8" }}
             >
-                <h1>{status}</h1>
+              <h1>{status}</h1>
             </Box>
             <Box
               display="flex"
               sx={{ gridColumn: "span 1" }}
               className="home-info"
             >
-              <h1 >Create a new team</h1>
+              <h1>Create a new team</h1>
             </Box>
             <Box
               display="flex"
               sx={{ gridColumn: "span 3" }}
               className="home-info"
             >
-                  <div>
-                    <div className="form-box login">
-                      <h2>Want to add new team for your business?</h2>
-                      <form>
-                        <Box display="flex">
-                          <Box width={120}>
-                            <TextField
-                              fullWidth
-                              variant="filled"
-                              type="number"
-                              onChange={(e) => (setTeamID(e.target.value))}
-                              label="Team ID"
-                              name="team_id"
-                            />
-                          </Box>
-                          <Box marginLeft={5} marginTop={1}>
-                            <Button
-                              type="submit"
-                              onClick={createNewTeam}
-                              color="secondary"
-                              variant="contained"
-                            >
-                              Add
-                            </Button>
-                          </Box>
-                        </Box>
-                      </form>
-                    </div>
-                  </div>
+              <div>
+                <div className="form-box login">
+                  <h2>Want to add new team for your business?</h2>
+                  <form>
+                    <Box display="flex">
+                      <Box width={120}>
+                        <TextField
+                          fullWidth
+                          variant="filled"
+                          type="number"
+                          onChange={(e) => setTeamID(e.target.value)}
+                          label="Team ID"
+                          name="team_id"
+                        />
+                      </Box>
+                      <Box marginLeft={5} marginTop={1}>
+                        <Button
+                          type="submit"
+                          onClick={createNewTeam}
+                          color="secondary"
+                          variant="contained"
+                        >
+                          Add
+                        </Button>
+                      </Box>
+                    </Box>
+                  </form>
+                </div>
+              </div>
             </Box>
             <Box
               display="flex"
               sx={{ gridColumn: "span 1" }}
               className="home-info"
             >
-              <h1 >Positions.</h1>
+              <h1>Positions.</h1>
             </Box>
             <Box
               display="flex"
               sx={{ gridColumn: "span 3" }}
               className="home-info"
             >
-                  <div>
-                    <div className="form-box login">
-                      <h2>Want to add new roles for your business?</h2>
-                      <form>
-                        <Box display="flex">
-                          <Box width={220}>
-                            <TextField
-                              fullWidth
-                              variant="filled"
-                              type="text"
-                              onChange={(e) => (setPosition(e.target.value))}
-                              label="Position (e.g. shift manager)"
-                              name="user_position"
-                            />
-                          </Box>
-                          <Box marginLeft={5} marginTop={1}>
-                            <Button
-                              type="submit"
-                              onClick={createNewPosition}
-                              color="secondary"
-                              variant="contained"
-                            >
-                              Add
-                            </Button>
-                          </Box>
-                        </Box>
-                      </form>
-                    </div>
-                  </div>
+              <div>
+                <div className="form-box login">
+                  <h2>Want to add new roles for your business?</h2>
+                  <form>
+                    <Box display="flex">
+                      <Box width={220}>
+                        <TextField
+                          fullWidth
+                          variant="filled"
+                          type="text"
+                          onChange={(e) => setPosition(e.target.value)}
+                          label="Position (e.g. shift manager)"
+                          name="user_position"
+                        />
+                      </Box>
+                      <Box marginLeft={5} marginTop={1}>
+                        <Button
+                          type="submit"
+                          onClick={createNewPosition}
+                          color="secondary"
+                          variant="contained"
+                        >
+                          Add
+                        </Button>
+                      </Box>
+                    </Box>
+                  </form>
+                </div>
+              </div>
             </Box>
             <Box
               display="flex"
               justifyContent={"left"}
               sx={{ gridColumn: "span 8" }}
-            >
-            </Box>
+            ></Box>
 
             <Box
               display="grid"
@@ -286,7 +296,7 @@ const ManageTeam = () => {
               marginTop={10}
               className="home-info"
             >
-              <h1 >View all team for current business</h1>
+              <h1>View all team for current business</h1>
             </Box>
             <Box
               display="flex"
@@ -345,7 +355,7 @@ const ManageTeam = () => {
               marginTop={10}
               className="home-info"
             >
-              <h1 >View all roles of your business.</h1>
+              <h1>View all roles of your business.</h1>
             </Box>
             <Box
               display="flex"
@@ -395,7 +405,6 @@ const ManageTeam = () => {
                 />
               </Box>
             </Box>
-
           </Box>
         </Box>
       </Box>

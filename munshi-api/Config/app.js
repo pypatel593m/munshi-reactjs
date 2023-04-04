@@ -303,12 +303,13 @@ app.post("/adduser", (req, res) => {
   let team_id = req.body.team_id;
   let position_id = req.body.position_id;
   let wage = req.body.wage;
-  const insertTeam = `SELECT add_user_to_team('${user_email_address}', ${team_id}, ${position_id}, ${wage});`;
+  const insertTeam = `SELECT add_user_to_team('${user_email_address}', ${team_id}, ${position_id}, '${wage}');`;
+  
   exports.db.query(insertTeam, (err, result) => {
     if (result) {
       res.send({ message: `User added to the team  ${team_id}!`});
     } else {
-      res.send({ message: "Some required data does not match!"});
+      res.send({ message: `User already exists in the team!`});
     }
   });
 });

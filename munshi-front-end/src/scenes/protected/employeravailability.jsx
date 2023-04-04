@@ -90,7 +90,7 @@ const EmployerAvailability = () => {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="AVAILABILITIES" />
       </Box>
-      <Box display="flex" justifyContent="end" mt="20px" marginBottom={2}>
+      <Box display="flex" justifyContent="end" marginBottom={2}>
         <Button onClick={()=>{navigate("/addemployeeavailability")}} color="secondary" variant="contained">
           Add Availability for yourself
         </Button>
