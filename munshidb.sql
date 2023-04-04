@@ -140,6 +140,8 @@ INNER JOIN positions ON positions.position_id = team_members.position_id
 INNER JOIN businesses ON businesses.business_id = teams.business_id
 WHERE businesses.business_id = businessid AND teams.business_id = businessid AND team_members.team_id = teamid;
 END;
+$$  LANGUAGE plpgsql;
+
 
 CREATE OR REPLACE FUNCTION add_user_to_team(useremail varchar, teamid integer, positionid integer, wage decimal)
 RETURNS void AS
@@ -153,8 +155,11 @@ END;
 $$
 LANGUAGE plpgsql;
 
+
+
+
 CREATE OR REPLACE FUNCTION get_availabilities(businessid integer)
-RETURNS TABLE (availability_id integer, user_id integer, user_fname varchar, user_lname varchar, available_date date, available_time_from time without time zone, available_time_till time without time zone, notes varchar) 
+RETURNS TABLE (availability_id integer, user_id integer, user_fname varchar, user_lname varchar) 
 AS $$
 BEGIN
 	RETURN QUERY
@@ -162,15 +167,32 @@ BEGIN
 	availabilities.availability_id,
 	users.user_id,
 	users.user_fname, 
-	users.user_lname,
-	availabilities.available_date,
-	availabilities.available_time_from,
-	availabilities.available_time_till,
-	availabilities.notes
+	users.user_lname
 FROM availabilities
 INNER JOIN users ON users.user_id = availabilities.user_id
-INNER JOIN teams ON teams.team_id = team_members.team_id
-INNER JOIN team_members ON team_members.user_id = users.user_id
-INNER JOIN businesses ON businesses.business_id = teams.business_id
-WHERE businesses.business_id = businessid AND teams.business_id = businessid AND team_members.team_id = teamid;
-END
+INNER JOIN businesses ON businesses.business_id = availabilities.business_id
+WHERE businesses.business_id = businessid;
+END;
+$$  LANGUAGE plpgsql;
+
+
+
+
+CREATE OR REPLACE FUNCTION get_available_time(userid integer, availabledate date, businessid integer)
+RETURNS TABLE (availability_id integer, available_time_from time without time zone, available_time_till time without time zone, user_position varchar) 
+AS $$
+BEGIN
+	RETURN QUERY
+    SELECT
+	availabilities.availability_id,
+	availabilities.available_time_from,
+	availabilities.available_time_till, 
+	positions.user_position
+FROM availabilities
+INNER JOIN users ON users.user_id = availabilities.user_id
+INNER JOIN businesses ON businesses.business_id = availabilities.business_id
+INNER JOIN team_members ON team_members.user_id = availabilities.user_id
+INNER JOIN positions ON positions.position_id = team_members.position_id
+WHERE businesses.business_id = businessid AND availabilities.user_id = userid AND availabilities.available_date = availabledate;
+END;
+$$  LANGUAGE plpgsql;

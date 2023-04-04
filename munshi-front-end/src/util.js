@@ -145,4 +145,23 @@ function getDayOfWeek(dateString) {
   return dayOfWeek;
 }
 
-export { SaveUser, GetUser, CheckLogin, SaveBusiness, GetBusiness, IsEmployer, getCurrentWeekDates, getDayOfWeek, getNextWeekStartDateAndEndDate, getPreviousWeekStartDateAndEndDate };
+function getDatesForWeek(weekStartDate, weekEndDate) {
+  const dates = [];
+
+  // Create a new date object for the week start date
+  let currentDate = new Date(weekStartDate);
+
+  // Loop until we've added all the days in the week
+  while (currentDate <= weekEndDate) {
+    // Add the current date to the dates array
+    dates.push(new Date(currentDate));
+
+    // Move to the next day
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return dates;
+}
+
+export { SaveUser, GetUser, CheckLogin, SaveBusiness, GetBusiness, IsEmployer, getCurrentWeekDates, getDayOfWeek, 
+  getNextWeekStartDateAndEndDate, getPreviousWeekStartDateAndEndDate, getDatesForWeek};

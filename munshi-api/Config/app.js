@@ -298,7 +298,6 @@ app.post("/deleteposition", (req, res) => {
 });
 
 // Method to add user into perticular team
-//Method to add new position for specific business
 app.post("/adduser", (req, res) => {
   let user_email_address = req.body.user_email_address;
   let team_id = req.body.team_id;
@@ -310,6 +309,32 @@ app.post("/adduser", (req, res) => {
       res.send({ message: `User added to the team  ${team_id}!`});
     } else {
       res.send({ message: "Some required data does not match!"});
+    }
+  });
+});
+
+app.post("/getavailabilities", (req, res) => {
+  let business_id = req.body.business_id;
+  const insertTeam = `SELECT * FROM get_availabilities(${business_id});`;
+  exports.db.query(insertTeam, (err, result) => {
+    if (result) {
+      res.send(result.rows);
+    } else {
+      res.send({ message: "Some error occured! "}, err.message);
+    }
+  });
+});
+
+app.post("/getavailabletime", (req, res) => {
+  let user_id = req.body.user_id;
+  let available_date = req.body.available_date;
+  let business_id = req.body.business_id;
+  const insertTeam = `SELECT * FROM get_available_time(${user_id}, '${available_date}',${business_id});`;
+  exports.db.query(insertTeam, (err, result) => {
+    if (result) {
+      res.send(result.rows);
+    } else {
+      console.log(err.message);
     }
   });
 });
