@@ -163,5 +163,26 @@ function getDatesForWeek(weekStartDate, weekEndDate) {
   return dates;
 }
 
+/**
+ * This method will convert 15:00:40 format into 03:00:00 PM format
+ */
+function convertTo12Hour(time) {
+  const splitTime = time.split(":");
+  let hours = parseInt(splitTime[0]);
+  const minutes = splitTime[1];
+  let amPm = "AM";
+  
+  if (hours > 12) {
+    hours = hours - 12;
+    amPm = "PM";
+  } else if (hours === 12) {
+    amPm = "PM";
+  } else if (hours === 0) {
+    hours = 12;
+  }
+
+  return `${hours}:${minutes}:${splitTime[2] || "00"} ${amPm}`;
+}
+
 export { SaveUser, GetUser, CheckLogin, SaveBusiness, GetBusiness, IsEmployer, getCurrentWeekDates, getDayOfWeek, 
-  getNextWeekStartDateAndEndDate, getPreviousWeekStartDateAndEndDate, getDatesForWeek};
+  getNextWeekStartDateAndEndDate, getPreviousWeekStartDateAndEndDate, getDatesForWeek, convertTo12Hour};

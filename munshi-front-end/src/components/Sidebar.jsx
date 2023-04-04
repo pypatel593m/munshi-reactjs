@@ -154,7 +154,7 @@ const Sidebar = () => {
             ) : (
               <Item
               title="Availability"
-              to="/employeeeavailability"
+              to="/employeeavailability"
               icon={<EventAvailableOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

@@ -158,7 +158,7 @@ LANGUAGE plpgsql;
 
 
 
-CREATE OR REPLACE FUNCTION get_availabilities(businessid integer)
+CREATE OR REPLACE FUNCTION get_employer_availabilities(businessid integer)
 RETURNS TABLE (availability_id integer, user_id integer, user_fname varchar, user_lname varchar) 
 AS $$
 BEGIN
@@ -172,6 +172,25 @@ FROM availabilities
 INNER JOIN users ON users.user_id = availabilities.user_id
 INNER JOIN businesses ON businesses.business_id = availabilities.business_id
 WHERE businesses.business_id = businessid;
+END;
+$$  LANGUAGE plpgsql;
+
+
+
+CREATE OR REPLACE FUNCTION get_employee_availabilities(userid integer, businessid integer)
+RETURNS TABLE (availability_id integer, user_id integer, user_fname varchar, user_lname varchar) 
+AS $$
+BEGIN
+	RETURN QUERY
+    SELECT
+	availabilities.availability_id,
+	users.user_id,
+	users.user_fname, 
+	users.user_lname
+FROM availabilities
+INNER JOIN users ON users.user_id = availabilities.user_id
+INNER JOIN businesses ON businesses.business_id = availabilities.business_id
+WHERE businesses.business_id = businessid AND availabilities.user_id = userid;
 END;
 $$  LANGUAGE plpgsql;
 
@@ -194,5 +213,23 @@ INNER JOIN businesses ON businesses.business_id = availabilities.business_id
 INNER JOIN team_members ON team_members.user_id = availabilities.user_id
 INNER JOIN positions ON positions.position_id = team_members.position_id
 WHERE businesses.business_id = businessid AND availabilities.user_id = userid AND availabilities.available_date = availabledate;
+END;
+$$  LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION get_user_business(businessid integer)
+RETURNS TABLE (user_id integer, user_fname varchar, user_lname varchar) 
+AS $$
+BEGIN
+	RETURN QUERY
+    SELECT
+	users.user_id,
+	users.user_fname, 
+	users.user_lname
+FROM users
+INNER JOIN team_members ON team_members.user_id = users.user_id
+INNER JOIN teams ON teams.team_id = team_members.team_id
+INNER JOIN businesses ON businesses.business_id = teams.business_id
+WHERE businesses.business_id = businessid;
 END;
 $$  LANGUAGE plpgsql;

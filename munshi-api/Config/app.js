@@ -313,9 +313,23 @@ app.post("/adduser", (req, res) => {
   });
 });
 
-app.post("/getavailabilities", (req, res) => {
+app.post("/getemployeravailabilities", (req, res) => {
   let business_id = req.body.business_id;
-  const insertTeam = `SELECT * FROM get_availabilities(${business_id});`;
+  const insertTeam = `SELECT * FROM get_user_business(${business_id});`;
+  exports.db.query(insertTeam, (err, result) => {
+    if (result) {
+      res.send(result.rows);
+    } else {
+      res.send(err.message);
+    }
+  });
+});
+app.post("/getemployeeavailability", (req, res) => {
+  let startDate = req.body.startDate;
+  let endDate = req.body.endDate;
+  let user_id = req.body.user_id;
+  let business_id = req.body.business_id;
+  const insertTeam = `SELECT availability_id, TO_CHAR(available_date, 'YYYY-MM-DD') as available_date, available_time_from, available_time_till, notes, business_id FROM availabilities WHERE available_date >= '${startDate}' AND available_date <= '${endDate}' AND user_id = ${user_id} AND business_id = ${business_id};`;
   exports.db.query(insertTeam, (err, result) => {
     if (result) {
       res.send(result.rows);
@@ -335,6 +349,25 @@ app.post("/getavailabletime", (req, res) => {
       res.send(result.rows);
     } else {
       console.log(err.message);
+    }
+  });
+});
+
+//This method adds new availability for employee
+app.post("/addemployeeavailability", (req, res) => {
+  let user_id = req.body.user_id;
+  let available_date = req.body.available_date;
+  let available_time_from = req.body.available_time_from;
+  let available_time_till = req.body.available_time_till;
+  let notes = req.body.notes;
+  let business_id = req.body.business_id;
+  const insertTeam = `INSERT INTO availabilities (user_id, available_date, available_time_from, available_time_till, notes, business_id)
+  VALUES (${user_id}, '${available_date}', '${available_time_from}', '${available_time_till}', '${notes}', ${business_id});`;
+  exports.db.query(insertTeam, (err, result) => {
+    if (result) {
+      res.send({ message: "Availability added!"});
+    } else {
+      res.send({ message: "Invalid data!"});
     }
   });
 });

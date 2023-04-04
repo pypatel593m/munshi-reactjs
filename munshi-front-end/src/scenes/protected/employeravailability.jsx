@@ -1,9 +1,13 @@
-import { Box, IconButton, Table, TableHead, TableRow, TableCell, TableBody, useThemeProps} from "@mui/material";
+import { Box, IconButton, Button, Table, TableHead, TableRow, TableCell, TableBody, useThemeProps} from "@mui/material";
 import Header from "../../components/Header";
 import {
   getCurrentWeekDates,
-  getDayOfWeek, getDatesForWeek,
-  getNextWeekStartDateAndEndDate, getPreviousWeekStartDateAndEndDate, GetBusiness
+  getDayOfWeek,
+  getDatesForWeek,
+  getNextWeekStartDateAndEndDate,
+  getPreviousWeekStartDateAndEndDate,
+  GetBusiness,
+  convertTo12Hour
 } from "../../util";
 import { useNavigate } from "react-router-dom";
 import { useState, useCallback, useEffect } from "react";
@@ -18,7 +22,6 @@ const EmployerAvailability = () => {
   const [startDate, setStartDate] = useState(getCurrentWeekDates().startOfWeek);
   const [endDate, setEndDate] = useState(getCurrentWeekDates().endOfWeek);
   const [rows, setRows] = useState([]);
-  const [rows2, setRows2] = useState([]);
   const [date, setDate] = useState(getDatesForWeek(startDate, endDate));
 
   const NextWeekClick = useCallback((e) => {
@@ -35,21 +38,19 @@ const EmployerAvailability = () => {
     setDate(getDatesForWeek(previousWeek.previousWeekStartDate, previousWeek.previousWeekEndDate));
   }, [startDate, endDate]);
 
-  
-
-  useEffect( () => {
-    async function wrapper(){
-      await Axios.post("http://localhost:3001/getavailabilities", {
-      business_id: business.m_business_id,
-    })
-      .then((response) => {
-        
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await Axios.post("http://localhost:3001/getemployeravailabilities", {
+          business_id: business.m_business_id,
+        });
         setRows(response.data);
-      })
-      .catch((error) => console.error(error));
-    };
-    wrapper();
-  }, []); 
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, [NextWeekClick, PreviousWeekClick]); 
 
   function AvailableTime(props) {
     const { user_id, day } = props;
@@ -57,23 +58,26 @@ const EmployerAvailability = () => {
   
     useEffect(() => {
       async function fetchData() {
-        const response = await Axios.post("http://localhost:3001/getavailabletime", {
+        try {
+          const response = await Axios.post("http://localhost:3001/getavailabletime", {
             user_id: user_id,
-            available_date: date[day].toISOString().substring(0, 10),
+            available_date: date[day]?.toISOString().substring(0, 10),
             business_id: business.m_business_id,
-          })
-            .then((response) => {
-              const availableTimeString = `${response.data[0].user_position} -- ${response.data[0].available_time_from} to ${response.data[0].available_time_till}`;
-              setData(availableTimeString);
-            })
-            .catch((error) => console.error(error));
+          });
+          const from = convertTo12Hour(response.data[0].available_time_from);
+          const till = convertTo12Hour(response.data[0].available_time_till);
+          const availableTimeString = response?.data[0]?.available_time_from 
+            ? `${from} to ${till}`
+            : '';
+          setData(availableTimeString);
+        } catch (error) {
+          console.error(error);
+        }
       }
       fetchData();
-    }, [user_id, day]);
+    }, [user_id, day, date, business.m_business_id]);
   
-    return (
-      <>{data}</>
-    );
+    return <>{data}</>;
   }
 
   
@@ -83,9 +87,14 @@ const EmployerAvailability = () => {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="AVAILABILITIES" />
       </Box>
-
+      <Box display="flex" justifyContent="end" mt="20px" marginBottom={2}>
+        <Button onClick={()=>{navigate("/addemployeeavailability")}} color="secondary" variant="contained">
+          Add Availability for yourself
+        </Button>
+      </Box>
       {/* Week change! */}
       <Box marginLeft={5}
+      marginBottom={2}
       display={"flex"}
       justifyContent={"center"}
       width={400}
@@ -121,7 +130,7 @@ const EmployerAvailability = () => {
       </Box>
 
       {/* Main Table */}
-      <Table >
+      <Table border={1} sx={{borderStyle: "hidden"}}>
       <TableHead>
         <TableRow >
           <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20, fontWeight: "bold", color: "teal" }}>Employee</TableCell>
@@ -135,16 +144,16 @@ const EmployerAvailability = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        { rows2 && rows.map((item) => (
+        { rows.map((item) => (
                 <TableRow key={item.user_id}>
-              <TableCell>{item.user_fname} {item.user_lname}</TableCell>
-              <TableCell><AvailableTime user_id={item.user_id} day={0}/></TableCell>
-              <TableCell>Hello, hello<AvailableTime user_id={item.user_id} day={1}/></TableCell>
-              <TableCell><AvailableTime user_id={item.user_id} day={2}/></TableCell>
-              <TableCell><AvailableTime user_id={item.user_id} day={3}/></TableCell>
-              <TableCell><AvailableTime user_id={item.user_id} day={4}/></TableCell>
-              <TableCell><AvailableTime user_id={item.user_id} day={5}/></TableCell>
-              <TableCell><AvailableTime user_id={item.user_id} day={6}/></TableCell>
+              <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 20,  fontWeight: "bold" }}>{item.user_fname} {item.user_lname}</TableCell>
+              <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 15 }}><AvailableTime user_id={item.user_id} day={0}/></TableCell>
+              <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 15 }}><AvailableTime user_id={item.user_id} day={1}/></TableCell>
+              <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 15 }}><AvailableTime user_id={item.user_id} day={2}/></TableCell>
+              <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 15 }}><AvailableTime user_id={item.user_id} day={3}/></TableCell>
+              <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 15 }}><AvailableTime user_id={item.user_id} day={4}/></TableCell>
+              <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 15 }}><AvailableTime user_id={item.user_id} day={5}/></TableCell>
+              <TableCell style={{ width: '100px', height: '60px', padding: '5px', fontSize: 15 }}><AvailableTime user_id={item.user_id} day={6}/></TableCell>
             </TableRow>
           ))}
       </TableBody>
