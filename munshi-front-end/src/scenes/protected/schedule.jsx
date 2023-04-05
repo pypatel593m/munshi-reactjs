@@ -145,7 +145,7 @@ const Schedule = () => {
     navigate(`/showschedule/${item.user_id}/${date[day]?.toISOString().substring(0, 10)}/${business.m_business_id}`);
   }, []);
   const deleteSchedule = useCallback((event, item, day) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this item?');
+    const confirmDelete = window.confirm('Are you sure you want to delete this schedule?');
     if (confirmDelete) {
       async function fetchData() {
         //e.preventDefault();
@@ -369,7 +369,7 @@ const Schedule = () => {
                     ): null}
                     <IconButton
                       onClick={(event) => {
-                        deleteSchedule(event, item, 0);
+                        viewSchedule(event, item, 0);
                       }}
                       className="micro"
                     >

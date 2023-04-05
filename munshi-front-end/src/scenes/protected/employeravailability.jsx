@@ -140,6 +140,8 @@ const EmployerAvailability = () => {
     );
   }
   const deleteAvailability = useCallback((event, item, day) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this schedule?');
+    if (confirmDelete) {
     async function fetchData() {
       //e.preventDefault();
       const available_date_string = `${date[day].getFullYear()}-${date[day].getMonth() + 1}-${date[day].getDate()}`
@@ -154,6 +156,7 @@ const EmployerAvailability = () => {
         .catch((error) => console.error(error));
     }
     fetchData();
+  }
   }, []);
 
   return (

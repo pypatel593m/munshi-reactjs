@@ -419,6 +419,22 @@ app.post("/getschedule", (req, res) => {
   });
 });
 
+app.post("/showschedule", (req, res) => {
+  let user_id = req.body.user_id;
+  let schedule_date = req.body.schedule_date;
+  let business_id = req.body.business_id;
+  const insertTeam = `SELECT * FROM schedules WHERE user_id = ${user_id} AND schedule_date = '${schedule_date}' AND business_id = ${business_id});`;
+  
+  exports.db.query(insertTeam, (err, result) => {
+    if (result) {
+      console.log(result.rows);
+      res.send(result.rows);
+    } else {
+      console.log(err.message);
+    }
+  });
+});
+
 
 app.post("/deleteschedule", (req, res) => {
 
