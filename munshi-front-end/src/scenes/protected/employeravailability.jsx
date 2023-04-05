@@ -110,17 +110,20 @@ const EmployerAvailability = () => {
               available_date: date[day]?.toISOString().substring(0, 10),
               business_id: business.m_business_id,
             }
-          );
-          if(response?.data?.[0]?.user_position)
-          {
-            const availableTimeString = response?.data[0]?.available_time_from
-              ? `${convertTo12Hour(
-                  response.data[0].available_time_from
-                )} to ${convertTo12Hour(response.data[0].available_time_till)}`
-              : "";
-            setData(availableTimeString);
-            setPosition(response.data[0].user_position);
-          }
+          ).then((response) => {
+            if(response?.data?.[0]?.user_position)
+            {
+              const availableTimeString = response?.data[0]?.available_time_from
+                ? `${convertTo12Hour(
+                    response.data[0].available_time_from
+                  )} to ${convertTo12Hour(response.data[0].available_time_till)}`
+                : "";
+              setData(availableTimeString);
+              setPosition(response.data[0].user_position);
+            }
+          })
+          .catch((error) => console.error(error));
+          
           
         } catch (error) {
           console.error(error);

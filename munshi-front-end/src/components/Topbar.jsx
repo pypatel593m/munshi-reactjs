@@ -9,6 +9,7 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ConnectWithoutContactOutlinedIcon from "@mui/icons-material/ConnectWithoutContactOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import HelpCenterOutlinedIcon from '@mui/icons-material/HelpCenterOutlined';
 import { useNavigate } from "react-router-dom";
 import { CheckLogin, loggedUser, GetUser, GetBusiness } from "../util";
 
@@ -84,6 +85,13 @@ const Topbar = () => {
           }}
         >
           <PersonOutlinedIcon />
+        </IconButton>
+        <IconButton
+          onClick={() => {
+            navigate("/help");
+          }}
+        >
+          <HelpCenterOutlinedIcon />
         </IconButton>
 
         { !CheckLogin() ? (

@@ -13,113 +13,52 @@ const Help = () => {
   const colors = tokens(theme.palette.mode);
     return <Box m="20px">
             <Box display="flex" justifyContent={"center"}>
-                  <Box display="grid" justifyContent={"center"}>
+                  <Box  justifyContent={"center"}>
                     <Box display={"flex"} justifyContent="center">
-                      <Header title="Welcome!" subtitle="" />
+                      <Header title="Help!" subtitle="" />
                     </Box>
                     <Box
-                      display="grid"
-                      gap="30px"
-                      marginLeft={40}
                       justifyContent={"center"} 
-                      gridTemplateColumns="repeat(8, minmax(0, 1fr))"
-                      sx={{
-                        "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-                      }}//sx={{ gridColumn: "span 2" }}
+                      padding={"10px 80px 30px 80px"}
                     >
-                      <Box display="flex" sx={{ gridColumn: "span 2" }}  className="home-info">
-                        <h3 className="hello">
-                          Great teams made on <span className="name">M</span>UNSHI
-                        </h3>
-                      </Box>
-                      <Box display="flex"  sx={{ gridColumn: "span 4" }}  className="home-info">
-                        <p>
-                        Munshi helps small businesses manage their work schedules, time
-                        clocks, availabilities, multiple-locations, and more — so they can focus on their people.
-                        </p>
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 8" }} >
-                        <Box display="flex" justifyContent="end" mt="20px">
-                          <h2><Link href="./register" color={colors.blueAccent[300]} className="register-link">Let's Get Started!</Link></h2>
-                        </Box>
-                      </Box>
-                      
-
-                      <Box display="grid" sx={{ gridColumn: "span 2" }} marginTop={10} className="home-info">
-                        <h3 className="hello">
-                          Time Clocks
-                        </h3>
-                        <p>
-                          MUNSHI turns (almost) any device into a time clock to track
-                          hours, breaks, and overtime. Plus, they can check their
-                          availabilities for upcoming week.
-                        </p>
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 4" }}  marginTop={10} >
-                          <CardMedia
-                            component="img"
-                            height="340"
-                            width="300"
-                            image={image1}
-                            alt="green iguana"
-                            className="image1"
-                          />
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 8" }} >
-                        <Box display="flex" justifyContent="end" mt="20px">
-                          <h2><Link href="./register" color={colors.blueAccent[300]} className="register-link">Let's Get Started!</Link></h2>
-                        </Box>
+                      <Box className="home-info">
+                        <h2 className="hello" style={{ textAlign: 'center' }}>
+                          Welcome to the Help Page of Munshi, which will guide you through various features 
+                          which are available on this website, focusing on employee side as well as employer side.
+                        </h2>
                       </Box>
 
-                      <Box display="grid" sx={{ gridColumn: "span 2" }} marginTop={10}  className="home-info">
-                        <h3 className="hello">
-                         Employee Scheduling
-                        </h3>
-                        <p>
-                        With Munshi, your schedule is online and always up to date for your team. You can adjust it on the fly,
-                          on the bus, or from just about anywhere. And then instantly share it. Isn't it that convenient?
-                        </p>
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 4" }}  marginTop={10}>
-                          <CardMedia
-                            component="img"
-                            height="340"
-                            width="300"
-                            image={image1}
-                            alt="green iguana"
-                          />
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 8" }} >
-                        <Box display="flex" justifyContent="end" mt="20px">
-                          <h2><Link href="./register" color={colors.blueAccent[300]} className="register-link">Let's Get Started!</Link></h2>
-                        </Box>
-                      </Box>
+                      <Box className="home-info">
 
-                      <Box display="grid" sx={{ gridColumn: "span 2" }} marginTop={10}  className="home-info">
-                        <h3 className="hello">
-                        Employee's Availabilities
-                        </h3>
-                        <p>
-                        Munshi can help all employee to check their availabilities whenever and whatever time they want to check,
-                          they can check without any hassle.
-                        </p>
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 4" }}  marginTop={10}>
-                          <CardMedia
-                            component="img"
-                            height="340"
-                            width="300"
-                            image={image1}
-                            alt="green iguana"
-                          />
-                      </Box>
-                      <Box sx={{ gridColumn: "span 8" }}>
+                        <p className="help-p">
+                          On this website, Employer, who has their own business or who is manager at particlar store, then they have to register
+                          their business first which will create their own business ID will help them to register themselves to the website, because
+                          it will be needed when they register themselves as employer.<br /><br />
+                          After they are registered, they will redirected to main page of the website which will have mulitple link on their left side of sidebar.<br /> <br /> <br />
 
-                      </Box>
-                      <Box sx={{ gridColumn: "span 8" }}>
+                          <span>Availability</span> For the availability page on Employer side, they will be able to see the availability which is being set 
+                          by employee and employer can check the availablity of all employee in the single table where all employees 
+                          are being located. <br /> <br />
+                          Employer can delete the availability of the employee if they want to. <br /><br />
+                          Whereas, employee can only see their own availability which they have set for particular week. So, they can insert 
+                          multiple availablity of the week in the availabity form and submit with appropriate notes which can be taken in 
+                          consideration by employer. <br /> <br /> <br />
 
+                          <span>Scheduling</span> For the scheduling page for employer, they can see all the availablities which are posted for all employees
+                          and can make schedule depending on the availabilities and can post where eemployees can see their own schedule by logging in their own 
+                          account. <br /><br />
+                          Employer can remove the schedule form the schedule which is posted and can make other changes, because they have that level of accesibility. <br /><br /> 
+                          Whereas, employee only have accessbitlity of view the schedule of their own. They don't have any other functionality. <br /> <br /> <br />
+
+                          <span>Time-Sheets</span> For the availability page on Employer side, they will be able to see the availability which is being set 
+                          by employee and employer can check the availablity of all employee in the single table where all employees 
+                          are being located. <br /> 
+                          Whereas, employee can only see their own availability which they have set for particular week. So, they can insert 
+                          multiple availablity of the week in the availabity form and submit with appropriate notes which can be taken in 
+                          consideration by employer.
+                        </p> 
+                          
                       </Box>
-                      
                     </Box>
                   </Box>
             </Box>

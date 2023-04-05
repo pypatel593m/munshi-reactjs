@@ -4,6 +4,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import {useNavigate} from 'react-router-dom';
 import CardMedia from '@mui/material/CardMedia';
 import image1 from "../../Images/img1.jpeg";
+import availabilities from "../../Images/availabilities.png";
+import schedules from "../../Images/schedules.png";
 import { tokens } from "../../theme";
 
 const Welcome = () => {
@@ -43,8 +45,55 @@ const Welcome = () => {
                           <h2><Link href="./register" color={colors.blueAccent[300]} className="register-link">Let's Get Started!</Link></h2>
                         </Box>
                       </Box>
-                      
 
+                      <Box display="grid" sx={{ gridColumn: "span 2" }} marginTop={10}  className="home-info">
+                        <h3 className="hello">
+                         Employee Scheduling
+                        </h3>
+                        <p>
+                        With Munshi, your schedule is online and always up to date for your team. You can adjust it on the fly,
+                          on the bus, or from just about anywhere. And then instantly share it. Isn't it that convenient?
+                        </p>
+                      </Box>
+                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 4" }}  marginTop={10}>
+                          <CardMedia
+                            component="img"
+                            height="340"
+                            width="300"
+                            image={schedules}
+                            alt="green iguana"
+                          />
+                      </Box>
+                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 8" }} >
+                        <Box display="flex" justifyContent="end" mt="20px">
+                          <h2><Link href="./register" color={colors.blueAccent[300]} className="register-link">Let's Get Started!</Link></h2>
+                        </Box>
+                      </Box>
+
+                      <Box display="grid" sx={{ gridColumn: "span 2" }} marginTop={10}  className="home-info">
+                        <h3 className="hello">
+                        Employee's Availabilities
+                        </h3>
+                        <p>
+                        Munshi can help all employee to check their availabilities whenever and whatever time they want to check,
+                          they can check without any hassle.
+                        </p>
+                      </Box>
+                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 4" }}  marginTop={10}>
+                          <CardMedia
+                            component="img"
+                            height="340"
+                            width="300"
+                            image={availabilities}
+                            alt="green iguana"
+                          />
+                      </Box>
+                      <Box sx={{ gridColumn: "span 8" }}>
+
+                      </Box>
+                      <Box sx={{ gridColumn: "span 8" }}>
+
+                      </Box>
                       <Box display="grid" sx={{ gridColumn: "span 2" }} marginTop={10} className="home-info">
                         <h3 className="hello">
                           Time Clocks
@@ -69,55 +118,6 @@ const Welcome = () => {
                         <Box display="flex" justifyContent="end" mt="20px">
                           <h2><Link href="./register" color={colors.blueAccent[300]} className="register-link">Let's Get Started!</Link></h2>
                         </Box>
-                      </Box>
-
-                      <Box display="grid" sx={{ gridColumn: "span 2" }} marginTop={10}  className="home-info">
-                        <h3 className="hello">
-                         Employee Scheduling
-                        </h3>
-                        <p>
-                        With Munshi, your schedule is online and always up to date for your team. You can adjust it on the fly,
-                          on the bus, or from just about anywhere. And then instantly share it. Isn't it that convenient?
-                        </p>
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 4" }}  marginTop={10}>
-                          <CardMedia
-                            component="img"
-                            height="340"
-                            width="300"
-                            image={image1}
-                            alt="green iguana"
-                          />
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 8" }} >
-                        <Box display="flex" justifyContent="end" mt="20px">
-                          <h2><Link href="./register" color={colors.blueAccent[300]} className="register-link">Let's Get Started!</Link></h2>
-                        </Box>
-                      </Box>
-
-                      <Box display="grid" sx={{ gridColumn: "span 2" }} marginTop={10}  className="home-info">
-                        <h3 className="hello">
-                        Employee's Availabilities
-                        </h3>
-                        <p>
-                        Munshi can help all employee to check their availabilities whenever and whatever time they want to check,
-                          they can check without any hassle.
-                        </p>
-                      </Box>
-                      <Box display="flex" justifyContent={"left"} sx={{ gridColumn: "span 4" }}  marginTop={10}>
-                          <CardMedia
-                            component="img"
-                            height="340"
-                            width="300"
-                            image={image1}
-                            alt="green iguana"
-                          />
-                      </Box>
-                      <Box sx={{ gridColumn: "span 8" }}>
-
-                      </Box>
-                      <Box sx={{ gridColumn: "span 8" }}>
-
                       </Box>
                       
                     </Box>

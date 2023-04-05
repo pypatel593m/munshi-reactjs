@@ -107,9 +107,7 @@ const Schedule = () => {
   function GetSchedule(props) {
     const { user_id, day } = props;
     const [data, setData] = useState(null);
-
     const [position, setPosition] = useState(null);
-
     useEffect(() => {
       async function fetchData() {
         try {
@@ -121,16 +119,11 @@ const Schedule = () => {
               business_id: business.m_business_id,
             }
           ); 
-          if(response?.data?.[0]?.schedule_id && response?.data?.[0]?.user_id && response?.data?.[0]?.user_position && response?.data?.[0]?.schedule_date
-            && response?.data?.[0]?.shift_start_time && response?.data?.[0]?.shift_end_time && response?.data?.[0]?.notes)
-          {
-            const availableTimeString = response?.data[0]?.shift_start_time
-              ? `${convertTo12Hour(
-                  response.data[0].shift_start_time
-                )} to ${convertTo12Hour(response.data[0].shift_end_time)}`
-              : "";
+          if (response.data && response.data.length > 0) {
+            const availableTimeString = `${convertTo12Hour(response.data[0].shift_start_time)} to ${convertTo12Hour(response.data[0].shift_end_time)}`;
+            const userPosition = response.data[0].user_position;
             setData(availableTimeString);
-            setPosition(response.data[0].user_position);
+            setPosition(userPosition);
           }
           
         } catch (error) {

@@ -59,6 +59,10 @@ const Login = () => {
   } 
 
     return <Box> 
+      <Box display="flex" justifyContent={"center"}>
+        <h3>Are you an employer, haven't registered your business yet, then <Link href="./business" color={colors.blueAccent[300]} className="register-link"> Click Here!</Link></h3>
+
+        </Box>
         <Box display="flex" justifyContent={"center"}>
         <h1>{loginStatus}</h1>
 
@@ -143,10 +147,7 @@ const Login = () => {
           
         </Box>
         
-        <Box display="flex" justifyContent={"center"}>
-        <h3>Are you an employer, haven't registered your business yet, then <Link href="./business" color={colors.blueAccent[300]} className="register-link"> Click Here!</Link></h3>
-
-        </Box>
+        
     </Box>;
 }
 

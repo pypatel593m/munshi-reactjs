@@ -45,6 +45,9 @@ const Business = () => {
   return (
     <Box>
       <Box display="flex" justifyContent={"center"}>
+        <h2>Please use the business id that you can remember, you will use it quite often.</h2>
+      </Box>
+      <Box display="flex" justifyContent={"center"}>
         <h1>{businessStatus}</h1>
       </Box>
       <Box display="flex" justifyContent={"center"}>
@@ -140,9 +143,9 @@ const Business = () => {
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                     <h3>
-                      Want to continue with login?{" "}
+                      Want to continue with register?{" "}
                       <Link
-                        href="./login"
+                        href="./register"
                         color={colors.blueAccent[300]}
                         className="register-link"
                       >
