@@ -139,6 +139,11 @@ const EmployerAvailability = () => {
       </>
     );
   }
+  const viewAvailability = useCallback((event, item, day) => {
+    navigate(`/showavailability/${item.user_id}/${date[day]?.toISOString().substring(0, 10)}/${business.m_business_id}`);
+    
+  }, []);
+
   const deleteAvailability = useCallback((event, item, day) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this schedule?');
     if (confirmDelete) {
@@ -352,6 +357,14 @@ const EmployerAvailability = () => {
                   <div>
                     <IconButton
                       onClick={(event) => {
+                        viewAvailability(event, item, 0);
+                      }}
+                      className="micro"
+                    >
+                      <VisibilityOutlinedIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={(event) => {
                         deleteAvailability(event, item, 0);
                       }}
                       className="micro"
@@ -374,6 +387,14 @@ const EmployerAvailability = () => {
                 <AvailableTime user_id={item.user_id} day={1} />
                 {clickedCell === item.user_id && (
                   <div>
+                    <IconButton
+                      onClick={(event) => {
+                        viewAvailability(event, item, 1);
+                      }}
+                      className="micro"
+                    >
+                      <VisibilityOutlinedIcon />
+                    </IconButton>
                     <IconButton
                       onClick={(event) => {
                         deleteAvailability(event, item, 1);
@@ -400,6 +421,14 @@ const EmployerAvailability = () => {
                   <div>
                     <IconButton
                       onClick={(event) => {
+                        viewAvailability(event, item, 2);
+                      }}
+                      className="micro"
+                    >
+                      <VisibilityOutlinedIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={(event) => {
                         deleteAvailability(event, item, 2);
                       }}
                       className="micro"
@@ -422,6 +451,14 @@ const EmployerAvailability = () => {
                 <AvailableTime user_id={item.user_id} day={3} />
                 {clickedCell === item.user_id && (
                   <div>
+                    <IconButton
+                      onClick={(event) => {
+                        viewAvailability(event, item, 3);
+                      }}
+                      className="micro"
+                    >
+                      <VisibilityOutlinedIcon />
+                    </IconButton>
                     <IconButton
                       onClick={(event) => {
                         deleteAvailability(event, item, 3);
@@ -448,6 +485,14 @@ const EmployerAvailability = () => {
                   <div>
                     <IconButton
                       onClick={(event) => {
+                        viewAvailability(event, item, 4);
+                      }}
+                      className="micro"
+                    >
+                      <VisibilityOutlinedIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={(event) => {
                         deleteAvailability(event, item, 4);
                       }}
                       className="micro"
@@ -472,6 +517,14 @@ const EmployerAvailability = () => {
                   <div>
                     <IconButton
                       onClick={(event) => {
+                        viewAvailability(event, item, 5);
+                      }}
+                      className="micro"
+                    >
+                      <VisibilityOutlinedIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={(event) => {
                         deleteAvailability(event, item, 5);
                       }}
                       className="micro"
@@ -494,6 +547,14 @@ const EmployerAvailability = () => {
                 <AvailableTime user_id={item.user_id} day={6} />
                 {clickedCell === item.user_id && (
                   <div>
+                    <IconButton
+                      onClick={(event) => {
+                        viewAvailability(event, item, 6);
+                      }}
+                      className="micro"
+                    >
+                      <VisibilityOutlinedIcon />
+                    </IconButton>
                     <IconButton
                       onClick={(event) => {
                         deleteAvailability(event, item, 6);

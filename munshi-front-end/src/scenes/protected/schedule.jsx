@@ -142,7 +142,13 @@ const Schedule = () => {
     );
   }
   const viewSchedule = useCallback((event, item, day) => {
-    navigate(`/showschedule/${item.user_id}/${date[day]?.toISOString().substring(0, 10)}/${business.m_business_id}`);
+    if (IsEmployer() === "employer") 
+    {
+      navigate(`/createschedule/${item.user_id}/${date[day]?.toISOString().substring(0, 10)}/${business.m_business_id}`);
+    }
+    else{
+      navigate(`/showschedule/${item.user_id}/${date[day]?.toISOString().substring(0, 10)}/${business.m_business_id}`);
+    }
   }, []);
   const deleteSchedule = useCallback((event, item, day) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this schedule?');

@@ -1,5 +1,5 @@
 import Header from "../../components/Header";
-import { CheckLogin, GetUser } from "../../util";
+import { CheckLogin, GetUser, convertTo12Hour } from "../../util";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -31,9 +31,9 @@ const ShowAvailability = () => {
 
   const user_id = window.location.pathname.split("/")[2];
   const [rows, setRows] = useState([]);
-  
+
   const available_date = window.location.pathname.split("/")[3];
-  const business_id = window.location.pathname.split("/")[3];
+  const business_id = window.location.pathname.split("/")[4];
   useEffect(() => {
     console.log(user_id, available_date, business_id);
     Axios.post("http://localhost:3001/getavailability", {
@@ -47,58 +47,58 @@ const ShowAvailability = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  
-
   return (
     <Box m="20px">
       <Box display="flex" justifyContent={"center"}>
-        <Box
-          display="grid"
-          gap="30px"
-          marginLeft={10}
-          justifyContent={"center"}
-          gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-          sx={{
-            "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-          }} //sx={{ gridColumn: "span 2" }}
-        >
+        {rows.length > 0 ? (
+          <Box
+            display="grid"
+            gap="30px"
+            marginLeft={10}
+            justifyContent={"center"}
+            gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+            sx={{
+              "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+            }} //sx={{ gridColumn: "span 2" }}
+          >
             <Box sx={{ gridColumn: "span 2" }}>
-                <h1>Availability ID:</h1>
+              <h2>Availability ID:</h2>
             </Box>
             <Box sx={{ gridColumn: "span 2" }}>
-                <h1>{rows[0].availability_id}</h1>
+              <h2>{rows[0].availability_id}</h2>
             </Box>
             <Box sx={{ gridColumn: "span 2" }}>
-                <h1>User ID:</h1>
+              <h2>User ID:</h2>
             </Box>
             <Box sx={{ gridColumn: "span 2" }}>
-                <h1>{rows[0].user_id}</h1>
+              <h2>{rows[0].user_id}</h2>
             </Box>
             <Box sx={{ gridColumn: "span 2" }}>
-                <h1>Date:</h1>
+              <h2>Date:</h2>
             </Box>
             <Box sx={{ gridColumn: "span 2" }}>
-                <h1>{rows[0].available_date}</h1>
+              <h2>{rows[0].available_date.substring(0, 10)}</h2>
             </Box>
             <Box sx={{ gridColumn: "span 2" }}>
-                <h1>Available From:</h1>
+              <h2>Available From:</h2>
             </Box>
             <Box sx={{ gridColumn: "span 2" }}>
-                <h1>{rows[0].available_time_from}</h1>
+              <h2>{convertTo12Hour(rows[0].available_time_from)}</h2>
             </Box>
             <Box sx={{ gridColumn: "span 2" }}>
-                <h1>Available Untill:</h1>
+              <h2>Available Untill:</h2>
             </Box>
             <Box sx={{ gridColumn: "span 2" }}>
-                <h1>{rows[0].available_time_till}</h1>
+              <h2>{convertTo12Hour(rows[0].available_time_till)}</h2>
             </Box>
             <Box sx={{ gridColumn: "span 2" }}>
-                <h1>Requests/Notes:</h1>
+              <h2>Requests/Notes:</h2>
             </Box>
             <Box sx={{ gridColumn: "span 2" }}>
-                <h1>{rows[0].notes}</h1>
+              <h2>{rows[0].notes}</h2>
             </Box>
-        </Box>
+          </Box>
+        ) : null}
       </Box>
     </Box>
   );

@@ -26,6 +26,8 @@ import EmployerAvailability from "./scenes/protected/employeravailability";
 import EmployeeAvailability from "./scenes/protected/employeeavailability";
 import Schedule from "./scenes/protected/schedule";
 import AddEmployeeAvailability from "./scenes/protected/addemployeeavailability";
+import ShowAvailability from "./scenes/protected/showavailability";
+import ShowSchedule from "./scenes/protected/showschedule";
 // import  Team  from "./scenes/team";
 // import  Invoices  from "./scenes/invoices";
 // import  Contacts  from "./scenes/Contacts";
@@ -104,6 +106,13 @@ function App() {
                 </Route>
                 <Route element={<ProtectedRoute />}>
                   <Route path="/schedule" element={<Schedule />} />
+                </Route>
+                
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/showavailability/:id/:date/:business_id" element={<ShowAvailability />} />
+                </Route>
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/showschedule/:id/:date/:business_id" element={<ShowSchedule />} />
                 </Route>
               </Routes>
           </main>

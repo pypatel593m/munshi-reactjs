@@ -394,6 +394,7 @@ app.post("/getavailability", (req, res) => {
   let available_date = req.body.available_date;
   let business_id = req.body.business_id;
   const deletePosition = `SELECT * FROM availabilities WHERE user_id = ${user_id} AND available_date = '${available_date}' AND business_id = ${business_id};`;
+  console.log(deletePosition);
   exports.db.query(deletePosition, (err, result) => {
     if (result) {
       res.send(result.rows);
@@ -427,7 +428,6 @@ app.post("/showschedule", (req, res) => {
   
   exports.db.query(insertTeam, (err, result) => {
     if (result) {
-      console.log(result.rows);
       res.send(result.rows);
     } else {
       console.log(err.message);
