@@ -7,7 +7,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  useThemeProps,
+  useTheme,
 } from "@mui/material";
 import Header from "../../components/Header";
 import {
@@ -27,10 +27,13 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import { tokens } from "../../theme";
 
 const Schedule = () => {
   const business = GetBusiness();
   const navigate = useNavigate();
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   const [startDate, setStartDate] = useState(getCurrentWeekDates().startOfWeek);
   const [endDate, setEndDate] = useState(getCurrentWeekDates().endOfWeek);
@@ -47,6 +50,12 @@ const Schedule = () => {
       setClickedCell(cell);
     }
   };
+  const createSchedule = (item) => {
+    if (IsEmployer() === "employer")
+    {
+      navigate(`/createschedule/${item.user_id}`);
+    }
+  }
 
   const NextWeekClick = useCallback(
     (e) => {
@@ -142,13 +151,7 @@ const Schedule = () => {
     );
   }
   const viewSchedule = useCallback((event, item, day) => {
-    if (IsEmployer() === "employer") 
-    {
-      navigate(`/createschedule/${item.user_id}/${date[day]?.toISOString().substring(0, 10)}/${business.m_business_id}`);
-    }
-    else{
-      navigate(`/showschedule/${item.user_id}/${date[day]?.toISOString().substring(0, 10)}/${business.m_business_id}`);
-    }
+    navigate(`/showschedule/${item.user_id}/${date[day]?.toISOString().substring(0, 10)}/${business.m_business_id}`);
   }, []);
   const deleteSchedule = useCallback((event, item, day) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this schedule?');
@@ -173,21 +176,8 @@ const Schedule = () => {
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="SCHEDULE" />
+        <Header title="SCHEDULE" subtitle="Click on the name of the employees to schedule them."/>
       </Box>
-      { IsEmployer() === "employer" ? (
-        <Box display="flex" justifyContent="end" marginBottom={2}>
-        <Button
-          onClick={() => {
-            navigate("/createschedule");
-          }}
-          color="secondary"
-          variant="contained"
-        >
-          Create New Schedule
-        </Button>
-        </Box>
-      ): null}
       {/* Week change! */}
       <Box
         marginLeft={5}
@@ -346,7 +336,9 @@ const Schedule = () => {
                   padding: "5px",
                   fontSize: 20,
                   fontWeight: "bold",
+                  backgroundColor: colors.primary[400],
                 }}
+                onClick={() => createSchedule(item)}
               >
                 {item.user_fname} {item.user_lname}
               </TableCell>

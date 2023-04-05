@@ -37,7 +37,6 @@ CREATE TABLE schedules
     shift_end_time time without time zone NOT NULL,
     notes varchar(2000),
     user_id INTEGER REFERENCES users(user_id) NOT NULL,
-    position_id INTEGER REFERENCES positions(position_id) NOT NULL,
     business_id INTEGER REFERENCES businesses(business_id) NOT NULL
 );
 

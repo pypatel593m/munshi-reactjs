@@ -28,6 +28,7 @@ import Schedule from "./scenes/protected/schedule";
 import AddEmployeeAvailability from "./scenes/protected/addemployeeavailability";
 import ShowAvailability from "./scenes/protected/showavailability";
 import ShowSchedule from "./scenes/protected/showschedule";
+import CreateSchedule from "./scenes/protected/createschedule";
 // import  Team  from "./scenes/team";
 // import  Invoices  from "./scenes/invoices";
 // import  Contacts  from "./scenes/Contacts";
@@ -113,6 +114,9 @@ function App() {
                 </Route>
                 <Route element={<ProtectedRoute />}>
                   <Route path="/showschedule/:id/:date/:business_id" element={<ShowSchedule />} />
+                </Route>
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/createschedule/:id" element={<CreateSchedule />} />
                 </Route>
               </Routes>
           </main>

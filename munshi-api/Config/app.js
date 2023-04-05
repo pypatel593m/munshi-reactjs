@@ -394,7 +394,7 @@ app.post("/getavailability", (req, res) => {
   let available_date = req.body.available_date;
   let business_id = req.body.business_id;
   const deletePosition = `SELECT * FROM availabilities WHERE user_id = ${user_id} AND available_date = '${available_date}' AND business_id = ${business_id};`;
-  console.log(deletePosition);
+  
   exports.db.query(deletePosition, (err, result) => {
     if (result) {
       res.send(result.rows);
@@ -412,7 +412,6 @@ app.post("/getschedule", (req, res) => {
   
   exports.db.query(insertTeam, (err, result) => {
     if (result) {
-      console.log(result.rows);
       res.send(result.rows);
     } else {
       console.log(err.message);
@@ -424,7 +423,7 @@ app.post("/showschedule", (req, res) => {
   let user_id = req.body.user_id;
   let schedule_date = req.body.schedule_date;
   let business_id = req.body.business_id;
-  const insertTeam = `SELECT * FROM schedules WHERE user_id = ${user_id} AND schedule_date = '${schedule_date}' AND business_id = ${business_id});`;
+  const insertTeam = `SELECT * FROM schedules WHERE user_id = ${user_id} AND schedule_date = '${schedule_date}' AND business_id = ${business_id};`;
   
   exports.db.query(insertTeam, (err, result) => {
     if (result) {
@@ -447,6 +446,27 @@ app.post("/deleteschedule", (req, res) => {
       res.send({ message: "Availability removed!"});
     } else {
       res.send({ message: "Something went wrong!" + err.message });
+    }
+  });
+});
+
+
+//This method adds new availability for employee
+app.post("/createschedule", (req, res) => {
+  let user_id = req.body.user_id;
+  let schedule_date = req.body.schedule_date;
+  let shift_start_time = req.body.shift_start_time;
+  let shift_end_time = req.body.shift_end_time;
+  let notes = req.body.notes;
+  let business_id = req.body.business_id;
+  const insertTeam = `INSERT INTO schedules (schedule_date, shift_start_time, shift_end_time, notes, user_id, business_id)
+  VALUES ('${schedule_date}', '${shift_start_time}', '${shift_end_time}', '${notes}', ${user_id}, ${business_id});`;
+  
+  exports.db.query(insertTeam, (err, result) => {
+    if (result) {
+      res.send({ message: "Schedule added!"});
+    } else {
+      res.send({ message: "Invalid data!"});
     }
   });
 });
