@@ -15,6 +15,7 @@ import Welcome from "./scenes/global/welcome";
 import About from "./scenes/global/about";
 import Contact from "./scenes/global/contact";
 import Business from "./scenes/global/business";
+import Help from "./scenes/global/help";
 import UpdateBusiness from "./scenes/protected/updatebusiness";
 import ProtectedRoute from "./components/PrivateRoute";
 import Team from "./scenes/protected/team";
@@ -74,6 +75,8 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/business" element={<Business />} />
+                
+                <Route path="/help" element={<Help />} />
                 <Route element={<ProtectedRoute />}>
                   <Route path="/updatebusiness" element={<UpdateBusiness />} />
                 </Route>
