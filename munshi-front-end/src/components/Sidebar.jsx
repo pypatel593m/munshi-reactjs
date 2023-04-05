@@ -161,23 +161,13 @@ const Sidebar = () => {
             />
             )}
             
-            { IsEmployer() === "employer" ? (
-              <Item
+            <Item
               title="Schedule"
-              to="/employerschedule"
+              to="/schedule"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            ) : (
-              <Item
-              title="Schedule"
-              to="/employeeschedule"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            )}
             { IsEmployer() === "employer" ? (
               <Item
               title="Timeline"

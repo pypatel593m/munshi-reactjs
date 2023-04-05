@@ -131,7 +131,7 @@ const EmployerAvailability = () => {
 
     return (
       <>
-        <span style={{ color: "red" }}>
+        <span style={{ color: "brown" }}>
           {position}
           <br />
         </span>

@@ -18,6 +18,7 @@ import {
   getPreviousWeekStartDateAndEndDate,
   GetBusiness,
   convertTo12Hour,
+  IsEmployer,
 } from "../../util";
 import { useNavigate } from "react-router-dom";
 import { useState, useCallback, useEffect } from "react";
@@ -25,8 +26,9 @@ import Axios from "axios";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 
-const EmployeeSchedule = () => {
+const Schedule = () => {
   const business = GetBusiness();
   const navigate = useNavigate();
 
@@ -131,7 +133,7 @@ const EmployeeSchedule = () => {
 
     return (
       <>
-        <span style={{ color: "red" }}>
+        <span style={{ color: "brown" }}>
           {position}
           <br />
         </span>
@@ -139,21 +141,27 @@ const EmployeeSchedule = () => {
       </>
     );
   }
-  const deleteAvailability = useCallback((event, item, day) => {
-    async function fetchData() {
-      //e.preventDefault();
-      const available_date_string = `${date[day].getFullYear()}-${date[day].getMonth() + 1}-${date[day].getDate()}`
-      Axios.post("http://localhost:3001/deleteavailability", {
-        user_id: item.user_id,
-        available_date: available_date_string,
-        business_id: business.m_business_id,
-      })
-        .then((response) => {
-          window.location.reload();
+  const viewSchedule = useCallback((event, item, day) => {
+    navigate(`/showschedule/${item.user_id}/${date[day]?.toISOString().substring(0, 10)}/${business.m_business_id}`);
+  }, []);
+  const deleteSchedule = useCallback((event, item, day) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this item?');
+    if (confirmDelete) {
+      async function fetchData() {
+        //e.preventDefault();
+        Axios.post("http://localhost:3001/deleteschedule", {
+          user_id: item.user_id,
+          schedule_date: date[day]?.toISOString().substring(0, 10),
+          business_id: business.m_business_id,
         })
-        .catch((error) => console.error(error));
+          .then((response) => {
+            window.location.reload();
+          })
+          .catch((error) => console.error(error));
+      }
+      fetchData();
     }
-    fetchData();
+    
   }, []);
 
   return (
@@ -161,7 +169,19 @@ const EmployeeSchedule = () => {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="SCHEDULE" />
       </Box>
-
+      { IsEmployer() === "employer" ? (
+        <Box display="flex" justifyContent="end" marginBottom={2}>
+        <Button
+          onClick={() => {
+            navigate("/createschedule");
+          }}
+          color="secondary"
+          variant="contained"
+        >
+          Create New Schedule
+        </Button>
+        </Box>
+      ): null}
       {/* Week change! */}
       <Box
         marginLeft={5}
@@ -337,9 +357,19 @@ const EmployeeSchedule = () => {
                 <GetSchedule user_id={item.user_id} day={0} />
                 {clickedCell === item.user_id && (
                   <div>
+                    {IsEmployer() === "employer" ? (
+                      <IconButton
+                      onClick={(event) => {
+                        deleteSchedule(event, item, 0);
+                      }}
+                      className="micro"
+                    >
+                      <DeleteForeverOutlinedIcon />
+                    </IconButton>
+                    ): null}
                     <IconButton
                       onClick={(event) => {
-                        deleteAvailability(event, item, 0);
+                        deleteSchedule(event, item, 0);
                       }}
                       className="micro"
                     >
@@ -361,9 +391,19 @@ const EmployeeSchedule = () => {
                 <GetSchedule user_id={item.user_id} day={1} />
                 {clickedCell === item.user_id && (
                   <div>
+                    {IsEmployer() === "employer" ? (
+                      <IconButton
+                      onClick={(event) => {
+                        deleteSchedule(event, item, 1);
+                      }}
+                      className="micro"
+                    >
+                      <DeleteForeverOutlinedIcon />
+                    </IconButton>
+                    ): null}
                     <IconButton
                       onClick={(event) => {
-                        deleteAvailability(event, item, 1);
+                        viewSchedule(event, item, 1);
                       }}
                       className="micro"
                     >
@@ -385,9 +425,19 @@ const EmployeeSchedule = () => {
                 <GetSchedule user_id={item.user_id} day={2} />
                 {clickedCell === item.user_id && (
                   <div>
+                    {IsEmployer() === "employer" ? (
+                      <IconButton
+                      onClick={(event) => {
+                        deleteSchedule(event, item, 2);
+                      }}
+                      className="micro"
+                    >
+                      <DeleteForeverOutlinedIcon />
+                    </IconButton>
+                    ): null}
                     <IconButton
                       onClick={(event) => {
-                        deleteAvailability(event, item, 2);
+                        viewSchedule(event, item, 2);
                       }}
                       className="micro"
                     >
@@ -409,9 +459,19 @@ const EmployeeSchedule = () => {
                 <GetSchedule user_id={item.user_id} day={3} />
                 {clickedCell === item.user_id && (
                   <div>
+                    {IsEmployer() === "employer" ? (
+                      <IconButton
+                      onClick={(event) => {
+                        deleteSchedule(event, item, 3);
+                      }}
+                      className="micro"
+                    >
+                      <DeleteForeverOutlinedIcon />
+                    </IconButton>
+                    ): null}
                     <IconButton
                       onClick={(event) => {
-                        deleteAvailability(event, item, 3);
+                        viewSchedule(event, item, 3);
                       }}
                       className="micro"
                     >
@@ -433,9 +493,19 @@ const EmployeeSchedule = () => {
                 <GetSchedule user_id={item.user_id} day={4} />
                 {clickedCell === item.user_id && (
                   <div>
+                    {IsEmployer() === "employer" ? (
+                      <IconButton
+                      onClick={(event) => {
+                        deleteSchedule(event, item, 4);
+                      }}
+                      className="micro"
+                    >
+                      <DeleteForeverOutlinedIcon />
+                    </IconButton>
+                    ): null}
                     <IconButton
                       onClick={(event) => {
-                        deleteAvailability(event, item, 4);
+                        viewSchedule(event, item, 4);
                       }}
                       className="micro"
                     >
@@ -457,9 +527,19 @@ const EmployeeSchedule = () => {
                 <GetSchedule user_id={item.user_id} day={5} />
                 {clickedCell === item.user_id && (
                   <div>
+                    {IsEmployer() === "employer" ? (
+                      <IconButton
+                      onClick={(event) => {
+                        deleteSchedule(event, item, 5);
+                      }}
+                      className="micro"
+                    >
+                      <DeleteForeverOutlinedIcon />
+                    </IconButton>
+                    ): null}
                     <IconButton
                       onClick={(event) => {
-                        deleteAvailability(event, item, 5);
+                        viewSchedule(event, item, 5);
                       }}
                       className="micro"
                     >
@@ -481,9 +561,19 @@ const EmployeeSchedule = () => {
                 <GetSchedule user_id={item.user_id} day={6} />
                 {clickedCell === item.user_id && (
                   <div>
+                    {IsEmployer() === "employer" ? (
+                      <IconButton
+                      onClick={(event) => {
+                        deleteSchedule(event, item, 6);
+                      }}
+                      className="micro"
+                    >
+                      <DeleteForeverOutlinedIcon />
+                    </IconButton>
+                    ): null}
                     <IconButton
                       onClick={(event) => {
-                        deleteAvailability(event, item, 6);
+                        deleteSchedule(event, item, 6);
                       }}
                       className="micro"
                     >
@@ -500,4 +590,4 @@ const EmployeeSchedule = () => {
   );
 };
 
-export default EmployeeSchedule;
+export default Schedule;
