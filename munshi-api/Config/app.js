@@ -403,4 +403,18 @@ app.post("/getavailability", (req, res) => {
   });
 });
 
+app.post("/getschedule", (req, res) => {
+  let user_id = req.body.user_id;
+  let schedule_date = req.body.schedule_date;
+  let business_id = req.body.business_id;
+  const insertTeam = `SELECT * FROM get_schedule(${user_id}, '${schedule_date}',${business_id});`;
+  exports.db.query(insertTeam, (err, result) => {
+    if (result) {
+      res.send(result.rows);
+    } else {
+      console.log(err.message);
+    }
+  });
+});
+
 exports.default = app;

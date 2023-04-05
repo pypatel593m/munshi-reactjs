@@ -25,9 +25,8 @@ import Axios from "axios";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 
-const EmployerAvailability = () => {
+const EmployeeSchedule = () => {
   const business = GetBusiness();
   const navigate = useNavigate();
 
@@ -94,7 +93,7 @@ const EmployerAvailability = () => {
     fetchData();
   }, [NextWeekClick, PreviousWeekClick]);
 
-  function AvailableTime(props) {
+  function GetSchedule(props) {
     const { user_id, day } = props;
     const [data, setData] = useState(null);
 
@@ -104,19 +103,20 @@ const EmployerAvailability = () => {
       async function fetchData() {
         try {
           const response = await Axios.post(
-            "http://localhost:3001/getavailabletime",
+            "http://localhost:3001/getschedule",
             {
               user_id: user_id,
-              available_date: date[day]?.toISOString().substring(0, 10),
+              schedule_date: date[day]?.toISOString().substring(0, 10),
               business_id: business.m_business_id,
             }
-          );
-          if(response?.data?.[0]?.user_position)
+          ); 
+          if(response?.data?.[0]?.schedule_id && response?.data?.[0]?.user_id && response?.data?.[0]?.user_position && response?.data?.[0]?.schedule_date
+            && response?.data?.[0]?.shift_start_time && response?.data?.[0]?.shift_end_time && response?.data?.[0]?.notes)
           {
-            const availableTimeString = response?.data[0]?.available_time_from
+            const availableTimeString = response?.data[0]?.shift_start_time
               ? `${convertTo12Hour(
-                  response.data[0].available_time_from
-                )} to ${convertTo12Hour(response.data[0].available_time_till)}`
+                  response.data[0].shift_start_time
+                )} to ${convertTo12Hour(response.data[0].shift_end_time)}`
               : "";
             setData(availableTimeString);
             setPosition(response.data[0].user_position);
@@ -159,19 +159,9 @@ const EmployerAvailability = () => {
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="AVAILABILITIES" />
+        <Header title="SCHEDULE" />
       </Box>
-      <Box display="flex" justifyContent="end" marginBottom={2}>
-        <Button
-          onClick={() => {
-            navigate("/addemployeeavailability");
-          }}
-          color="secondary"
-          variant="contained"
-        >
-          Add Availability for yourself
-        </Button>
-      </Box>
+
       {/* Week change! */}
       <Box
         marginLeft={5}
@@ -344,7 +334,7 @@ const EmployerAvailability = () => {
                 }}
                 onClick={() => handleCellClick(item.user_id)}
               >
-                <AvailableTime user_id={item.user_id} day={0} />
+                <GetSchedule user_id={item.user_id} day={0} />
                 {clickedCell === item.user_id && (
                   <div>
                     <IconButton
@@ -353,7 +343,7 @@ const EmployerAvailability = () => {
                       }}
                       className="micro"
                     >
-                      <DeleteForeverOutlinedIcon />
+                      <VisibilityOutlinedIcon />
                     </IconButton>
                   </div>
                 )}
@@ -368,7 +358,7 @@ const EmployerAvailability = () => {
                 }}
                 onClick={() => handleCellClick(item.user_id)}
               >
-                <AvailableTime user_id={item.user_id} day={1} />
+                <GetSchedule user_id={item.user_id} day={1} />
                 {clickedCell === item.user_id && (
                   <div>
                     <IconButton
@@ -377,7 +367,7 @@ const EmployerAvailability = () => {
                       }}
                       className="micro"
                     >
-                      <DeleteForeverOutlinedIcon />
+                      <VisibilityOutlinedIcon />
                     </IconButton>
                   </div>
                 )}
@@ -392,7 +382,7 @@ const EmployerAvailability = () => {
                 }}
                 onClick={() => handleCellClick(item.user_id)}
               >
-                <AvailableTime user_id={item.user_id} day={2} />
+                <GetSchedule user_id={item.user_id} day={2} />
                 {clickedCell === item.user_id && (
                   <div>
                     <IconButton
@@ -401,7 +391,7 @@ const EmployerAvailability = () => {
                       }}
                       className="micro"
                     >
-                      <DeleteForeverOutlinedIcon />
+                      <VisibilityOutlinedIcon />
                     </IconButton>
                   </div>
                 )}
@@ -416,7 +406,7 @@ const EmployerAvailability = () => {
                 }}
                 onClick={() => handleCellClick(item.user_id)}
               >
-                <AvailableTime user_id={item.user_id} day={3} />
+                <GetSchedule user_id={item.user_id} day={3} />
                 {clickedCell === item.user_id && (
                   <div>
                     <IconButton
@@ -425,7 +415,7 @@ const EmployerAvailability = () => {
                       }}
                       className="micro"
                     >
-                      <DeleteForeverOutlinedIcon />
+                      <VisibilityOutlinedIcon />
                     </IconButton>
                   </div>
                 )}
@@ -440,7 +430,7 @@ const EmployerAvailability = () => {
                 }}
                 onClick={() => handleCellClick(item.user_id)}
               >
-                <AvailableTime user_id={item.user_id} day={4} />
+                <GetSchedule user_id={item.user_id} day={4} />
                 {clickedCell === item.user_id && (
                   <div>
                     <IconButton
@@ -449,7 +439,7 @@ const EmployerAvailability = () => {
                       }}
                       className="micro"
                     >
-                      <DeleteForeverOutlinedIcon />
+                      <VisibilityOutlinedIcon />
                     </IconButton>
                   </div>
                 )}
@@ -464,7 +454,7 @@ const EmployerAvailability = () => {
                 }}
                 onClick={() => handleCellClick(item.user_id)}
               >
-                <AvailableTime user_id={item.user_id} day={5} />
+                <GetSchedule user_id={item.user_id} day={5} />
                 {clickedCell === item.user_id && (
                   <div>
                     <IconButton
@@ -473,7 +463,7 @@ const EmployerAvailability = () => {
                       }}
                       className="micro"
                     >
-                      <DeleteForeverOutlinedIcon />
+                      <VisibilityOutlinedIcon />
                     </IconButton>
                   </div>
                 )}
@@ -488,7 +478,7 @@ const EmployerAvailability = () => {
                 }}
                 onClick={() => handleCellClick(item.user_id)}
               >
-                <AvailableTime user_id={item.user_id} day={6} />
+                <GetSchedule user_id={item.user_id} day={6} />
                 {clickedCell === item.user_id && (
                   <div>
                     <IconButton
@@ -497,7 +487,7 @@ const EmployerAvailability = () => {
                       }}
                       className="micro"
                     >
-                      <DeleteForeverOutlinedIcon />
+                      <VisibilityOutlinedIcon />
                     </IconButton>
                   </div>
                 )}
@@ -510,4 +500,4 @@ const EmployerAvailability = () => {
   );
 };
 
-export default EmployerAvailability;
+export default EmployeeSchedule;

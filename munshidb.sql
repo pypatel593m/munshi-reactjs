@@ -210,6 +210,22 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE FUNCTION get_schedule(p_user_id integer, p_schedule_date date, p_business_id integer)
+RETURNS TABLE (schedule_id integer, user_id integer, user_position varchar,schedule_date date, 
+			   shift_start_time time without time zone, shift_end_time time without time zone,
+			  notes varchar) AS $$
+BEGIN
+  RETURN QUERY
+    SELECT s.schedule_id, s.user_id, p.user_position, s.schedule_date, s.shift_start_time, s.shift_end_time,
+	s.notes
+    FROM positions p
+    JOIN team_members tm ON p.position_id = tm.position_id
+    JOIN teams t ON tm.team_id = t.team_id
+    JOIN schedules s ON tm.user_id = s.user_id AND s.business_id = t.business_id
+    WHERE p.business_id = p_business_id AND tm.user_id = p_user_id AND s.schedule_date = p_schedule_date AND t.business_id = p_business_id;
+END;
+$$ LANGUAGE plpgsql;
+
 
 CREATE OR REPLACE FUNCTION get_user_business(businessid integer)
 RETURNS TABLE (user_id integer, user_fname varchar, user_lname varchar) 
