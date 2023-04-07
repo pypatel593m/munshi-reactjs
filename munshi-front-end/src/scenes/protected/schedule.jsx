@@ -1,7 +1,6 @@
 import {
   Box,
   IconButton,
-  Button,
   Table,
   TableHead,
   TableRow,
@@ -12,7 +11,6 @@ import {
 import Header from "../../components/Header";
 import {
   getCurrentWeekDates,
-  getDayOfWeek,
   getDatesForWeek,
   getNextWeekStartDateAndEndDate,
   getPreviousWeekStartDateAndEndDate,
@@ -39,7 +37,6 @@ const Schedule = () => {
   const [endDate, setEndDate] = useState(getCurrentWeekDates().endOfWeek);
   const [rows, setRows] = useState([]);
   const [date, setDate] = useState(getDatesForWeek(startDate, endDate));
-  const [showIcons, setShowIcons] = useState(false);
 
   const [clickedCell, setClickedCell] = useState(null);
 
@@ -91,7 +88,7 @@ const Schedule = () => {
     async function fetchData() {
       try {
         const response = await Axios.post(
-          "http://localhost:3001/getemployeravailabilities",
+          `http://localhost:3001/getemployeravailabilities`,
           {
             business_id: business.m_business_id,
           }
@@ -102,7 +99,7 @@ const Schedule = () => {
       }
     }
     fetchData();
-  }, [NextWeekClick, PreviousWeekClick]);
+  }, [business.m_business_id, NextWeekClick, PreviousWeekClick]);
 
   function GetSchedule(props) {
     const { user_id, day } = props;
@@ -112,7 +109,7 @@ const Schedule = () => {
       async function fetchData() {
         try {
           const response = await Axios.post(
-            "http://localhost:3001/getschedule",
+            `http://localhost:3001/getschedule`,
             {
               user_id: user_id,
               schedule_date: date[day]?.toISOString().substring(0, 10),
@@ -131,7 +128,7 @@ const Schedule = () => {
         }
       }
       fetchData();
-    }, [user_id, day, date, business.m_business_id, NextWeekClick, PreviousWeekClick]);
+    }, [user_id, day]);
 
     return (
       <>
@@ -145,13 +142,13 @@ const Schedule = () => {
   }
   const viewSchedule = useCallback((event, item, day) => {
     navigate(`/showschedule/${item.user_id}/${date[day]?.toISOString().substring(0, 10)}/${business.m_business_id}`);
-  }, []);
+  }, [navigate, date, business.m_business_id]);
   const deleteSchedule = useCallback((event, item, day) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this schedule?');
     if (confirmDelete) {
       async function fetchData() {
         //e.preventDefault();
-        Axios.post("http://localhost:3001/deleteschedule", {
+        Axios.post(`http://localhost:3001/deleteschedule`, {
           user_id: item.user_id,
           schedule_date: date[day]?.toISOString().substring(0, 10),
           business_id: business.m_business_id,
@@ -164,7 +161,7 @@ const Schedule = () => {
       fetchData();
     }
     
-  }, []);
+  }, [date, business.m_business_id]);
 
   return (
     <Box m="20px">

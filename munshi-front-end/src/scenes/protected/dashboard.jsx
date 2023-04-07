@@ -18,15 +18,11 @@ const Dashboard = () => {
       <Box>
         
     <Box display="flex" justifyContent={"center"}>
-      <h3>Are you an employer, haven't registered your business yet, then <Link href="./business" color={colors.blueAccent[300]} className="register-link"> Click Here!</Link></h3>
+      <h3>Are you an employer, first step for you is to create <Link href="./manageteam" color={colors.blueAccent[300]} className="register-link">teams</Link> for your business!</h3>
 
       </Box>
       <Box display="flex" justifyContent={"center"}>
-      <h3>Are you an employer, haven't registered your business yet, then <Link href="./business" color={colors.blueAccent[300]} className="register-link"> Click Here!</Link></h3>
-
-      </Box>
-      <Box display="flex" justifyContent={"center"}>
-      <h3>Are you an employer, haven't registered your business yet, then <Link href="./business" color={colors.blueAccent[300]} className="register-link"> Click Here!</Link></h3>
+      <h3>Second step is to <Link href="./business" color={colors.blueAccent[300]} className="register-link">add </Link> employees to your team!</h3>
 
       </Box>
       </Box>
@@ -36,7 +32,7 @@ const Dashboard = () => {
       <Box>
         
     <Box display="flex" justifyContent={"center"}>
-      <h3>Allllllllllllllllllllllllllllllllllllllllhen <Link href="./business" color={colors.blueAccent[300]} className="register-link"> Click Here!</Link></h3>
+      <h3>Are you an employer, haven't registered your business yet, then  <Link href="./business" color={colors.blueAccent[300]} className="register-link"> Click Here!</Link></h3>
 
       </Box>
       <Box display="flex" justifyContent={"center"}>
